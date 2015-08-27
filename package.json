@@ -1,0 +1,26 @@
+{
+  "name": "testing-about",
+  "version": "1.0.0",
+  "description": "learning_frontend_dev",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colsen1991/testing.git"
+  },
+  "keywords": [
+    "testing",
+    "learning"
+  ],
+  "author": "Christer Olsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colsen1991/testing/issues"
+  },
+  "homepage": "https://github.com/colsen1991/testing#readme",
+  "dependencies": {
+    "react": "^0.13.3"
+  }
+}
