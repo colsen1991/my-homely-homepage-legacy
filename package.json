@@ -12,7 +12,11 @@
   },
   "keywords": [
     "testing",
-    "learning"
+    "learning",
+    "react",
+    "node",
+    "html",
+    "css"
   ],
   "author": "Christer Olsen",
   "license": "ISC",
@@ -21,6 +25,13 @@
   },
   "homepage": "https://github.com/colsen1991/testing#readme",
   "dependencies": {
-    "react": "^0.13.3"
+    "browserify": "*",
+    "gulp": "*",
+    "gulp-concat": "^2.6.0",
+    "jquery": "*",
+    "react": "*",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "*"
   }
 }
