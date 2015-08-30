@@ -9,7 +9,7 @@ var concat = require('gulp-concat');
 
 gulp.task('browserify', function () {
     var bundler = browserify({
-        entries: ['./src/app.js'],
+        entries: ['./assets/js/app.js'],
         transform: [reactify],
         debug: true, // Gives us sourcemapping
         cache: {}, packageCache: {}, fullPaths: true
