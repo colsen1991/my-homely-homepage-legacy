@@ -30,6 +30,7 @@
     "gulp": "*",
     "gulp-concat": "^2.6.0",
     "jquery": "*",
+    "mongoose": "^4.1.3",
     "react": "*",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0",

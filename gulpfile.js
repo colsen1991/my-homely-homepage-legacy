@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
@@ -18,22 +18,28 @@ gulp.task('browserify', function () {
 
     return watcher.on('update', function () {
         var updateStart = Date.now();
-        console.log('Updating!');
+        console.log('Building js!');
+
         watcher.bundle()
             .pipe(source('main.js'))
             .pipe(gulp.dest('./build/'));
-        console.log('Updated!', (Date.now() - updateStart) + 'ms');
-    })
-        .bundle()
-        .pipe(source('main.js'))
-        .pipe(gulp.dest('./build/'));
+
+        console.log('Done!', (Date.now() - updateStart) + 'ms');
+    }).bundle().pipe(source('main.js')).pipe(gulp.dest('./build/'));
 });
 
 gulp.task('css', function () {
     gulp.watch('./assets/**/*.css', function () {
-        return gulp.src('./assets/**/*.css')
+        var updateStart = Date.now();
+        console.log('Building css!');
+
+        var bundle = gulp.src('./assets/**/*.css')
             .pipe(concat('main.css'))
             .pipe(gulp.dest('build/'));
+
+        console.log('Done!', (Date.now() - updateStart) + 'ms');
+
+        return bundle;
     });
 
     gulp.src('./assets/**/*.css')
