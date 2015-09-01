@@ -6,6 +6,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var babelify = require('babelify');
 var concat = require('gulp-concat');
+var stylus = require('gulp-stylus');
 
 gulp.task('browserify', function () {
   var bundler = browserify({
@@ -29,11 +30,12 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('css', function () {
-  gulp.watch('./assets/**/*.css', function () {
+  gulp.watch('./assets/css/*.styl', function () {
     var updateStart = Date.now();
     console.log('Building css!');
 
-    var bundle = gulp.src('./assets/**/*.css')
+    var bundle = gulp.src('./assets/css/includes.styl')
+      .pipe(stylus({'include css': true}))
       .pipe(concat('main.css'))
       .pipe(gulp.dest('build/'));
 
@@ -42,7 +44,8 @@ gulp.task('css', function () {
     return bundle;
   });
 
-  gulp.src('./assets/**/*.css')
+  gulp.src('./assets/css/includes.styl')
+    .pipe(stylus({'include css': true}))
     .pipe(concat('main.css'))
     .pipe(gulp.dest('build/'));
 });
