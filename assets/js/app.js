@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
-var MainWrapper = require('./mainWrapper');
+const React = require('react');
+const MainWrapper = require('./mainWrapper');
 
 React.render(<MainWrapper/>, document.body);

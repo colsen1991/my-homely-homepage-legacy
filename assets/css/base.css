@@ -1,4 +1,27 @@
+body {
+  background: #000000;
+  color: whitesmoke;
+}
+
 #main-wrapper {
   margin: 0 auto;
   width: 1024px;
+  background: #0E0E0E;
+}
+
+#site-header h1 {
+  margin: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+.comment-form * {
+  margin: 0.5em 0;
+}
+
+.comment-form textarea {
+  height: 3em;
+  width: 20em;
 }
