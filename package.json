@@ -36,6 +36,7 @@
     "mongoose": "^4.1.3",
     "react": "*",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "*"
+    "watchify": "*",
+    "path": "*"
   }
 }

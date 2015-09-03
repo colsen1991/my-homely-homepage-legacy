@@ -1,13 +1,16 @@
 'use strict';
 
 var express = require('express');
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var router = require('./server/router');
+var db = require('./server/db');
 
 var app = express();
-app.use('/build', express.static('build'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use('/build', express.static('build'));
+app.use('/', router);
+app.use('*', notFoundHandler);
+app.use(errorHandler);
 
 var server = app.listen(3000, onAppListenSuccess);
 
@@ -15,19 +18,23 @@ function onAppListenSuccess() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('node server listening at http://%s:%s', host, port);
+  console.log('Node server listening at http://%s:%s', host, port);
 
-  connectMongooseDB();
-
-  router.setup(app);
+  db.connect();
 }
 
-function connectMongooseDB () {
-  mongoose.connect('mongodb://localhost:27017/testing');
-  var dbConn = mongoose.connection;
+function notFoundHandler(req, res) {
+  res.sendStatus(404);
+}
 
-  dbConn.on('error', console.error.bind(console, 'mongoose error'));
-  dbConn.on('disconnected', console.log.bind(console, 'mongoose disconnected'));
-  dbConn.on('connected', console.log.bind(console, 'mongoose connected'));
+function errorHandler(err, req, res, next) {
+  console.error(err.stack);
+
+  res.status(500);
+  if (req.xhr) {
+    res.send({error: 'A thing happened...'})
+  } else {
+    res.sendFile(__dirname + '/error.hmtl');
+  }
 }
 
