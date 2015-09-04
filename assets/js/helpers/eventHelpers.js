@@ -1,12 +1,8 @@
 'use strict';
 
-const EventHelpers = {
-  isEnter: function (e) {
-    return e.key === 'Enter';
-  },
-  isShift: function (e) {
-    return e.shiftKey;
-  }
-};
-
-module.exports = EventHelpers;
+export function isEnter(e) {
+  return e.key === 'Enter';
+}
+export function isShift(e) {
+  return e.shiftKey;
+}

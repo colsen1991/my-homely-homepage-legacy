@@ -1,14 +1,16 @@
 'use strict';
 
-const React = require('react');
-const $ = require('jquery');
-const eventHelpers = require('./../helpers/eventHelpers');
+import React from 'react';
+import $ from 'jquery';
+import {isEnter, isShift} from './../helpers/eventHelpers';
 
-const CommentBox = React.createClass({
-  getInitialState: function () {
-    return {data: []};
-  },
-  loadCommentsFromServer: function () {
+class CommentBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {data: []};
+  }
+
+  loadCommentsFromServer() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -22,8 +24,9 @@ const CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }
     });
-  },
-  handleCommentSubmit: function (comment) {
+  }
+
+  handleCommentSubmit(comment) {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -40,12 +43,14 @@ const CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }
     });
-  },
-  componentDidMount: function () {
+  }
+
+  componentDidMount() {
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-  },
-  render: function () {
+  }
+
+  render() {
     return (
       <div className="comment-box">
         <h1>Comments</h1>
@@ -54,10 +59,10 @@ const CommentBox = React.createClass({
       </div>
     );
   }
-});
+}
 
-const CommentList = React.createClass({
-  render: function () {
+class CommentList extends React.Component {
+  render() {
     let commentNodes = this.props.data.map((comment, index) => {
       return (
         <Comment comment={comment} key={index}/>
@@ -70,10 +75,10 @@ const CommentList = React.createClass({
       </div>
     );
   }
-});
+}
 
-const Comment = React.createClass({
-  render: function () {
+class Comment extends React.Component {
+  render() {
     return (
       <div className="comment">
         <h2>{this.props.comment.author}</h2>
@@ -81,10 +86,10 @@ const Comment = React.createClass({
       </div>
     )
   }
-});
+}
 
-const CommentForm = React.createClass({
-  handleSubmit: function (e) {
+class CommentForm extends React.Component {
+  handleSubmit(e) {
     e.preventDefault();
 
     let author = React.findDOMNode(this.refs.author).value.trim(),
@@ -102,13 +107,15 @@ const CommentForm = React.createClass({
 
     React.findDOMNode(this.refs.author).value = '';
     React.findDOMNode(this.refs.text).value = '';
-  },
-  handleKeyPress: function (e) {
-    if (eventHelpers.isEnter(e) && !eventHelpers.isShift(e)) {
+  }
+
+  handleKeyPress(e) {
+    if (isEnter(e) && !isShift(e)) {
       this.handleSubmit(e);
     }
-  },
-  render: function () {
+  }
+
+  render() {
     return (
       <div className="comment-form-wrapper">
         <h2>Write a comment</h2>
@@ -120,7 +127,6 @@ const CommentForm = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = CommentBox;
-
+export default CommentBox;

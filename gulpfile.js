@@ -10,8 +10,9 @@ var stylus = require('gulp-stylus');
 
 gulp.task('browserify', function () {
   var bundler = browserify({
-    entries: ['./assets/js/app.js'],
+    entries: ['./assets/js/app.jsx'],
     transform: [babelify],
+    extensions: ['.jsx, .js'],
     debug: true, // Gives us sourcemapping
     cache: {}, packageCache: {}, fullPaths: true
   });

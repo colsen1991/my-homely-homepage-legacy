@@ -1,14 +1,11 @@
 'use strict';
 
-const React = require('react');
-const $ = require('jquery');
-const CommentBox = require('./commentBox/commentBox');
+import React from 'react';
+import $ from 'jquery';
+import CommentBox from './commentBox/commentBox';
 
-const MainWrapper = React.createClass({
-  getInitialState: function () {
-    return {data: []};
-  },
-  render: function () {
+class MainWrapper extends React.Component {
+  render() {
     return (
       <div id="main-wrapper">
         <header id="site-header">
@@ -21,6 +18,6 @@ const MainWrapper = React.createClass({
       </div>
     )
   }
-});
+}
 
-module.exports = MainWrapper;
+export default MainWrapper;

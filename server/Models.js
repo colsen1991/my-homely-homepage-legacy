@@ -3,13 +3,12 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
+
 var CommentSchema = new Schema({
   author: String,
   text: String
 });
 
-var Models = {
-  Comment: mongoose.model('comment', CommentSchema)
-};
+var CommentModel = mongoose.model('comment', CommentSchema);
 
-module.exports = Models;
+exports.CommentModel = CommentModel;
