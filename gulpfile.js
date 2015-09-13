@@ -1,4 +1,4 @@
-'use string';
+'use strict';
 
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
@@ -7,6 +7,13 @@ var watchify = require('watchify');
 var babelify = require('babelify');
 var concat = require('gulp-concat');
 var stylus = require('gulp-stylus');
+var del = require('del');
+
+var buildRoot = 'build/';
+
+gulp.task('clean', function () {
+  del('build/*');
+});
 
 gulp.task('browserify', function () {
   var bundler = browserify({
@@ -16,6 +23,7 @@ gulp.task('browserify', function () {
     debug: true,
     cache: {}, packageCache: {}, fullPaths: true
   });
+
   var watcher = watchify(bundler);
 
   return watcher.on('update', function () {
@@ -26,29 +34,56 @@ gulp.task('browserify', function () {
       .pipe(source('main.js'))
       .pipe(gulp.dest('build/'));
 
-    console.log('Done!', (Date.now() - updateStart) + 'ms');
+    console.log('Done js!', (Date.now() - updateStart) + 'ms');
   }).bundle().pipe(source('main.js')).pipe(gulp.dest('build/'));
 });
 
+function makeStylusBundle(src, fileName, dest) {
+  return gulp.src(src)
+    .pipe(stylus({'include css': true}))
+    .pipe(concat(fileName))
+    .pipe(gulp.dest(dest));
+}
+
 gulp.task('css', function () {
-  gulp.watch('assets/css/includes.styl', function () {
+  var src = 'assets/css/includes.styl';
+  var fileName = 'main.css';
+
+  gulp.watch('assets/css/**/*', function () {
     var updateStart = Date.now();
     console.log('Building css!');
 
-    var bundle = gulp.src('assets/css/includes.styl')
-      .pipe(stylus({'include css': true}))
-      .pipe(concat('main.css'))
-      .pipe(gulp.dest('build/'));
+    var bundle = makeStylusBundle(src, fileName, buildRoot);
 
-    console.log('Done!', (Date.now() - updateStart) + 'ms');
+    console.log('Done css!', (Date.now() - updateStart) + 'ms');
 
     return bundle;
   });
 
-  gulp.src('./assets/css/includes.styl')
-    .pipe(stylus({'include css': true}))
-    .pipe(concat('main.css'))
-    .pipe(gulp.dest('build/'));
+  makeStylusBundle(src, fileName, buildRoot);
 });
 
-gulp.task('dev', ['browserify', 'css']);
+function makeImgBundle(src, dest) {
+  return gulp.src(src)
+    .pipe(gulp.dest(dest));
+}
+
+gulp.task('img', function () {
+  var src = 'assets/img/**/*';
+  var imgDest = buildRoot + '/img'
+
+  gulp.watch(src, function () {
+    var updateStart = Date.now();
+    console.log('Building img!');
+
+    var bundle = makeImgBundle(src, imgDest);
+
+    console.log('Done img !', (Date.now() - updateStart) + 'ms');
+
+    return bundle;
+  });
+
+  makeImgBundle(src, imgDest);
+});
+
+gulp.task('dev', ['clean', 'browserify', 'css', 'img']);

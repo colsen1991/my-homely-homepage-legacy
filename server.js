@@ -1,4 +1,4 @@
-'use string';
+'use strict';
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -25,7 +25,7 @@ function notFoundHandler(req, res) {
   res.sendStatus(404);
 }
 
-function errorHandler(err, req, res, next) {
+function errorHandler(err, req, res) {
   console.error(err.stack);
 
   res.status(500);

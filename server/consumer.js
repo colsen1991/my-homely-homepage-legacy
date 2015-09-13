@@ -1,4 +1,4 @@
-'use string';
+'use strict';
 
 var models = require('./models');
 var path = require('path');

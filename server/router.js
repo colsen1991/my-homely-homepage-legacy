@@ -1,4 +1,4 @@
-'use string';
+'use strict';
 
 var express = require('express');
 var consumer = require('./consumer');

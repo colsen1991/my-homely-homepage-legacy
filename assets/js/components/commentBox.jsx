@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import {isEnter, isShift} from './../helpers/eventHelpers';
 
-class CommentBox extends React.Component {
+export default class CommentBox extends React.Component {
   /** @namespace this.props.pollInterval */
   constructor(props) {
     super(props);
@@ -123,7 +123,8 @@ class CommentForm extends React.Component {
     return (
       <div className="comment-form-wrapper">
         <h2>Write a comment</h2>
-        <form className="comment-form" onSubmit={this.handleSubmit.bind(this)} onKeyPress={this.handleKeyPress.bind(this)}>
+        <form className="comment-form" onSubmit={this.handleSubmit.bind(this)}
+              onKeyPress={this.handleKeyPress.bind(this)}>
           <input className="comment-name" type="text" placeholder="Your name" ref="author"/><br/>
           <textarea className="comment-text" placeholder="Say something..." ref="text"/><br/>
           <input type="submit" value="Post"/>
@@ -132,5 +133,3 @@ class CommentForm extends React.Component {
     );
   }
 }
-
-export default CommentBox;
