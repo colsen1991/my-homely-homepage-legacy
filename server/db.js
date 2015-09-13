@@ -1,4 +1,4 @@
-'use strict';
+'use string';
 
 var mongoose = require('mongoose');
 

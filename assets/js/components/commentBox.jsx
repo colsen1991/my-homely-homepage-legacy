@@ -1,10 +1,9 @@
-'use strict';
-
 import React from 'react';
 import $ from 'jquery';
 import {isEnter, isShift} from './../helpers/eventHelpers';
 
 class CommentBox extends React.Component {
+  /** @namespace this.props.pollInterval */
   constructor(props) {
     super(props);
     this.state = {data: []};
@@ -47,7 +46,7 @@ class CommentBox extends React.Component {
 
   componentDidMount() {
     this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    setInterval(this.loadCommentsFromServer.bind(this), this.props.pollInterval);
   }
 
   render() {
@@ -55,7 +54,7 @@ class CommentBox extends React.Component {
       <div className="comment-box">
         <h1>Comments</h1>
         <CommentList data={this.state.data}/>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
+        <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)}/>
       </div>
     );
   }
@@ -89,11 +88,16 @@ class Comment extends React.Component {
 }
 
 class CommentForm extends React.Component {
+  /** @namespace this.props.onCommentSubmit */
+  constructor(props) {
+    super(props);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
-    let author = React.findDOMNode(this.refs.author).value.trim(),
-      text = React.findDOMNode(this.refs.text).value.trim();
+    let author = React.findDOMNode(this.refs.author).value.trim();
+    let text = React.findDOMNode(this.refs.text).value.trim();
 
     if (!author || !text) {
       console.warn(author, text);
@@ -119,7 +123,7 @@ class CommentForm extends React.Component {
     return (
       <div className="comment-form-wrapper">
         <h2>Write a comment</h2>
-        <form className="comment-form" onSubmit={this.handleSubmit} onKeyPress={this.handleKeyPress}>
+        <form className="comment-form" onSubmit={this.handleSubmit.bind(this)} onKeyPress={this.handleKeyPress.bind(this)}>
           <input className="comment-name" type="text" placeholder="Your name" ref="author"/><br/>
           <textarea className="comment-text" placeholder="Say something..." ref="text"/><br/>
           <input type="submit" value="Post"/>

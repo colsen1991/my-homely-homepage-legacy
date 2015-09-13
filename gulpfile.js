@@ -1,4 +1,4 @@
-'use strict';
+'use string';
 
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
@@ -10,10 +10,10 @@ var stylus = require('gulp-stylus');
 
 gulp.task('browserify', function () {
   var bundler = browserify({
-    entries: ['./assets/js/app.jsx'],
+    entries: ['assets/js/app.jsx'],
     transform: [babelify],
-    extensions: ['.jsx, .js'],
-    debug: true, // Gives us sourcemapping
+    extensions: ['.jsx', '.js'],
+    debug: true,
     cache: {}, packageCache: {}, fullPaths: true
   });
   var watcher = watchify(bundler);
@@ -24,18 +24,18 @@ gulp.task('browserify', function () {
 
     watcher.bundle()
       .pipe(source('main.js'))
-      .pipe(gulp.dest('./build/'));
+      .pipe(gulp.dest('build/'));
 
     console.log('Done!', (Date.now() - updateStart) + 'ms');
-  }).bundle().pipe(source('main.js')).pipe(gulp.dest('./build/'));
+  }).bundle().pipe(source('main.js')).pipe(gulp.dest('build/'));
 });
 
 gulp.task('css', function () {
-  gulp.watch('./assets/css/*.styl', function () {
+  gulp.watch('assets/css/includes.styl', function () {
     var updateStart = Date.now();
     console.log('Building css!');
 
-    var bundle = gulp.src('./assets/css/includes.styl')
+    var bundle = gulp.src('assets/css/includes.styl')
       .pipe(stylus({'include css': true}))
       .pipe(concat('main.css'))
       .pipe(gulp.dest('build/'));

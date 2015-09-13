@@ -1,8 +1,6 @@
-'use strict';
-
 import React from 'react';
 import $ from 'jquery';
-import CommentBox from './commentBox/commentBox';
+import CommentBox from './components/commentBox';
 
 class MainWrapper extends React.Component {
   render() {
@@ -12,7 +10,7 @@ class MainWrapper extends React.Component {
           <h1>My Homeley Homepage</h1>
         </header>
         <div id="content">
-          <CommentBox url='/comments' pollInterval={2000}/>
+          <CommentBox url='/comments' pollInterval='2000'/>
         </div>
         <footer id="site-footer"></footer>
       </div>

@@ -1,5 +1,3 @@
-'use strict';
-
 export function isEnter(e) {
   return e.key === 'Enter';
 }

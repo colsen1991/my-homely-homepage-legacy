@@ -1,4 +1,4 @@
-'use strict';
+'use string';
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -12,16 +12,14 @@ app.use('/', router);
 app.use('*', notFoundHandler);
 app.use(errorHandler);
 
-var server = app.listen(3000, onAppListenSuccess);
-
-function onAppListenSuccess() {
+var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('Node server listening at http://%s:%s', host, port);
 
   db.connect();
-}
+});
 
 function notFoundHandler(req, res) {
   res.sendStatus(404);
@@ -34,7 +32,7 @@ function errorHandler(err, req, res, next) {
   if (req.xhr) {
     res.send({error: 'A thing happened...'})
   } else {
-    res.sendFile(__dirname + '/error.hmtl');
+    res.sendFile(__dirname + '/error.html');
   }
 }
 
