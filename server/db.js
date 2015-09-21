@@ -7,7 +7,7 @@ var port = 27017;
 var db = 'testing';
 var uri = 'mongodb://' + host + ':' + port + '/' + db;
 
-exports.connect = function connect() {
+function connect() {
   mongoose.connection.on('open', function () {
     console.log('Mongoose connected to: %s', uri);
   });
@@ -17,4 +17,6 @@ exports.connect = function connect() {
   });
 
   mongoose.connect(uri);
-};
+}
+
+exports.connect = connect;

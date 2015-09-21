@@ -10,10 +10,8 @@ export default class MainWrapper extends React.Component {
       <div id='site-wrapper'>
         <Header/>
 
-        <div id='site-main-wrapper' className='adjust-size'>
-          <div id='site-content'>
-            {this.props.children}
-          </div>
+        <div id='site-content' className='adjust-size'>
+          {this.props.children}
         </div>
 
         <Footer/>

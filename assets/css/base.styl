@@ -1,113 +1,71 @@
-body-background = #171717;
-header-footer-background = #FF6B00;
+site-background = #171717;
+header-background = #FF6B00;
 tab-background = #434343;
 text-color = #F5F5F5;
 input-text-color = #000000;
-border-color = #F5F5F5
+
+html
+  font 16px / 26px Helvetica, Helvetica Neue, Arial
 
 body
-  background: body-background
-  color: text-color
-  font: 16px / 26px Helvetica, Helvetica Neue, Arial
+  background site-background
+  color text-color
 
 textarea
-  resize: none
-  color: input-text-color
+  resize none
+  color input-text-color
 
 input
-  color: input-text-color
+  color input-text-color
 
-hr
-  border-top: 1px solid border-color
+#site-header
+  background header-background
+  display flex
+  align-items center
+  flex-direction column
+
+  h1
+    display flex
+    cursor pointer
+    justify-content center
+
+  nav
+    display flex
+    height 3rem
+    align-items flex-end
+    justify-content center
+    text-align center
+
+    a
+      background tab-background
+      text-decoration none
+      color text-color
+      font-weight bold
+      height 3rem
+      line-height 3rem
+      margin 0 1rem
+      padding 0 1rem
+
+    afirst-child
+      margin-left 0
+
+    alast-child
+      margin-right 0
+
+#site-content
+  display flex
+  padding-top 1rem
+  padding-bottom 1rem
+  background tab-background
+
+#site-footer
+  margin-top 1rem
+  display flex
 
 .adjust-size
-  margin: 0 auto
-  padding: 0 1em 0 1em
+  margin 0 auto
+  padding 0 1rem
 
-/*#site-wrapper*/
-
-#site-header-wrapper
-  background: header-footer-background
-
-  header
-    display: flex
-    align-items: flex-end
-    flex-wrap: wrap
-
-    h1
-      display: inline-flex
-      cursor: pointer
-      justify-content center
-      flex-grow 1
-
-
-    nav
-      display: inline-flex
-      height: 3em
-      align-items: flex-end
-      justify-content: center
-      flex-grow: 1
-      text-align: center
-
-      a
-        background: tab-background
-        text-decoration: none
-        color: text-color
-        font-weight: bold
-        height: 3em
-        line-height: 3em
-        margin: 0 1em
-        padding: 0 1em
-
-      a:first-child
-        margin-left: 0
-
-      a:last-child
-        margin-right: 0
-
-/*#site-header*/
-
-#site-main-wrapper
-  padding-top: 1em
-  padding-bottom: 1em
-  background: tab-background
-
-/*#site-content*/
-
-#site-footer-wrapper
-  background: tab-background
-  margin-top: 1rem
-
-/*#site-footer*/
-
-.comment-box
-  h1
-    margin: 0;
-
-  .comment-form
-    *
-      margin: 0.5em 0
-
-    textarea
-      rows: 3
-      width: 20em
-
-@media only screen and (min-width: 480px)
-  #site-header-wrapper
-    header
-      nav
-        margin-top: 1em;
-
-@media only screen and (min-width: 768px)
-  #site-header-wrapper
-    header
-      h1
-        justify-content flex-start
-        flex-grow 0
-
-      nav
-        justify-content: center
-
-@media only screen and (min-width: 1024px)
+@media only screen and (min-width 1024px)
   .adjust-size
-    width: 1024px
+    width 1024px

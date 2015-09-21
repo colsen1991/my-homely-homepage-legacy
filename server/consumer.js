@@ -29,6 +29,5 @@ function doPostComments(req, res) {
   });
 }
 
-
 exports.doGetComments = doGetComments;
 exports.doPostComments = doPostComments;

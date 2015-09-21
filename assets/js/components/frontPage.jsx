@@ -5,7 +5,6 @@ export default class FrontPage extends React.Component {
     return (
       <div>
         <p>Hello world!</p>
-        <div style={{height: '1000px'}}></div>
       </div>
     );
   }
