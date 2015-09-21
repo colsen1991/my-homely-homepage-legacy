@@ -1,10 +1,12 @@
 import React from 'react';
 import MainWrapper from './components/mainWrapper';
-import Router from 'react-router/lib/Router';
-import Route from 'react-router/lib/Route';
+import FrontPage from './components/frontPage';
+import {Router, Route, IndexRoute} from 'react-router';
 
 React.render((
     <Router>
-      <Route path="/" component={MainWrapper}/>
+      <Route path='/' component={MainWrapper}>
+        <IndexRoute component={FrontPage}/>
+      </Route>
     </Router>),
   document.body);

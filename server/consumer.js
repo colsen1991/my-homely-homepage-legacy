@@ -1,14 +1,10 @@
 'use strict';
 
 var models = require('./models');
-var path = require('path');
-
-function doGetRoot(req, res) {
-  res.sendFile(path.resolve(__dirname + '/../index.html'));
-}
+var CommentModel = models.CommentModel;
 
 function doGetComments(req, res) {
-  models.CommentModel.find({}, {_id: 0}, function (err, comments) {
+  CommentModel.find({}, {_id: 0}, function (err, comments) {
     if (err) {
       console.error(err);
       res.sendStatus(500);
@@ -20,7 +16,7 @@ function doGetComments(req, res) {
 }
 
 function doPostComments(req, res) {
-  var newComment = new models.CommentModel(req.body);
+  var newComment = new CommentModel(req.body);
 
   newComment.save(function (err, savedComment) {
     if (err) {
@@ -34,6 +30,5 @@ function doPostComments(req, res) {
 }
 
 
-exports.doGetRoot = doGetRoot;
 exports.doGetComments = doGetComments;
 exports.doPostComments = doPostComments;

@@ -4,11 +4,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = require('./server/router');
 var db = require('./server/db');
+var path = require('path');
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
-app.use('/build', express.static('build'));
-app.use('/', router);
+app.get('/', doGetRoot);
+app.use('/web', express.static('web'));
+app.use('/api', router);
 app.use('*', notFoundHandler);
 app.use(errorHandler);
 
@@ -20,6 +22,10 @@ var server = app.listen(3000, function () {
 
   db.connect();
 });
+
+function doGetRoot(req, res) {
+  res.sendFile(path.resolve(__dirname + '/index.html'));
+}
 
 function notFoundHandler(req, res) {
   res.sendStatus(404);

@@ -24,21 +24,22 @@
     "url": "https://github.com/colsen1991/testing/issues"
   },
   "homepage": "https://github.com/colsen1991/testing#readme",
-  "dependencies": {
+  "devDependencies": {
     "babelify": "*",
-    "body-parser": "*",
-    "browserify": "^11.1.0",
-    "del": "^2.0.2",
-    "express": "*",
-    "gulp": "^3.9.0",
+    "browserify": "*",
+    "del": "*",
+    "gulp": "*",
     "gulp-concat": "*",
-    "gulp-stylus": "*",
+    "gulp-stylus": "^2.0.7",
+    "vinyl-source-stream": "*"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.0",
+    "express": "*",
     "jquery": "*",
-    "mongoose": "^4.1.6",
-    "path": "*",
+    "mongoose": "*",
+    "path": "^0.12.7",
     "react": "*",
-    "react-router": "^1.0.0-rc1",
-    "vinyl-source-stream": "*",
-    "watchify": "^3.4.0"
+    "react-router": "^1.0.0-rc1"
   }
 }

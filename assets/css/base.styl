@@ -1,6 +1,6 @@
-body-background = #000000;
+body-background = #171717;
 header-footer-background = #FF6B00;
-header-footer-border = #FF4500;
+tab-background = #434343;
 text-color = #F5F5F5;
 input-text-color = #000000;
 border-color = #F5F5F5
@@ -21,7 +21,6 @@ hr
   border-top: 1px solid border-color
 
 .adjust-size
-  width: 100%
   margin: 0 auto
   padding: 0 1em 0 1em
 
@@ -29,52 +28,55 @@ hr
 
 #site-header-wrapper
   background: header-footer-background
-  border-bottom: solid 1em header-footer-border
 
   header
     display: flex
-    align-items: center
+    align-items: flex-end
     flex-wrap: wrap
 
     h1
-      display: inline-block
-      margin: 0
-      flex-grow: 1
+      display: inline-flex
+      cursor: pointer
+      justify-content center
+      flex-grow 1
 
 
     nav
       display: inline-flex
       height: 3em
-      align-items: center
-      justify-content: flex-start
-      margin-top: 1em
+      align-items: flex-end
+      justify-content: center
       flex-grow: 1
+      text-align: center
 
       a
-        background: header-footer-border
+        background: tab-background
         text-decoration: none
         color: text-color
         font-weight: bold
+        height: 3em
+        line-height: 3em
         margin: 0 1em
-        padding:1em
+        padding: 0 1em
+
+      a:first-child
+        margin-left: 0
+
+      a:last-child
+        margin-right: 0
 
 /*#site-header*/
 
 #site-main-wrapper
-  margin-top: 1em
-  margin-bottom: 1em
   padding-top: 1em
   padding-bottom: 1em
-
+  background: tab-background
 
 /*#site-content*/
 
 #site-footer-wrapper
-  background: header-footer-background
-  border-top: solid 1em header-footer-border
-
-  p
-    margin: 0
+  background: tab-background
+  margin-top: 1rem
 
 /*#site-footer*/
 
@@ -87,21 +89,25 @@ hr
       margin: 0.5em 0
 
     textarea
-      height: 3em
+      rows: 3
       width: 20em
 
-/* @media only screen and (min-width 480px) */
-
-@media only screen and (min-width 768px)
-  .adjust-size
-    width: 90%
-
+@media only screen and (min-width: 480px)
   #site-header-wrapper
     header
       nav
-        justify-content: center
-        margin-top: 1em
+        margin-top: 1em;
 
-@media only screen and (min-width 1024px)
+@media only screen and (min-width: 768px)
+  #site-header-wrapper
+    header
+      h1
+        justify-content flex-start
+        flex-grow 0
+
+      nav
+        justify-content: center
+
+@media only screen and (min-width: 1024px)
   .adjust-size
     width: 1024px
