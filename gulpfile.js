@@ -7,8 +7,15 @@ var babelify = require('babelify');
 var concat = require('gulp-concat');
 var stylus = require('gulp-stylus');
 var del = require('del');
+var plumber = require('gulp-plumber');
 
 var buildRoot = './web';
+
+function onError(error) {
+  console.error(error);
+
+  this.emit('end');
+}
 
 gulp.task('clean', function () {
   del('./web/*');
@@ -22,19 +29,23 @@ gulp.task('js', function () {
     debug: true,
     cache: {}, packageCache: {}, fullPaths: true
   }).bundle()
+    .pipe(plumber({handleError: onError.bind(this)}))
     .pipe(source('main.js'))
     .pipe(gulp.dest(buildRoot + '/js'));
 });
 
 gulp.task('css', function () {
   return gulp.src('./assets/css/includes.styl')
+    .pipe(plumber({handleError: onError.bind(this)}))
     .pipe(stylus({'include css': true}))
     .pipe(concat('main.css'))
-    .pipe(gulp.dest(buildRoot + '/css'));
+    .pipe(gulp.dest(buildRoot + '/css'))
+
 });
 
 gulp.task('img', function () {
   return gulp.src('./assets/img/*')
+    .pipe(plumber({handleError: onError.bind(this)}))
     .pipe(gulp.dest(buildRoot + '/img'));
 });
 
