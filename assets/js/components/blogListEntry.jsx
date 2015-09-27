@@ -1,7 +1,8 @@
 import React from 'react';
-import $ from 'jquery';
 import {getBlogExcerpt} from './../config/endpoints';
 import {Link} from 'react-router';
+import {GET} from './../helpers/httpHelpers';
+
 
 export default class BlogExcerpt extends React.Component {
   constructor(props) {
@@ -12,15 +13,9 @@ export default class BlogExcerpt extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({
-      url: getBlogExcerpt(this.props.blogId),
-      dataType: 'json',
-      cache: false,
-      type: 'GET',
-      success: (data) => {
-        this.setState({data});
-      }
-    });
+    GET(getBlogExcerpt(this.props.blogId))
+      .then(data => this.setState({data}))
+      .catch(error => console.error(error))
   }
 
   render() {

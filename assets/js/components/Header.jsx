@@ -5,11 +5,11 @@ export default class Header extends React.Component {
   render() {
     return (
       <header id='site-header' className='adjust-size'>
-        <h1>My Homeley Homepage</h1>
+        <h1>My Homely Homepage</h1>
         <nav>
-          <Link>Home</Link>
-          <Link>Blog</Link>
-          <Link>About</Link>
+          <Link to='/'>Home</Link>
+          <Link to='/blog'>Blog</Link>
+          <Link to='/about'>About</Link>
         </nav>
       </header>
     );

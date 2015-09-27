@@ -2,10 +2,7 @@
   "name": "testing-about",
   "version": "1.0.0",
   "description": "learning_frontend_dev",
-  "main": "server.js",
-  "scripts": {
-    "test": "test"
-  },
+  "main": "express.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/colsen1991/testing.git"
@@ -37,11 +34,12 @@
   "dependencies": {
     "body-parser": "^1.14.0",
     "express": "*",
-    "jquery": "*",
+    "jsonwebtoken": "^5.0.5",
     "marked": "^0.3.5",
-    "mongoose": "*",
+    "mongoose": "^4.1.8",
     "path": "^0.12.7",
     "react": "*",
-    "react-router": "^1.0.0-rc1"
+    "react-router": "^1.0.0-rc1",
+    "whatwg-fetch": "^0.9.0"
   }
 }

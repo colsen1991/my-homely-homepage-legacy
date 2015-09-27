@@ -1,19 +1,17 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var fs = require('fs');
 
-var host = 'localhost';
-var port = 27017;
-var db = 'testing';
-var uri = 'mongodb://' + host + ':' + port + '/' + db;
+function connect(dbConfig) {
+  var uri = 'mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.db;
 
-function connect() {
   mongoose.connection.on('open', function () {
     console.log('Mongoose connected to: %s', uri);
   });
 
-  mongoose.connection.on('error', function (err) {
-    throw new Error('Error occured on DB: ' + uri + '\nError:' + err);
+  mongoose.connection.on('error', function (error) {
+    throw new Error('Error occured on DB: ' + uri + '\nError:' + error);
   });
 
   mongoose.connect(uri);

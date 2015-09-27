@@ -29,14 +29,14 @@ gulp.task('js', function () {
     debug: true,
     cache: {}, packageCache: {}, fullPaths: true
   }).bundle()
-    .pipe(plumber({handleError: onError.bind(this)}))
+    .on('error', onError)
     .pipe(source('main.js'))
     .pipe(gulp.dest(buildRoot + '/js'));
 });
 
 gulp.task('css', function () {
   return gulp.src('./assets/css/includes.styl')
-    .pipe(plumber({handleError: onError.bind(this)}))
+    .pipe(plumber({handleError: onError}))
     .pipe(stylus({'include css': true}))
     .pipe(concat('main.css'))
     .pipe(gulp.dest(buildRoot + '/css'))
@@ -45,7 +45,7 @@ gulp.task('css', function () {
 
 gulp.task('img', function () {
   return gulp.src('./assets/img/*')
-    .pipe(plumber({handleError: onError.bind(this)}))
+    .pipe(plumber({handleError: onError}))
     .pipe(gulp.dest(buildRoot + '/img'));
 });
 

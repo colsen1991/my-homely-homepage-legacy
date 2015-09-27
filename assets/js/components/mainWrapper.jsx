@@ -1,8 +1,7 @@
 import React from 'react';
-import $ from 'jquery';
 import Link from 'react-router/lib/Link';
 import Header from './header';
-import Footer from './footer'
+import Footer from './footer';
 
 export default class MainWrapper extends React.Component {
   render() {
