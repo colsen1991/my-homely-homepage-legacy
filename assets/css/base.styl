@@ -46,10 +46,10 @@ input
       margin 0 1rem
       padding 0 1rem
 
-    afirst-child
+    a:first-child
       margin-left 0
 
-    alast-child
+    a:last-child
       margin-right 0
 
 #site-content
@@ -61,10 +61,25 @@ input
 #site-footer
   margin-top 1rem
   display flex
+  justify-content space-between
 
 .adjust-size
   margin 0 auto
   padding 0 1rem
+
+#login-form
+  display flex
+  flex-direction column
+
+  input[type="text"]
+    max-width 10rem
+
+  input[type="password"]
+    margin 1rem 0
+    max-width 10rem
+
+  input[type="submit"]
+    max-width 5rem
 
 @media only screen and (min-width 1024px)
   .adjust-size

@@ -5,8 +5,7 @@ var fs = require('fs');
 var https = require('https');
 var bodyParser = require('body-parser');
 var path = require('path');
-var publicRouter = require('./server/api/routers/publicRouter');
-var adminRouter = require('./server/api/routers/adminRouter');
+var router = require('./server/api/routers/router');
 var db = require('./server/db/db');
 var serverUtils = require('./server/utils/serverUtils');
 
@@ -22,8 +21,7 @@ app.use(bodyParser.json());
 app.get('/', doGetRoot);
 
 app.use('/web', express.static('./web'));
-app.use('/api', publicRouter);
-app.use('/api/admin', adminRouter);
+app.use('/api', router);
 app.use('*', serverUtils.notFoundHandler);
 app.use(serverUtils.errorHandler);
 

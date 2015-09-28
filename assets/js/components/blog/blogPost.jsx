@@ -1,8 +1,8 @@
 import React from 'react';
 import marked from 'marked';
-import {getBlog} from './../config/endpoints'
+import {blogUrl} from './../../config/endpoints'
 import BlogExcerpt from './blogListEntry'
-import {GET} from './../helpers/httpHelpers';
+import {GET} from '../../utils/httpUtils';
 
 export default class BlogPost extends React.Component {
   constructor(props) {
@@ -13,9 +13,9 @@ export default class BlogPost extends React.Component {
   }
 
   componentDidMount() {
-    GET(getBlog(this.props.params.blogId))
+    GET(blogUrl(this.props.params.blogId))
       .then(data => this.setState({data}))
-      .catch(error => console.error(error))
+      .catch(error => console.error(error));
   }
 
   render() {

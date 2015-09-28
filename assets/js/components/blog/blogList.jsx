@@ -1,7 +1,7 @@
 import React from 'react';
-import {getBlogIdList} from './../config/endpoints';
+import {blogIdListUrl} from './../../config/endpoints';
 import BlogListEntry from './blogListEntry';
-import {GET} from './../helpers/httpHelpers';
+import {GET} from '../../utils/httpUtils';
 
 export default class BlogList extends React.Component {
   constructor(props) {
@@ -10,9 +10,9 @@ export default class BlogList extends React.Component {
   }
 
   componentDidMount() {
-    GET(getBlogIdList())
+    GET(blogIdListUrl())
       .then(data => this.setState({data}))
-      .catch(error => console.error(error))
+      .catch(error => console.error(error));
   }
 
   render() {

@@ -1,13 +1,17 @@
-export function getBlogIdList() {
-  return '/api/blog';
+const baseUrl = '/api';
+
+export function blogIdListUrl() {
+  return `${baseUrl}/blog`;
 }
 
-export function getBlog(blogId) {
-  return `${getBlogIdList()}/${blogId}`;
+export function blogUrl(blogId) {
+  return `${blogIdListUrl()}/${blogId}`;
 }
 
-export function getBlogExcerpt(blogId) {
-  return `${getBlog(blogId)}/excerpt`;
+export function blogExcerptUrl(blogId) {
+  return `${blogUrl(blogId)}/excerpt`;
 }
+
+export const loginUrl = `${baseUrl}/login`;
 
 
