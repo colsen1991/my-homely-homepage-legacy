@@ -5,11 +5,10 @@ function notFoundHandler(req, res) {
 function errorHandler(error, req, res) {
   console.error(error);
   res.sendStatus(500);
-  if (req.xhr) {
-    res.send({error: 'A thing happened...'})
-  } else {
+  if (req.xhr)
+    res.send({error: 'A thing happened...'});
+  else
     res.sendFile(__dirname + '/error.html');
-  }
 }
 
 exports.notFoundHandler = notFoundHandler;

@@ -1,15 +1,13 @@
-'use strict';
+import gulp from 'gulp';
+import source from 'vinyl-source-stream';
+import browserify from 'browserify';
+import babelify from 'babelify';
+import concat from 'gulp-concat';
+import stylus from 'gulp-stylus';
+import del from 'del';
+import plumber from 'gulp-plumber';
 
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
-var browserify = require('browserify');
-var babelify = require('babelify');
-var concat = require('gulp-concat');
-var stylus = require('gulp-stylus');
-var del = require('del');
-var plumber = require('gulp-plumber');
-
-var buildRoot = './web';
+const buildRoot = './web';
 
 function onError(error) {
   console.error(error);
@@ -17,11 +15,11 @@ function onError(error) {
   this.emit('end');
 }
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
   del('./web/*');
 });
 
-gulp.task('js', function () {
+gulp.task('js', () => {
   return browserify({
     entries: ['./assets/js/app.jsx'],
     transform: [babelify],
@@ -34,7 +32,7 @@ gulp.task('js', function () {
     .pipe(gulp.dest(buildRoot + '/js'));
 });
 
-gulp.task('css', function () {
+gulp.task('css', () => {
   return gulp.src('./assets/css/includes.styl')
     .pipe(plumber({handleError: onError}))
     .pipe(stylus({'include css': true}))
@@ -43,7 +41,7 @@ gulp.task('css', function () {
 
 });
 
-gulp.task('img', function () {
+gulp.task('img', () => {
   return gulp.src('./assets/img/*')
     .pipe(plumber({handleError: onError}))
     .pipe(gulp.dest(buildRoot + '/img'));
@@ -51,6 +49,6 @@ gulp.task('img', function () {
 
 gulp.task('dev', ['js', 'css', 'img']);
 
-gulp.task('dev:watch', ['dev'], function () {
+gulp.task('dev:watch', ['dev'], () => {
   gulp.watch('assets/**/*', ['js', 'css']);
 });

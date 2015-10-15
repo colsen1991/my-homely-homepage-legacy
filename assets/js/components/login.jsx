@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {POST} from '../utils/httpUtils';
+import {post} from '../utils/httpUtils';
 import {loginUrl} from './../config/endpoints';
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
@@ -20,7 +20,7 @@ class LoginForm extends React.Component {
       body: JSON.stringify({username, password})
     };
 
-    POST(loginUrl, options)
+    post(loginUrl, options)
       .then(data => {
         localStorage['token'] = data.token;
 
@@ -47,7 +47,7 @@ const AlreadyLoggedIn = () => {
   );
 };
 
-export default class Login extends React.Component {
+export default class Login extends Component {
   render() {
     return (localStorage['token'] ? <AlreadyLoggedIn/> : <LoginForm history={this.props.history}/>);
   }

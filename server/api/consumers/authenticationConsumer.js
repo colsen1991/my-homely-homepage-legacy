@@ -1,8 +1,6 @@
-'use strict';
-
-var jwt = require('jsonwebtoken');
-var server = require('./../../../server');
-var UserModel = require('./../../db/models/userModel');
+const jwt = require('jsonwebtoken');
+const server = require('./../../../server');
+const UserModel = require('./../../db/models/userModel');
 
 function login(req, res) {
   UserModel.findOne({username: req.body.username}, function (error, data) {
@@ -12,7 +10,7 @@ function login(req, res) {
     } else if (!data || req.body.password !== data.password) {
       res.sendStatus(401);
     } else {
-      var token = jwt.sign({username: data.username}, server.app.get('credentials').key, {expiresInMinutes: 1440});
+      const token = jwt.sign({username: data.username}, server.app.get('credentials').key, {expiresInMinutes: 1440});
       res.send({token: token});
     }
   });

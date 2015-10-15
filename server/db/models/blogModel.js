@@ -1,14 +1,10 @@
-'use strict';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var BlogSchema = new Schema({
+const BlogModel = mongoose.model('Blog', new Schema({
   title: String,
   excerpt: String,
   text: String
-});
-
-var BlogModel = mongoose.model('Blog', BlogSchema);
+}));
 
 module.exports = BlogModel;

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import {Router, Route, IndexRoute} from 'react-router';
 import MainWrapper from './components/mainWrapper';
 import FrontPage from './components/frontPage';
@@ -9,7 +9,7 @@ import PageNotFound from './components/pageNotFound';
 import About from './components/about';
 import Login from './components/login';
 
-ReactDOM.render((
+render((
     <Router>
       <Route path='/' component={MainWrapper}>
         <IndexRoute component={FrontPage}/>

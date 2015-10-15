@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {blogExcerptUrl} from './../../config/endpoints';
 import {Link} from 'react-router';
-import {GET} from '../../utils/httpUtils';
+import {get} from '../../utils/httpUtils';
 
 
-export default class BlogExcerpt extends React.Component {
+export default class BlogExcerpt extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ export default class BlogExcerpt extends React.Component {
   }
 
   componentDidMount() {
-    GET(blogExcerptUrl(this.props.blogId))
+    get(blogExcerptUrl(this.props.blogId))
       .then(data => this.setState({data}))
       .catch(error => console.error(error));
   }

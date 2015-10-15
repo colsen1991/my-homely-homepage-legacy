@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {blogIdListUrl} from './../../config/endpoints';
 import BlogListEntry from './blogListEntry';
-import {GET} from '../../utils/httpUtils';
+import {get} from '../../utils/httpUtils';
 
-export default class BlogList extends React.Component {
+export default class BlogList extends Component {
   constructor(props) {
     super(props);
     this.state = {data: []};
   }
 
   componentDidMount() {
-    GET(blogIdListUrl())
+    get(blogIdListUrl())
       .then(data => this.setState({data}))
       .catch(error => console.error(error));
   }

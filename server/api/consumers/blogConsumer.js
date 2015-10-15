@@ -1,6 +1,4 @@
-'use strict';
-
-var BlogModel = require('./../../db/models/blogModel');
+const BlogModel = require('./../../db/models/blogModel');
 
 function getBlogIdList(req, res) {
   BlogModel.find({}, {_id: 1}, function (error, data) {

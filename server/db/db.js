@@ -1,16 +1,14 @@
-'use strict';
-
-var mongoose = require('mongoose');
-var fs = require('fs');
+const mongoose = require('mongoose');
+const fs = require('fs');
 
 function connect(dbConfig) {
-  var uri = 'mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.db;
+  const uri = 'mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.db;
 
-  mongoose.connection.on('open', function () {
+  mongoose.connection.on('open', () => {
     console.log('Mongoose connected to: %s', uri);
   });
 
-  mongoose.connection.on('error', function (error) {
+  mongoose.connection.on('error', error => {
     throw new Error('Error occured on DB: ' + uri + '\nError:' + error);
   });
 

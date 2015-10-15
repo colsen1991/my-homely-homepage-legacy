@@ -1,10 +1,8 @@
-'use strict';
+const express = require('express');
+const blogConsumer = require('./../consumers/blogConsumer');
+const authenticationConsumer = require('./../consumers/authenticationConsumer');
 
-var express = require('express');
-var blogConsumer = require('./../consumers/blogConsumer');
-var authenticationConsumer = require('./../consumers/authenticationConsumer');
-
-var router = express.Router();
+const router = express.Router();
 
 router.get('/blog', blogConsumer.getBlogIdList);
 router.get('/blog/:blogId', blogConsumer.getBlog);

@@ -1,19 +1,17 @@
-'use strict';
-
-var express = require('express');
-var fs = require('fs');
-var https = require('https');
-var bodyParser = require('body-parser');
-var path = require('path');
-var router = require('./server/api/routers/router');
-var db = require('./server/db/db');
-var serverUtils = require('./server/utils/serverUtils');
+const express = require('express');
+const fs = require('fs');
+const https = require('https');
+const bodyParser = require('body-parser');
+const path = require('path');
+const router = require('./server/api/routers/router');
+const db = require('./server/db/db');
+const serverUtils = require('./server/utils/serverUtils');
 
 function doGetRoot(req, res) {
   res.sendFile(path.resolve(__dirname + '/index.html'));
 }
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -32,11 +30,11 @@ app.set('credentials', {
 
 app.set('dbConfig', JSON.parse(fs.readFileSync('./server/config/db.json')));
 
-var server = https.createServer(app.get('credentials'), app);
+const server = https.createServer(app.get('credentials'), app);
 
-server.listen(8443, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+server.listen(8443, () => {
+  const host = server.address().address;
+  const port = server.address().port;
 
   console.log('Node server listening at http://%s:%s', host, port);
 

@@ -1,10 +1,4 @@
-'use strict';
+const express = require('express');
+const userConsumer = require('./../consumers/authenticationConsumer');
 
-var express = require('express');
-var userConsumer = require('./../consumers/authenticationConsumer');
-
-var router = express.Router();
-
-
-
-
+const router = express.Router();

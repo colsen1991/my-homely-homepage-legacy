@@ -13,5 +13,3 @@ export function blogExcerptUrl(blogId) {
 }
 
 export const loginUrl = `${baseUrl}/login`;
-
-

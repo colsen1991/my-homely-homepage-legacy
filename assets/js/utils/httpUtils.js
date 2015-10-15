@@ -16,13 +16,13 @@ function parseJSON(response) {
   return response.json();
 }
 
-export function GET(url, options = {}) {
+export function get(url, options = {}) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
 }
 
-export function POST(url, options) {
+export function post(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
