@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {blogExcerptUrl} from './../../config/endpoints';
 import {Link} from 'react-router';
-import {get} from '../../utils/httpUtils';
+import {get} from './../../utils/httpUtils';
 
 
 export default class BlogExcerpt extends Component {

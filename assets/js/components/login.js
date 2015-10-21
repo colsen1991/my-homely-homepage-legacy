@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {post} from '../utils/httpUtils';
+import {post} from './../utils/httpUtils';
 import {loginUrl} from './../config/endpoints';
 
 class LoginForm extends Component {
