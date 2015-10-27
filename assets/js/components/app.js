@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import Link from 'react-router/lib/Link';
 import Header from './header';
+import Content from './content';
 import Footer from './footer';
 
+// TODO Wrap in/Make into(?) container. Get JWT from local storage if any. Validate/logout?
 export default class App extends Component {
   render() {
     return (
-      <div id='site-wrapper'>
+      <div>
         <Header/>
-
-        <div id='site-content' className='adjust-size'>
+        <Content>
           {this.props.children}
-        </div>
-
+        </Content>
         <Footer/>
       </div>
     )

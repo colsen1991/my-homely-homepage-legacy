@@ -12,17 +12,17 @@ const webpackConfig = require('./webpack.config.babel');
 
 const app = express();
 
+app.get('/', (req, res) => {
+  res.sendFile(`${__dirname}/web/index.html`);
+});
+
 const compiler = webpack(webpackConfig);
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
 
-app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/index.html`);
-});
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/assets', express.static(`${__dirname}/dist`));
+app.use('/web', express.static(`${__dirname}/web`));
 app.use('/api', router);
 app.use('*', serverUtils.notFoundHandler);
 app.use(serverUtils.errorHandler);

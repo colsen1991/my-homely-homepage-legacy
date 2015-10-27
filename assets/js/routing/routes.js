@@ -1,12 +1,12 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import App from './components/app';
-import FrontPage from './components/frontPage';
-import BlogList from './components/blog/blogList';
-import BlogPost from './components/blog/blogPost';
-import PageNotFound from './components/pageNotFound';
-import About from './components/about';
-import Login from './components/login';
+import App from './../components/app';
+import FrontPage from './../components/frontPage';
+import BlogList from './../components/blog/blogList';
+import BlogPost from './../components/blog/blogPost';
+import PageNotFound from './../components/pageNotFound';
+import About from './../components/about';
+import Login from './../components/login';
 
 export default (
   <Route path='/' component={App}>

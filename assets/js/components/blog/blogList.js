@@ -3,6 +3,7 @@ import {blogIdListUrl} from './../../config/endpoints';
 import BlogListEntry from './blogListEntry';
 import {get} from './../../utils/httpUtils';
 
+// TODO Wrap in/Make into(?) container. Get all blogs w/everything.
 export default class BlogList extends Component {
   constructor(props) {
     super(props);

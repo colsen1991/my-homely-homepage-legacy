@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 export default class Header extends Component {
   render() {
     return (
-      <header id='site-header' className='adjust-size'>
+      <header id='site-header'>
         <h1>My Homely Homepage</h1>
         <nav>
           <Link to='/'>Home</Link>

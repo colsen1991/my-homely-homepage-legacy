@@ -1,14 +1,12 @@
 import {createStore, applyMiddleware, compose} from 'redux';
-import {reduxReactRouter} from 'redux-router';
-import {createHashHistory} from 'history';
 import DevTools from './../components/devTools';
 import thunk from 'redux-thunk';
-import routes from './../routes';
 import reducers from './../reducers/reducers';
+import getRouter from './../routing/router';
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(thunk),
-  reduxReactRouter({routes, createHistory: createHashHistory}),
+  getRouter(),
   DevTools.instrument()
 )(createStore);
 

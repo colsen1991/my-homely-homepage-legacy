@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const BlogModel = mongoose.model('Blog', new Schema({
+const BlogModel = mongoose.model('Blog', new mongoose.Schema({
   title: String,
   excerpt: String,
   text: String

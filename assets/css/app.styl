@@ -2,7 +2,7 @@
 
 site-background = #171717;
 header-background = #FF6B00;
-tab-background = #434343;
+content-background = #434343;
 text-color = #F5F5F5;
 input-text-color = #000000;
 
@@ -13,13 +13,15 @@ body
   background site-background
   color text-color
 
-textarea
-  resize none
-  color input-text-color
-
 input
   color input-text-color
 
+#app-root
+  max-width 1024px
+  min-width 360px
+  margin 0 auto
+
+/* TODO Remove below and StyleSheet it up */
 #site-header
   background header-background
   display flex
@@ -33,20 +35,13 @@ input
 
   nav
     display flex
-    height 3rem
-    align-items flex-end
-    justify-content center
-    text-align center
 
     a
-      background tab-background
       text-decoration none
       color text-color
       font-weight bold
-      height 3rem
-      line-height 3rem
       margin 0 1rem
-      padding 0 1rem
+      padding 1rem
 
     a:first-child
       margin-left 0
@@ -58,16 +53,12 @@ input
   display flex
   padding-top 1rem
   padding-bottom 1rem
-  background tab-background
+  background content-background
 
 #site-footer
   margin-top 1rem
   display flex
   justify-content space-between
-
-.adjust-size
-  margin 0 auto
-  padding 0 1rem
 
 #login-form
   display flex
@@ -82,7 +73,3 @@ input
 
   input[type="submit"]
     max-width 5rem
-
-@media only screen and (min-width 1024px)
-  .adjust-size
-    width 1024px

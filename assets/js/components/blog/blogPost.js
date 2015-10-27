@@ -4,6 +4,7 @@ import {blogUrl} from './../../config/endpoints'
 import BlogExcerpt from './blogListEntry'
 import {get} from './../../utils/httpUtils';
 
+// TODO Wrap in/Make into(?) container. Check store else get.
 export default class BlogPost extends Component {
   constructor(props) {
     super(props);

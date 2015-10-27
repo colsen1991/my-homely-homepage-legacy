@@ -1,14 +1,16 @@
+const path = require('path');
+
 function notFoundHandler(req, res) {
   res.sendStatus(404);
 }
 
-function errorHandler(error, req, res) {
+function errorHandler(error, req, res, next) {
   console.error(error);
-  res.sendStatus(500);
+  res.status(500);
   if (req.xhr)
-    res.send({error: 'A thing happened...'});
+    res.json({error: 'A thing happened...'});
   else
-    res.sendFile(__dirname + '/error.html');
+    res.sendFile(path.resolve(__dirname + '/../../web/error.html'));
 }
 
 exports.notFoundHandler = notFoundHandler;

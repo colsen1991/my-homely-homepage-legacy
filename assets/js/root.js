@@ -25,6 +25,7 @@ export default class Root extends Component {
   }
 }
 
+// TODO This for the whole thang!
 Root.propTypes = {
   store: PropTypes.object.isRequired
 };

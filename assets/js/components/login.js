@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {post} from './../utils/httpUtils';
 import {loginUrl} from './../config/endpoints';
 
+// TODO Make dumb. React form(s)?
 class LoginForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
@@ -41,12 +42,9 @@ class LoginForm extends Component {
   }
 }
 
-const AlreadyLoggedIn = () => {
-  return (
-    <p>You are already logged in...</p>
-  );
-};
+const AlreadyLoggedIn = () => <p>You are already logged in...</p>;
 
+// TODO cache token in store. Make Login into container.
 export default class Login extends Component {
   render() {
     return (localStorage['token'] ? <AlreadyLoggedIn/> : <LoginForm history={this.props.history}/>);
