@@ -4,10 +4,10 @@ const path = require('path');
 module.exports = {
   entry: [
     'webpack-hot-middleware/client',
-    './index'
+    './web/js/index'
   ],
   output: {
-    path: path.join(__dirname, 'web'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
     publicPath: '/'
   },
@@ -16,15 +16,19 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-        exclude: '/node_modules/',
-        include: __dirname
+        include: path.join(__dirname, 'web', 'js'),
+        query: {
+          presets: ['es2015', 'react']
+        }
       },
       {
         test: /\.css$/,
+        include: path.join(__dirname, 'web', 'css'),
         loader: 'style-loader!css-loader!'
       },
       {
         test: /\.styl$/,
+        include: path.join(__dirname, 'web', 'css'),
         loader: 'style-loader!css-loader!stylus-loader'
       }
     ]

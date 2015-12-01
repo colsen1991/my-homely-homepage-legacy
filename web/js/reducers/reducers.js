@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import {routerStateReducer} from 'redux-router';
+import {routeReducer} from 'redux-simple-router';
 
 const reducers = combineReducers({
-  router: routerStateReducer
+  routing: routeReducer
 });
 
 export default reducers;

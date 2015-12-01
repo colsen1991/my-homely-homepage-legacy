@@ -13,7 +13,7 @@ const webpackConfig = require('./webpack.config.babel');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/web/index.html`);
+  res.sendFile(`${__dirname}/public/index.html`);
 });
 
 const compiler = webpack(webpackConfig);
@@ -22,7 +22,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use('/web', express.static(`${__dirname}/web`));
+app.use('/public', express.static(`${__dirname}/public`));
 app.use('/api', router);
 app.use('*', serverUtils.notFoundHandler);
 app.use(serverUtils.errorHandler);

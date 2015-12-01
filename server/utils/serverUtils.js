@@ -10,7 +10,7 @@ function errorHandler(error, req, res, next) {
   if (req.xhr)
     res.json({error: 'A thing happened...'});
   else
-    res.sendFile(path.resolve(__dirname + '/../../web/error.html'));
+    res.sendFile(path.resolve(__dirname + '/../../public/error.html'));
 }
 
 exports.notFoundHandler = notFoundHandler;
