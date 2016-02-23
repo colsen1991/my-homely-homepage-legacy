@@ -2,8 +2,8 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
-import DevTools from './../components/devTools';
-import reducers from './../reducers/reducers';
+import DevTools from '../components/devTools';
+import reducers from '../reducers/reducers';
 
 export default (history) => {
   const store = createStore(

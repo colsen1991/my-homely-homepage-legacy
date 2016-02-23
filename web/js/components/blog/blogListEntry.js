@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {blogExcerptUrl} from '../../config/endpoints';
 import {Link} from 'react-router';
+import {blogExcerptUrl} from '../../config/endpoints';
 import {get} from '../../utils/httpUtils';
 
-// TODO Remove getting of stuff. Make pure.
 export default class BlogExcerpt extends Component {
   constructor(props) {
     super(props);

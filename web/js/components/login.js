@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {post} from '../utils/httpUtils';
 import {loginUrl} from '../config/endpoints';
 
-// TODO Remake me...
 class LoginForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
@@ -44,5 +43,4 @@ class LoginForm extends Component {
 
 const AlreadyLoggedIn = () => <p>You are already logged in...</p>;
 
-// TODO Store as 
 export default ({history}) => localStorage['token'] ? <AlreadyLoggedIn/> : <LoginForm history={history}/>;

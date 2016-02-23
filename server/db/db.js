@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
+const wadsworth = require('../logging/wadsworth');
 
 function connect(dbConfig) {
   const uri = 'mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.db;
 
   mongoose.connection.on('open', () => {
-    console.log('Mongoose connected to: %s', uri);
+    wadsworth.logInfo(`Server connected to: ${uri}`);
   });
 
   mongoose.connection.on('error', error => {
-    throw new Error('Error occured on DB: ' + uri + '\nError:' + error);
+    throw new Error(`Error occured while connection to DB: ${uri}\nError: ${error}`);
   });
 
   mongoose.connect(uri);
