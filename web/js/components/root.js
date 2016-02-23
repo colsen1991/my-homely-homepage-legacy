@@ -1,39 +1,20 @@
 import React, {PropTypes} from 'react';
 import {Provider} from 'react-redux';
-import {Router, Route, IndexRoute} from 'react-router';
-import {syncReduxAndRouter} from 'redux-simple-router';
-import {createHashHistory} from 'history';
+import {hashHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
 import createStore from '../store/store';
-import App from './../components/app';
+import Routes from './routes';
 import DevTools from './devTools';
-import FrontPage from './../components/frontPage';
-import BlogList from './../components/blog/blogList';
-import BlogPost from './../components/blog/blogPost';
-import About from './../components/about';
-import Login from './../components/login';
-import PageNotFound from './../components/pageNotFound';
 
-const store = createStore();
-const history = createHashHistory();
+const store = createStore(hashHistory);
 
-syncReduxAndRouter(history, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
-const Root = () => (
+export default () => (
   <Provider store={store}>
     <div>
-      <Router history={history}>
-        <Route path='/' component={App}>
-          <IndexRoute component={FrontPage}/>
-          <Route path='blog' component={BlogList}/>
-          <Route path='blog/:blogId' component={BlogPost}/>
-          <Route path='about' component={About}/>
-          <Route path='login' component={Login}/>
-          <Route path='*' component={PageNotFound}/>
-        </Route>
-      </Router>
+      <Routes history={history}/>
       <DevTools/>
     </div>
   </Provider>
 );
-
-export default Root;

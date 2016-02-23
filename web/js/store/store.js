@@ -1,15 +1,18 @@
-import {createStore as reduxCreateStore, applyMiddleware, compose} from 'redux';
-import DevTools from './../components/devTools';
+import {createStore, applyMiddleware, compose} from 'redux';
+import {routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
+import promise from 'redux-promise';
+import DevTools from './../components/devTools';
 import reducers from './../reducers/reducers';
 
-const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk),
-  DevTools.instrument()
-)(reduxCreateStore);
-
-function createStore() {
-  const store = createStoreWithMiddleware(reducers);
+export default (history) => {
+  const store = createStore(
+    reducers,
+    compose(
+      applyMiddleware(routerMiddleware(history), thunk, promise),
+      DevTools.instrument()
+    )
+  );
 
   if (module.hot) {
     module.hot.accept('../reducers/reducers', () => {
@@ -20,5 +23,3 @@ function createStore() {
 
   return store;
 }
-
-export default createStore;

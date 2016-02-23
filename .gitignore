@@ -1,5 +1,5 @@
 node_modules/
 .idea/
-*.key
-*.cert
+*.prod.key
+*.prod.cert
 *.log

@@ -1,12 +1,7 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React from 'react';
 
-export default class Content extends Component {
-  render() {
-    return (
-      <section id='site-content'>
-        {this.props.children}
-      </section>
-    );
-  }
-}
+export default ({children}) => (
+  <section id='site-content'>
+    {children}
+  </section>
+);
