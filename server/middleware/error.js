@@ -1,7 +1,7 @@
 const path = require('path');
 const wadsworth = require('../logging/wadsworth');
 
-function errorHandler(error, req, res, next) {
+function errorHandler(error, req, res, ignore) {
   wadsworth.logError(error);
 
   res.status(500);
@@ -10,8 +10,6 @@ function errorHandler(error, req, res, next) {
     res.json({error: 'A thing happened...'});
   else
     res.sendFile(path.resolve(`${__dirname}/../../web/error.html`));
-
-  next();
 }
 
 module.exports = errorHandler;

@@ -7,7 +7,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const publicRouter = require('./server/api/routers/public');
 const secureRouter = require('./server/api/routers/secure');
-const notFoundMiddleware = require('./server/middleware/notFound');
 const errorMiddleware = require('./server/middleware/error');
 const webpackConfig = require('./webpack.config.babel');
 const wadsworth = require('./server/logging/wadsworth');
@@ -27,11 +26,9 @@ app.use(webpackHotMiddleware(compiler));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.sendFile(`${__dirname}/web/index.html`));
-app.use('/public', express.static(`${__dirname}/public`));
 app.use('/api', publicRouter);
 app.use('/api/secure', secureRouter);
-app.use('*', notFoundMiddleware);
+app.get('*', (req, res) => res.sendFile(`${__dirname}/web/index.html`));
 app.use(errorMiddleware);
 
 db.connect(app.get('dbConfig'));

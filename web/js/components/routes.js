@@ -14,6 +14,7 @@ export default ({history}) => (
       <IndexRoute component={FrontPage}/>
       <Route path='blog' component={BlogList}/>
       <Route path='blog/:blogId' component={BlogPost}/>
+      <Route path='blog/*' component={BlogPost}/>
       <Route path='about' component={About}/>
       <Route path='login' component={Login}/>
       <Route path='*' component={PageNotFound}/>

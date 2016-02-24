@@ -7,7 +7,7 @@ function logWarning(warning) {
 }
 
 function logError(error) {
-  console.error(`${error.message}\n${error.stack}`);
+  console.error(error.stack);
 }
 
 exports.logInfo = logInfo;
