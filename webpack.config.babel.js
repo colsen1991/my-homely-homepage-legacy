@@ -16,21 +16,12 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel',
-        include: path.join(__dirname, 'web', 'js'),
-        query: {
-          presets: ['es2015', 'react']
-        }
-      },
-      {
-        test: /\.css$/,
-        include: path.join(__dirname, 'web', 'css'),
-        loader: 'style-loader!css-loader!'
+        include: path.join(__dirname, 'web', 'js')
       },
       {
         test: /\.styl$/,
-        include: path.join(__dirname, 'web', 'css'),
-        loader: 'style-loader!css-loader!stylus-loader'
-      }
+        loader: 'style!css?modules!stylus'
+      } 
     ]
   },
   devtool: 'cheap-module-eval-source-map',

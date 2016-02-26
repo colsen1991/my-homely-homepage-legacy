@@ -3,7 +3,7 @@ function status200ish(status) {
 }
 
 function checkStatus(response) {
-  if (status200ish(response.status)) 
+  if (status200ish(response.status))
     return response;
   else {
     const error = new Error(response.statusText);

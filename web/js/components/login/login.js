@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {post} from '../utils/httpUtils';
-import {loginUrl} from '../config/endpoints';
+import { post } from '../../utils/httpUtils';
+import { loginUrl } from '../../endpoints/endpoints';
+import styles from './login.styl';
 
 class LoginForm extends Component {
   handleSubmit(event) {
@@ -16,13 +17,13 @@ class LoginForm extends Component {
 
     const options = {
       method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({username, password})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
     };
 
     post(loginUrl, options)
       .then(data => {
-        localStorage['token'] = data.token;
+        localStorage[ 'token' ] = data.token;
 
         this.props.history.pushState(null, '/loginSuccesful');
       })
@@ -31,7 +32,7 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form id='login-form' onSubmit={this.handleSubmit.bind(this)}>
+      <form className={styles.login} onSubmit={this.handleSubmit.bind(this)}>
         <h1>Login</h1>
         <input type="text" placeholder="Username..." ref="username"/>
         <input type="password" placeholder="Password..." ref="password"/>
@@ -43,4 +44,4 @@ class LoginForm extends Component {
 
 const AlreadyLoggedIn = () => <p>You are already logged in...</p>;
 
-export default ({history}) => localStorage['token'] ? <AlreadyLoggedIn/> : <LoginForm history={history}/>;
+export default ({ history }) => localStorage[ 'token' ] ? <AlreadyLoggedIn/> : <LoginForm history={history}/>;

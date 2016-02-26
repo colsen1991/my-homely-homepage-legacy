@@ -1,71 +1,17 @@
-site-background = #171717;
-header-background = #FF6B00;
-content-background = #434343;
-text-color = #F5F5F5;
-input-text-color = #000000;
-
 html
   font 16px / 26px Helvetica, Helvetica Neue, Arial
 
 body
-  background site-background
-  color text-color
+  background #171717
+  color #F5F5F5
 
 input
-  color input-text-color
+  color #000000
 
-#app-root
+p
+  margin 0
+
+:global(#app-root)
   max-width 1024px
   min-width 360px
   margin 0 auto
-
-#site-header
-  background header-background
-  display flex
-  align-items center
-  flex-direction column
-
-  h1
-    display flex
-    cursor pointer
-    justify-content center
-
-  nav
-    display flex
-
-    a
-      text-decoration none
-      color text-color
-      font-weight bold
-      margin 0 1rem
-      padding 1rem
-
-    a:first-child
-      margin-left 0
-
-    a:last-child
-      margin-right 0
-
-#site-content
-  display flex
-  padding 1rem
-  background content-background
-
-#site-footer
-  margin-top 1rem
-  display flex
-  justify-content space-between
-
-#login-form
-  display flex
-  flex-direction column
-
-  input[type="text"]
-    max-width 10rem
-
-  input[type="password"]
-    margin 1rem 0
-    max-width 10rem
-
-  input[type="submit"]
-    max-width 5rem
