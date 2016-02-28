@@ -1,12 +1,12 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
-import App from './app';
-import FrontPage from './frontPage';
-import BlogList from './blog/blogs';
-import BlogPost from './blog/blog';
-import About from './about';
-import Login from './login/login';
-import PageNotFound from './pageNotFound';
+import App from './../app';
+import FrontPage from './../frontPage';
+import BlogList from './../blog/blogs';
+import BlogPost from './../blog/blog';
+import About from './../about';
+import Login from './../login/login';
+import PageNotFound from './../pageNotFound';
 
 export default ({ history }) => (
   <Router history={history}>

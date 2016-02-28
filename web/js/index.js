@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Root from './components/root';
+import Router from './components/routing/router';
 import '../css/app.styl';
 
 render(
-  <Root/>,
+  <Router/>,
   document.getElementById('app-root')
 );

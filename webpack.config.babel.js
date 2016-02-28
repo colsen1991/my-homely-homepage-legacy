@@ -7,9 +7,9 @@ module.exports = {
     './web/js/index'
   ],
   output: {
-    path: path.join(__dirname, 'web'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/static/'
   },
   module: {
     loaders: [
@@ -26,7 +26,7 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };

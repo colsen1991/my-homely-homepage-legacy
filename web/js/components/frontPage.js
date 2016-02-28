@@ -3,6 +3,6 @@ import { observer } from 'mobx-react';
 
 export default () => (
   <div>
-    <p>Hello world!eqwewq</p>
+    <p>Hello world!</p>
   </div>
 );
