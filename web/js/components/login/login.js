@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
 import { post } from '../../utils/httpUtils';
 import { loginUrl } from '../../endpoints/endpoints';
@@ -25,7 +26,7 @@ class LoginForm extends Component {
       .then(data => {
         localStorage[ 'token' ] = data.token;
 
-        this.props.history.pushState(null, '/loginSuccesful');
+        browserHistory.push('/loginSuccesful');
       })
       .catch(error => console.error(error));
   }
