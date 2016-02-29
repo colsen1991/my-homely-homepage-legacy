@@ -8,4 +8,6 @@ export function blog(id) {
   return `${baseUrl}/blog/${id}`;
 }
 
-export const loginUrl = `${baseUrl}/login`;
+export function login() {
+  return `${baseUrl}/login`;
+}

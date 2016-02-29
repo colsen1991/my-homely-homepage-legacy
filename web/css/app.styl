@@ -1,5 +1,8 @@
 html
   font 16px / 26px Helvetica, Helvetica Neue, Arial
+  overflow-y scroll
+
+/* Always show scrollbar to prevent jumping... #worth? */
 
 body
   background #171717
@@ -8,8 +11,18 @@ body
 input
   color #000000
 
+h1,
+h2,
+h3,
 p
   margin 0
+
+a
+  text-decoration none
+  color #F5F5F5
+
+  &:hover
+    color black
 
 :global(#app-root)
   max-width 1024px

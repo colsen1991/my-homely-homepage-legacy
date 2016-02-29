@@ -1,21 +1,24 @@
-.header
+.siteHeader
   background #FF6B00
   display flex
   align-items center
   flex-direction column
 
+  h1
+    margin 1rem
+
   nav
     display flex
 
-  a
-    text-decoration none
-    color #F5F5F5
-    font-weight bold
-    margin 0 1rem
-    padding 1rem
+    a
+      margin 0 1rem
+      padding 1rem
 
-  a:first-child
-    margin-left 0
+      &:first-child
+        margin-left 0
 
-  a:last-child
-    margin-right 0
+      &:last-child
+        margin-right 0
+
+.activeUrl
+  border-bottom 3px solid black

@@ -5,11 +5,11 @@ import styles from './blog.styl';
 
 export default ({ _id, title, excerpt }) => (
   <section className={styles.excerpt}>
-    <Link to={blog(_id)}>
-      <header>
-        <h2>{title}</h2>
-        <p>{excerpt}</p>
-      </header>
-    </Link>
+    <header>
+      <h1>
+        <Link to={blog(_id)}>{title}</Link>
+      </h1>
+      <p>{excerpt}</p>
+    </header>
   </section>
 );

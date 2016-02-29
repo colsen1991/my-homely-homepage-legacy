@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
 import { post } from '../../utils/httpUtils';
-import { loginUrl } from '../../endpoints/endpoints';
+import { login } from '../../endpoints/endpoints';
 import styles from './login.styl';
 
 class LoginForm extends Component {
@@ -22,7 +22,7 @@ class LoginForm extends Component {
       body: JSON.stringify({ username, password })
     };
 
-    post(loginUrl, options).then(data => {
+    post(login(), options).then(data => {
       localStorage[ 'token' ] = data.token;
 
       browserHistory.push('/loginSuccesful');
