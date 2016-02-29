@@ -1,5 +1,25 @@
-import React from 'react';
+import React, { createClass } from 'react';
+import { observer } from 'mobx-react';
+import Excerpt from './excerpt';
+import { getBlogs, state as blogState } from '../../state/blog';
 
-const blogs = () => <p>This is a list of ALL the blog post excerpts. Herpa derp!</p>;
+export default observer(createClass({
+  componentDidMount() {
+    getBlogs();
+  },
 
-export default blogs;
+  render() {
+    const { excerpts } = blogState;
+
+    return (
+      <section>
+        <header>
+          <h1>Blogs</h1>
+        </header>
+        <div>
+          {excerpts.map(excerpt => <Excerpt {...excerpt} key={excerpt._id}/>)}
+        </div>
+      </section>
+    );
+  }
+}));

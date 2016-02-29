@@ -22,13 +22,11 @@ class LoginForm extends Component {
       body: JSON.stringify({ username, password })
     };
 
-    post(loginUrl, options)
-      .then(data => {
-        localStorage[ 'token' ] = data.token;
+    post(loginUrl, options).then(data => {
+      localStorage[ 'token' ] = data.token;
 
-        browserHistory.push('/loginSuccesful');
-      })
-      .catch(error => console.error(error));
+      browserHistory.push('/loginSuccesful');
+    }).catch(error => console.error(error));
   }
 
   render() {

@@ -1,19 +1,8 @@
 const wadsworth = require('../../logging/wadsworth');
 const Blog = require('../../db/models/blog');
 
-function getBlogIdList(req, res) {
-  Blog.find({}, { _id: 1 }, function (error, data) {
-    if (error) {
-      wadsworth.logError(error);
-      res.sendStatus(500);
-    } else {
-      res.send(data);
-    }
-  });
-}
-
 function getBlog(req, res) {
-  Blog.findOne({ _id: req.params.blogId }, function (error, data) {
+  Blog.findOne({ _id: req.params.blogId }, (error, data) => {
     if (error) {
       wadsworth.logError(error);
       res.sendStatus(500);
@@ -23,8 +12,8 @@ function getBlog(req, res) {
   });
 }
 
-function getBlogExcerpt(req, res) {
-  Blog.findOne({ _id: req.params.blogId }, { _id: 1, title: 1, excerpt: 1 }, function (error, data) {
+function getExcerpts(req, res) {
+  Blog.find({}, { _id: 1, title: 1, excerpt: 1 }, (error, data) => {
     if (error) {
       wadsworth.logError(error);
       res.sendStatus(500);
@@ -34,6 +23,5 @@ function getBlogExcerpt(req, res) {
   });
 }
 
-exports.getBlogIdList = getBlogIdList;
 exports.getBlog = getBlog;
-exports.getBlogExcerpt = getBlogExcerpt;
+exports.getExcerpts = getExcerpts;
