@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import Routes from './routes';
+import Routes from './router';
 
 export default class extends Component {
   render() {

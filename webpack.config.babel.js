@@ -21,7 +21,11 @@ module.exports = {
       {
         test: /\.styl$/,
         loader: 'style!css?modules!stylus'
-      } 
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
+      }
     ]
   },
   devtool: 'cheap-module-eval-source-map',

@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React, { createClass } from 'react';
 import { observer } from 'mobx-react';
 import Excerpt from './excerpt';
-import { getExcerpts, blog } from './../../store/store';
-import styles from './blog.styl';
+import store, { getExcerpts } from './../../store/store';
 
-
-export const Excerpts = observer(({ store: { excerpts } }) => (
-  <div className={styles.blogs}>
-    {excerpts.map(excerpt => <Excerpt {...excerpt} key={excerpt._id}/>)}
+export const Excerpts = ({ excerpts }) => (
+  <div>
+    {excerpts.map(excerpt => <Excerpt {...excerpt} key={excerpt.id}/>)}
   </div>
-));
+);
 
-export default class ExcerptsWrapper extends Component {
+export default observer(createClass({
   componentDidMount() {
     getExcerpts();
-  }
+  },
 
   render() {
-    return <Excerpts store={blog}/>
+    return <Excerpts excerpts={store.blogExcerpts}/>
   }
-}
+}));

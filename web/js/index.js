@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Router from './components/routing/router';
+import Router from './components/root';
 import { setActiveUrl } from './store/store.js';
 import '../css/app.styl';
 

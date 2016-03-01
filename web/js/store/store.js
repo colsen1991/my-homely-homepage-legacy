@@ -1,22 +1,29 @@
 import { observable } from 'mobx';
-import { blogExcerpts } from '../endpoints/endpoints';
 import { get } from '../utils/httpUtils';
 
-export const location = observable({
-  activeUrl: '/'
+const store = observable({
+  activeUrl: '/',
+  blogExcerpts: [],
+  blogPosts: []
 });
 
 export function setActiveUrl(url) {
-  location.activeUrl = url;
+  store.activeUrl = url;
 }
-
-export const blog = observable({
-  excerpts: [],
-  blogs: []
-});
 
 export function getExcerpts() {
-  get(blogExcerpts())
-    .then(data => blog.excerpts = data)
+  get('/api/blog/excerpts')
+    .then(extExcerpts => store.blogExcerpts = extExcerpts)
     .catch(error => console.error(error));
 }
+
+export function getBlogPost(id) {
+  get(`/api/blog/${id}`)
+    .then(extBlogPost => {
+      if (!store.blogPosts.find(blogPost => blogPost.id === extBlogPost.id))
+        store.blogPosts.push(extBlogPost)
+    })
+    .catch(error => console.error(error));
+}
+
+export default store;
