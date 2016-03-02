@@ -1,6 +1,6 @@
 db.dropDatabase();
 
-for (var i = 1; i <= 30; i++) {
+for (var i = 1; i <= 10; i++) {
   db.blogs.insert({
     id: 'this-is-a-blog-post-title-' + i,
     title: 'This is blog-post title #' + i,

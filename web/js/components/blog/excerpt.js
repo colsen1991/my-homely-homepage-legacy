@@ -6,7 +6,7 @@ export default ({ id, title, excerpt }) => (
   <section className={styles.excerpt}>
     <header>
       <h1>
-        <Link to={`/blog/${id}`}>{title}</Link>
+        <Link to={`/blog/e${id}`}>{title}</Link>
       </h1>
       <p>{excerpt}</p>
     </header>

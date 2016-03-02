@@ -1,44 +1,62 @@
 import React, { createClass } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { observer } from 'mobx-react';
-import Spinner from 'react-spin';
+import Spinner from '../spinner';
+import RequestWentToShit from '../requestWentToShit';
 import ReactDisqusThread from 'react-disqus-thread';
-import store, { getBlogPost } from '../../store/store';
+import store, { getBlogPost, setBlogPost } from '../../store/store';
+import styles from './blog.styl';
 
-export const Blog = ({ harData, id, title, excerpt, text }) => {
-  if (harData) {
-    return (
-      <article style={{width: '100%', minHeight: 600}}>
-        <header>
-          <h1>{title}</h1>
-          <p>{excerpt}</p>
-        </header>
-        <ReactMarkdown source={text}/>
-        <ReactDisqusThread shortname="test" identifier={id}/>
-      </article>
-    );
-  }
-
-  return <Spinner config={{width: 8, radius: 16}}/>;
+export const Blog = ({ id, title, excerpt, text }) => {
+  return (
+    <article className={styles.blogPost}>
+      <header>
+        <h1>{title}</h1>
+        <p>{excerpt}</p>
+      </header>
+      <ReactMarkdown source={text}/>
+      <ReactDisqusThread shortname="test" identifier={id}/>
+    </article>
+  );
 };
 
 
 export default observer(createClass({
   componentDidMount() {
-    getBlogPost(this.props.params.id);
+    this.ajaxCallFinished = false;
+
+    getBlogPost(this.props.params.id)
+      .then(blogPost => {
+        this.ajaxCallFinished = true;
+        this.ajaxCallStatus = 200;
+        setBlogPost(blogPost);
+      })
+      .catch(error => {
+        this.ajaxCallFinished = true;
+        this.ajaxCallStatus = error.response.status;
+        setBlogPost({ id: '3123213' })
+      })
   },
 
   render() {
-    const blogPost = store.blogPosts.find(blogPost => blogPost.id === this.props.params.id);
-    const { id, title, excerpt, text } = blogPost || {};
-    const props = {
-      harData: !!blogPost,
-      id,
-      title,
-      excerpt,
-      text
-    };
+    const blogPosts = store.blogPosts;
 
-    return <Blog {...props}/>
+    if (this.ajaxCallFinished) {
+      if (this.ajaxCallStatus === 200) {
+        const { id, title, excerpt, text } = blogPosts.find(blogPost => blogPost.id === this.props.params.id) || {};
+        const props = {
+          id,
+          title,
+          excerpt,
+          text
+        };
+
+        return <Blog {...props}/>;
+      }
+
+      return <RequestWentToShit/>;
+    }
+
+    return <Spinner/>;
   }
 }));

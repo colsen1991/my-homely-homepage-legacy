@@ -6,6 +6,10 @@ import '../css/app.styl';
 
 setActiveUrl(window.location.pathname);
 
+window.onerror = () => {
+  console.error('js error!'); // temp
+};
+
 render(
   <Router/>,
   document.getElementById('app-root')

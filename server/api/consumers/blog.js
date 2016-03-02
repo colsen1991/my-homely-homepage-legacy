@@ -6,8 +6,10 @@ function getBlog(req, res) {
     if (error) {
       wadsworth.logError(error);
       res.sendStatus(500);
-    } else {
+    } else if (data) {
       res.send(data);
+    } else {
+      res.sendStatus(404);
     }
   });
 }
@@ -17,8 +19,10 @@ function getExcerpts(req, res) {
     if (error) {
       wadsworth.logError(error);
       res.sendStatus(500);
-    } else {
+    } else if (data) {
       res.send(data);
+    } else {
+      res.sendStatus(404);
     }
   });
 }

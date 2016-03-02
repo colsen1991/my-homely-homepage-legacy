@@ -16,7 +16,6 @@ class LoginForm extends Component {
     }
 
     const options = {
-      method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     };
@@ -25,7 +24,7 @@ class LoginForm extends Component {
       localStorage[ 'token' ] = data.token;
 
       browserHistory.push('/loginSuccesful');
-    }).catch(error => console.error(error));
+    });
   }
 
   render() {

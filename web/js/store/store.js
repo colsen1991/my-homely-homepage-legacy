@@ -11,19 +11,23 @@ export function setActiveUrl(url) {
   store.activeUrl = url;
 }
 
-export function getExcerpts() {
-  get('/api/blog/excerpts')
-    .then(extExcerpts => store.blogExcerpts = extExcerpts)
-    .catch(error => console.error(error));
+export function getBlogExcerpts() {
+  return get('/api/blog/excerpts');
+}
+
+export function setBlogExcerpts(newBlogExcerpts) {
+  store.blogExcerpts = newBlogExcerpts;
 }
 
 export function getBlogPost(id) {
-  get(`/api/blog/${id}`)
-    .then(extBlogPost => {
-      if (!store.blogPosts.find(blogPost => blogPost.id === extBlogPost.id))
-        store.blogPosts.push(extBlogPost)
-    })
-    .catch(error => console.error(error));
+  return get(`/api/blog/${id}`);
+}
+
+export function setBlogPost(newBlogPost) {
+  if (!store.blogPosts.find(blogPost => blogPost.id === newBlogPost.id)) {
+    store.blogPosts = [];
+    store.blogPosts = [...store.blogPosts, newBlogPost];
+  }
 }
 
 export default store;
