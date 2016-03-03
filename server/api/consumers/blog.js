@@ -22,7 +22,7 @@ function getExcerpts(req, res) {
     } else if (data) {
       res.send(data);
     } else {
-      res.sendStatus(404);
+      res.sendStatus(204);
     }
   });
 }

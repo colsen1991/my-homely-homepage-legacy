@@ -3,7 +3,7 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import createLogger from 'redux-logger';
-import reducers from '../reducers/reducers';
+import reducers from './reducers';
 
 export default (history, initialState = {}) => {
   const store = createStore(
@@ -13,8 +13,8 @@ export default (history, initialState = {}) => {
   );
 
   if (module.hot) {
-    module.hot.accept('../reducers/reducers', () => {
-      const nextRootReducer = require('../reducers/reducers');
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers');
       store.replaceReducer(nextRootReducer);
     });
   }

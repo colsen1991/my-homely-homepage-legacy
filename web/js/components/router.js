@@ -6,7 +6,7 @@ import BlogList from './blog/excerpts';
 import BlogPost from './blog/blog';
 import About from './about';
 import Login from './login/login';
-import PageNotFound from './404';
+import PageNotFound from './errors/404';
 
 export default ({ history }) => (
   <Router history={history}>

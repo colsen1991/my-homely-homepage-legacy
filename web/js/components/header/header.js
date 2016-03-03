@@ -1,43 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import styles from './header.styl';
 
-function isLinkActive(to, activeUrl) {
+export function doesToAndPathMatch(to, path = '/') {
   if (to === '/')
-    return to === activeUrl;
+    return to === path;
 
-  return activeUrl.indexOf(to) >= 0;
+  return path.indexOf(to) >= 0;
 }
 
-const HeaderLink = ({ to, activeUrl, children }) => {
-  const activeLink = isLinkActive(to, activeUrl);
+export const HeaderLink = ({ to, activePath, children }) => {
+  const isLinkActive = doesToAndPathMatch(to, activePath);
   const props = {
     className: classNames({
-      [styles.activeLink]: activeLink,
-      [styles.inactiveLink]: !activeLink
+      [styles.activeLink]: isLinkActive,
+      [styles.inactiveLink]: !isLinkActive
     }),
-    //onClick: () => setActiveUrl(to),
     to
   };
 
   return <Link {...props}>{children}</Link>;
 };
 
-
-export default () => {
+export const SiteHeader = ({ activePath }) => {
   return (
     <div className={styles.siteHeader}>
       <header>
         <h1>
-          <Link /*onClick={() => setAcetiveUrl('/')}*/ to="/">My Homely Homepage</Link>
+          <Link to="/">My Homely Homepage</Link>
         </h1>
       </header>
       <nav className={styles.navigationBar}>
-        <HeaderLink to="/" activeUrl="/">Home</HeaderLink>
-        <HeaderLink to="/blog" activeUrl="/">Blog</HeaderLink>
-        <HeaderLink to="/about" activeUrl="/">About</HeaderLink>
+        <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
+        <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
+        <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
       </nav>
     </div>
   )
 };
+
+export function connectStateToProps({ routing: { locationBeforeTransitions: { pathname } } }) {
+  return { activePath: pathname };
+}
+
+export default connect(connectStateToProps)(SiteHeader);

@@ -1,42 +1,41 @@
-import React, { createClass } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Spinner from '../spinner';
+import RequestWentToShit from '../requestWentToShit';
+import Excerpt from './excerpt';
+import { fetchExcerptsActionCreator } from '../../actions';
 
-export default ({ excerpts }) => (
-  <div>
-    Excerpts here!
-  </div>
-);
+class Excerpts extends Component {
+  componentDidMount() {
+    this.props.fetchExcerpts();
+  }
 
-/*{excerpts.map(excerpt => <Excerpt {...excerpt} key={excerpt.id}/>)}*/
+  render() {
+    const { data, fetching, error }  = this.props;
 
-/*
- export default observer(createClass({
- componentDidMount() {
- this.ajaxCallFinished = false;
+    if (fetching)
+      return <Spinner/>
 
- getBlogExcerpts()
- .then(blogExcepts => {
- this.ajaxCallFinished = true;
- this.ajaxCallStatus = 200;
- setBlogExcerpts(blogExcepts);
- })
- .catch(error => {
- this.ajaxCallFinished = true;
- this.ajaxCallStatus = error.response.status;
- setBlogExcerpts([]);
- });
- },
+    if (error) {
+      const { response } = data;
+      const { status } = response;
+      return <RequestWentToShit status={status}/>
+    }
 
- render() {
- const blogExcerpts = store.blogExcerpts;
+    return (
+      <div>
+        {
+          data.length !== 0
+            ? data.map(excerpt => <Excerpt {...excerpt} key={excerpt.id}/>)
+            : <p>No blogs here :(</p>
+        }
+      </div>
+    );
+  }
+}
 
- if (this.ajaxCallFinished) {
- if (this.ajaxCallStatus === 200)
- return <Excerpts excerpts={blogExcerpts}/>;
+export function mapStateToProps({ excerpts }) {
+  return { ...excerpts };
+}
 
- return <RequestWentToShit status={this.ajaxCallStatus}/>
- }
-
- return <Spinner/>;
- }
- }));
- */
+export default connect(mapStateToProps, { fetchExcerpts: fetchExcerptsActionCreator })(Excerpts)

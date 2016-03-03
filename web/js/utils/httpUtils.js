@@ -12,20 +12,25 @@ function checkStatus(response) {
   }
 }
 
-function parseJSON(response) {
-  return response.json();
+function parseJSON(defaultIf204) {
+  return response => {
+    if (response.status === 204)
+      return defaultIf204;
+
+    return response.json();
+  }
 }
 
-function ajax(url, options) {
+function ajax(url, options, defaultIf204) {
   return fetch(url, options)
     .then(checkStatus)
-    .then(parseJSON)
+    .then(parseJSON(defaultIf204))
 }
 
-export function get(url, options = {}) {
-  return ajax(url, options);
+export function GET(url, options = {}, defaultIf204 = {}) {
+  return ajax(url, options, defaultIf204);
 }
 
-export function post(url, options) {
-  return ajax(url, { ...options, method: 'post' });
+export function POST(url, options, defaultIf204 = {}) {
+  return ajax(url, { ...options, method: 'post' }, defaultIf204);
 }
