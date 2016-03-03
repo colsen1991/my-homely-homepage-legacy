@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
 import Routes from './router';
 
 export default class extends Component {
   render() {
-    return <Routes history={browserHistory}/>;
+    return (
+      <Provider store={this.props.store}>
+        <Routes history={this.props.history}/>
+      </Provider>
+    );
   }
 }

@@ -1,43 +1,42 @@
 import React, { createClass } from 'react';
-import { observer } from 'mobx-react';
-import RequestWentToShit from '../requestWentToShit';
-import Spinner from '../spinner';
-import Excerpt from './excerpt';
-import store, { getBlogExcerpts, setBlogExcerpts } from './../../store/store';
 
-export const Excerpts = ({ excerpts }) => (
+export default ({ excerpts }) => (
   <div>
-    {excerpts.map(excerpt => <Excerpt {...excerpt} key={excerpt.id}/>)}
+    Excerpts here!
   </div>
 );
 
-export default observer(createClass({
-  componentDidMount() {
-    this.ajaxCallFinished = false;
+/*{excerpts.map(excerpt => <Excerpt {...excerpt} key={excerpt.id}/>)}*/
 
-    getBlogExcerpts()
-      .then(blogExcepts => {
-        this.ajaxCallFinished = true;
-        this.ajaxCallStatus = 200;
-        setBlogExcerpts(blogExcepts);
-      })
-      .catch(error => {
-        this.ajaxCallFinished = true;
-        this.ajaxCallStatus = error.response.status;
-        setBlogExcerpts([]);
-      });
-  },
+/*
+ export default observer(createClass({
+ componentDidMount() {
+ this.ajaxCallFinished = false;
 
-  render() {
-    const blogExcerpts = store.blogExcerpts;
+ getBlogExcerpts()
+ .then(blogExcepts => {
+ this.ajaxCallFinished = true;
+ this.ajaxCallStatus = 200;
+ setBlogExcerpts(blogExcepts);
+ })
+ .catch(error => {
+ this.ajaxCallFinished = true;
+ this.ajaxCallStatus = error.response.status;
+ setBlogExcerpts([]);
+ });
+ },
 
-    if (this.ajaxCallFinished) {
-      if (this.ajaxCallStatus === 200)
-          return <Excerpts excerpts={blogExcerpts}/>;
+ render() {
+ const blogExcerpts = store.blogExcerpts;
 
-      return <RequestWentToShit status={this.ajaxCallStatus}/>
-    }
+ if (this.ajaxCallFinished) {
+ if (this.ajaxCallStatus === 200)
+ return <Excerpts excerpts={blogExcerpts}/>;
 
-    return <Spinner/>;
-  }
-}));
+ return <RequestWentToShit status={this.ajaxCallStatus}/>
+ }
+
+ return <Spinner/>;
+ }
+ }));
+ */

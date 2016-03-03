@@ -1,33 +1,23 @@
-import { observable } from 'mobx';
-import { get } from '../utils/httpUtils';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise';
+import createLogger from 'redux-logger';
+import reducers from '../reducers/reducers';
 
-const store = observable({
-  activeUrl: '/',
-  blogExcerpts: [],
-  blogPosts: []
-});
+export default (history, initialState = {}) => {
+  const store = createStore(
+    reducers,
+    initialState,
+    compose(applyMiddleware(routerMiddleware(history), thunk, promise, createLogger()))
+  );
 
-export function setActiveUrl(url) {
-  store.activeUrl = url;
-}
-
-export function getBlogExcerpts() {
-  return get('/api/blog/excerpts');
-}
-
-export function setBlogExcerpts(newBlogExcerpts) {
-  store.blogExcerpts = newBlogExcerpts;
-}
-
-export function getBlogPost(id) {
-  return get(`/api/blog/${id}`);
-}
-
-export function setBlogPost(newBlogPost) {
-  if (!store.blogPosts.find(blogPost => blogPost.id === newBlogPost.id)) {
-    store.blogPosts = [];
-    store.blogPosts = [...store.blogPosts, newBlogPost];
+  if (module.hot) {
+    module.hot.accept('../reducers/reducers', () => {
+      const nextRootReducer = require('../reducers/reducers');
+      store.replaceReducer(nextRootReducer);
+    });
   }
-}
 
-export default store;
+  return store;
+}

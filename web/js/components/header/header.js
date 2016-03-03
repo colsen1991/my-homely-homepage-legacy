@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { observer } from 'mobx-react';
 import classNames from 'classnames';
-import store, { setActiveUrl } from './../../store/store.js';
 import styles from './header.styl';
 
 function isLinkActive(to, activeUrl) {
@@ -19,7 +17,7 @@ const HeaderLink = ({ to, activeUrl, children }) => {
       [styles.activeLink]: activeLink,
       [styles.inactiveLink]: !activeLink
     }),
-    onClick: () => setActiveUrl(to),
+    //onClick: () => setActiveUrl(to),
     to
   };
 
@@ -27,21 +25,19 @@ const HeaderLink = ({ to, activeUrl, children }) => {
 };
 
 
-export default observer(() => {
-  const { activeUrl } = store;
-
+export default () => {
   return (
     <div className={styles.siteHeader}>
       <header>
         <h1>
-          <Link onClick={() => setActiveUrl('/')} to="/">My Homely Homepage</Link>
+          <Link /*onClick={() => setAcetiveUrl('/')}*/ to="/">My Homely Homepage</Link>
         </h1>
       </header>
       <nav className={styles.navigationBar}>
-        <HeaderLink to="/" activeUrl={activeUrl}>Home</HeaderLink>
-        <HeaderLink to="/blog" activeUrl={activeUrl}>Blog</HeaderLink>
-        <HeaderLink to="/about" activeUrl={activeUrl}>About</HeaderLink>
+        <HeaderLink to="/" activeUrl="/">Home</HeaderLink>
+        <HeaderLink to="/blog" activeUrl="/">Blog</HeaderLink>
+        <HeaderLink to="/about" activeUrl="/">About</HeaderLink>
       </nav>
     </div>
   )
-});
+};
