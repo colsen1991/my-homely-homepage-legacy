@@ -27,10 +27,10 @@ function ajax(url, options, defaultIf204) {
     .then(parseJSON(defaultIf204))
 }
 
-export function GET(url, options = {}, defaultIf204 = {}) {
+export function GET(url, options = {}, defaultIf204) {
   return ajax(url, options, defaultIf204);
 }
 
-export function POST(url, options, defaultIf204 = {}) {
+export function POST(url, options, defaultIf204) {
   return ajax(url, { ...options, method: 'post' }, defaultIf204);
 }

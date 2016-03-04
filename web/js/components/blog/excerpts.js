@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../spinner';
-import RequestWentToShit from '../requestWentToShit';
+import RequestWentToShit from '../errors/requestWentToShit';
 import Excerpt from './excerpt';
 import { fetchExcerptsActionCreator } from '../../actions';
 
@@ -14,13 +14,10 @@ class Excerpts extends Component {
     const { data, fetching, error }  = this.props;
 
     if (fetching)
-      return <Spinner/>
+      return <Spinner/>;
 
-    if (error) {
-      const { response } = data;
-      const { status } = response;
-      return <RequestWentToShit status={status}/>
-    }
+    if (error)
+      return <RequestWentToShit status={data.response.status}/>;
 
     return (
       <div>

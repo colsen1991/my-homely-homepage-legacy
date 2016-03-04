@@ -1,66 +1,53 @@
-import React, { createClass } from 'react';
-/*
- import ReactMarkdown from 'react-markdown';
- import Spinner from '../spinner';
- import RequestWentToShit from '../requestWentToShit';
- import ReactDisqusThread from 'react-disqus-thread';
- import store, { getBlogPost, setBlogPost } from '../../store/store';
- import styles from './blog.styl';
- */
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
+import ReactDisqusThread from 'react-disqus-thread';
+import Spinner from '../spinner';
+import RequestWentToShit from '../errors/requestWentToShit';
+import { fetchBlogActionCreator } from '../../actions';
+import styles from './blog.styl';
 
-export default ({ id, title, excerpt, text }) => {
-  return <div>blogs here!</div>;
-};
+class Excerpts extends Component {
+  componentDidMount() {
+    const { fetchBlog, dispatch } = this.props;
 
-/*(
- <article className={styles.blogPost}>
- <header>
- <h1>{title}</h1>
- <p>{excerpt}</p>
- </header>
- <ReactMarkdown source={text}/>
- <ReactDisqusThread shortname="test" identifier={id}/>
- </article>
- );*/
+    fetchBlog(dispatch);
+  }
 
-/*
- export default observer(createClass({
- componentDidMount() {
- this.ajaxCallFinished = false;
+  render() {
+    const { data, fetching, error, id }  = this.props;
 
- getBlogPost(this.props.params.id)
- .then(blogPost => {
- this.ajaxCallFinished = true;
- this.ajaxCallStatus = 200;
- setBlogPost(blogPost);
- })
- .catch(error => {
- this.ajaxCallFinished = true;
- this.ajaxCallStatus = error.response.status;
- setBlogPost({ id: '3123213' })
- })
- },
+    if (fetching)
+      return <Spinner/>;
 
- render() {
- const blogPosts = store.blogPosts;
+    if (error)
+      return <RequestWentToShit status={data.response.status}/>;
 
- if (this.ajaxCallFinished) {
- if (this.ajaxCallStatus === 200) {
- const { id, title, excerpt, text } = blogPosts.find(blogPost => blogPost.id === this.props.params.id) || {};
- const props = {
- id,
- title,
- excerpt,
- text
- };
+    const { title, excerpt, text } = data;
 
- return <Blog {...props}/>;
- }
+    return (
+      <article className={styles.blogPost}>
+        <header>
+          <h1>{title}</h1>
+          <p>{excerpt}</p>
+        </header>
+        <ReactMarkdown source={text}/>
+        <ReactDisqusThread shortname="test" identifier={id}/>
+      </article>
+    );
+  }
+}
 
- return <RequestWentToShit/>;
- }
+export function mapStateToProps({ blog }) {
+  return { ...blog };
+}
 
- return <Spinner/>;
- }
- }));
- */
+export function mapDispatchToProps(dispatch, { params: { id } }) {
+  return { fetchBlog: fetchBlogActionCreator(id), dispatch };
+}
+
+export function mergeProps(stateProps, dispatchProps, { params: { id }}) {
+  return { ...stateProps, ...dispatchProps, id};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Excerpts)
