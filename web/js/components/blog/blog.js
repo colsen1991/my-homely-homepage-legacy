@@ -46,8 +46,4 @@ export function mapDispatchToProps(dispatch, { params: { id } }) {
   return { fetchBlog: fetchBlogActionCreator(id), dispatch };
 }
 
-export function mergeProps(stateProps, dispatchProps, { params: { id }}) {
-  return { ...stateProps, ...dispatchProps, id};
-}
-
 export default connect(mapStateToProps, mapDispatchToProps)(Excerpts)
