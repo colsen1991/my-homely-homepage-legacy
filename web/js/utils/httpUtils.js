@@ -12,25 +12,25 @@ function checkStatus(response) {
   }
 }
 
-function parseJSON(defaultIf204) {
+function parseJSON( defaultIfNoData) {
   return response => {
     if (response.status === 204)
-      return defaultIf204;
+      return defaultIfNoData;
 
     return response.json();
   }
 }
 
-function ajax(url, options, defaultIf204) {
+function ajax(url, options, defaultIfNoData) {
   return fetch(url, options)
     .then(checkStatus)
-    .then(parseJSON(defaultIf204))
+    .then(parseJSON(defaultIfNoData))
 }
 
-export function GET(url, options = {}, defaultIf204) {
-  return ajax(url, options, defaultIf204);
+export function GET(url, options = {}, defaultIfNoData) {
+  return ajax(url, options, defaultIfNoData);
 }
 
-export function POST(url, options, defaultIf204) {
-  return ajax(url, { ...options, method: 'post' }, defaultIf204);
+export function POST(url, options = {}, data, defaultIfNoData) {
+  return ajax(url, { ...options, method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }, defaultIfNoData);
 }

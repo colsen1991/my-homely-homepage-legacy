@@ -7,7 +7,7 @@ import {
   FETCH_BLOG,
   FETCH_BLOG_SUCCESSFUL,
   FETCH_BLOG_ERROR,
-  
+  SHOW_COMMENTS,
 } from './actions';
 
 export const initialState = {
@@ -20,11 +20,20 @@ export const initialState = {
   blog: {
     data: {},
     fetching: true,
-    error: false
+    error: false,
+    showComments: false
+  },
+  login: {
+    loggedIn: false,
+    posting: false,
+    error: false,
+    success: false,
+    username: '',
+    password: ''
   }
 };
 
-function excerpts(excerpts = initialState.excerpts, { type, payload, error }) {
+export function excerpts(excerpts = initialState.excerpts, { type, payload, error }) {
   switch (type) {
     case FETCH_EXCERPTS:
       return { ...excerpts, fetching: true, error };
@@ -37,21 +46,31 @@ function excerpts(excerpts = initialState.excerpts, { type, payload, error }) {
   }
 }
 
-function blog(blogs = initialState.blog, { type, payload, error }) {
+export function blog(blog = initialState.blog, { type, payload, error }) {
   switch (type) {
     case FETCH_BLOG:
-      return { ...blogs, fetching: true, error };
+      return { ...blog, fetching: true, error, showComments: false };
     case FETCH_BLOG_SUCCESSFUL:
-      return { ... blogs, fetching: false, error, data: payload };
+      return { ... blog, fetching: false, error, showComments: false, data: payload };
     case FETCH_BLOG_ERROR:
-      return { ...blogs, fetching: false, error, data: payload };
+      return { ...blog, fetching: false, error, showComments: false, data: payload };
+    case SHOW_COMMENTS:
+      return { ...blog, showComments: true };
     default:
-      return blogs;
+      return blog;
   }
+}
+
+function login(login = initialState.login, { type, payload = {}, error }) {
+  const data = payload.target;
+  console.log(data ? data.value : 'derp');
+
+  return login;
 }
 
 export default combineReducers({
   routing: routerReducer,
   excerpts,
-  blog
+  blog,
+  login
 });

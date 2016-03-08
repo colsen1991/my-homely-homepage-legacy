@@ -16,7 +16,7 @@ export default ({ history }) => (
       <Route path='blog/:id' component={BlogPost}/>
       <Route path='blog/*' component={BlogPost}/>
       <Route path='about' component={About}/>
-      <Route path='login' component={Login}/>
+      <Route path='supersecretlogin' component={Login}/>
       <Route path='*' component={PageNotFound}/>
     </Route>
   </Router>

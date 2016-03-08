@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import styles from './header.styl';
 
-export function doesToAndPathMatch(to, path = '/') {
-  if (to === '/')
-    return to === path;
+export function doesHrefAndPathMatch(href, path = '/') {
+  if (href === '/')
+    return href === path;
 
-  return path.indexOf(to) >= 0;
+  return path.indexOf(href) >= 0;
 }
 
 export const HeaderLink = ({ to, activePath, children }) => {
-  const isLinkActive = doesToAndPathMatch(to, activePath);
+  const isLinkActive = doesHrefAndPathMatch(to, activePath);
   const props = {
     className: classNames({
       [styles.activeLink]: isLinkActive,

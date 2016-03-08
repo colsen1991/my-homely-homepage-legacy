@@ -1,44 +1,65 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { post } from '../../utils/httpUtils';
+import {
+  loginActionCreator,
+  usernameChanged,
+  passwordChanged
+} from '../../actions';
 import styles from './login.styl';
 
-class LoginForm extends Component {
-  handleSubmit(event) {
-    event.preventDefault();
+export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUsernameChange, handlePasswordChange }) => {
+  let content;
 
-    const username = ReactDOM.findDOMNode(this.refs.username).value.trim();
-    const password = ReactDOM.findDOMNode(this.refs.password).value.trim();
-
-    if (!username || !password) {
-      return false;
-    }
-
-    const options = {
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    };
-
-    post('/api/login', options).then(data => {
-      localStorage[ 'token' ] = data.token;
-
-      browserHistory.push('/loginSuccesful');
-    });
-  }
-
-  render() {
-    return (
-      <form className={styles.login} onSubmit={this.handleSubmit.bind(this)}>
-        <h1>Login</h1>
-        <input type="text" placeholder="Username..." ref="username"/>
-        <input type="password" placeholder="Password..." ref="password"/>
-        <input type="submit" value="Login"/>
+  if (success) content = <p>You have logged in successfully. Click <Link to="/admin">here</Link> to go to the admin page.</p>;
+  else if (loggedIn) content = <p>You are already logged in...</p>;
+  else {
+    content = (
+      <form className={styles.form} onSubmit={doLogin}>
+        <input type="text" placeholder="Username..." onChange={handleUsernameChange}/>
+        <input type="password" placeholder="Password..." onChange={handlePasswordChange}/>
+        <input type="submit" value="Login" disabled={posting}/>
+        {error ? <p>There was an error during your login attempt. Please try again, fuckface.</p> : null}
       </form>
     );
   }
+
+  return (
+    <div className={styles.content}>
+      <h1>Login</h1>
+      {content}
+    </div>
+
+  );
+};
+
+export function mapStateToProps({ login }) {
+  return login;
 }
 
-const AlreadyLoggedIn = () => <p>You are already logged in...</p>;
+export function mapDispatchToProps(dispatch) {
+  return {
+    handleUsernameChange: event => dispatch(usernameChanged(event)),
+    handlePasswordChange: event => dispatch(passwordChanged(event)),
+    dispatch
+  };
+}
 
-export default ({ history }) => localStorage[ 'token' ] ? <AlreadyLoggedIn/> : <LoginForm history={history}/>;
+export function mergeProps({ loggedIn, error, posting, success, username, password }, { handleUsernameChange, handlePasswordChange, dispatch }, ignore) {
+  return {
+    loggedIn,
+    error,
+    posting,
+    success,
+    handleUsernameChange,
+    handlePasswordChange,
+    doLogin: event => {
+      event.preventDefault();
+
+      loginActionCreator(username, password)(dispatch);
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(LoginForm);

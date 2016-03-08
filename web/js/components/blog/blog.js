@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
-import ReactDisqusThread from 'react-disqus-thread';
+import Comments from '../comments/comments';
 import Spinner from '../spinner';
 import RequestWentToShit from '../errors/requestWentToShit';
 import { fetchBlogActionCreator } from '../../actions';
 import styles from './blog.styl';
 
-class Excerpts extends Component {
+class Blog extends Component {
   componentDidMount() {
-    const { fetchBlog, dispatch } = this.props;
-
-    fetchBlog(dispatch);
+    this.props.fetchBlog();
   }
 
   render() {
@@ -32,7 +30,7 @@ class Excerpts extends Component {
           <p>{excerpt}</p>
         </header>
         <ReactMarkdown source={text}/>
-        <ReactDisqusThread shortname="test" identifier={id}/>
+        <Comments shortname="test" identifier={id}/>
       </article>
     );
   }
@@ -43,7 +41,7 @@ export function mapStateToProps({ blog }) {
 }
 
 export function mapDispatchToProps(dispatch, { params: { id } }) {
-  return { fetchBlog: fetchBlogActionCreator(id), dispatch };
+  return { fetchBlog: () => fetchBlogActionCreator(id)(dispatch) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Excerpts)
+export default connect(mapStateToProps, mapDispatchToProps)(Blog)
