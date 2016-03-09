@@ -79,7 +79,7 @@ function login(login = initialState.login, { type, payload, error }) {
     case LOGIN:
       return { ...login, posting: true, error: false, success: false };
     case LOGIN_SUCCESS:
-      return { ...login, posting: false, error: false, success: true, loggedIn: true, token: payload.token };
+      return { ...initialState.login, success: true, loggedIn: true, token: payload.token };
     case LOGIN_ERROR:
       return { ...login, posting: false, error, success: false, loggedIn: false };
     case LOCATION_CHANGE:

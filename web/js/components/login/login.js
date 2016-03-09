@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { post } from '../../utils/httpUtils';
 import {
   loginActionCreator,
   usernameChanged,
@@ -20,7 +19,7 @@ export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUs
         <input type="text" placeholder="Username..." onChange={handleUsernameChange} disabled={posting}/>
         <input type="password" placeholder="Password..." onChange={handlePasswordChange} disabled={posting}/>
         <input type="submit" value="Login" disabled={posting}/>
-        {error ? <p>There was an error during your login attempt. Please try again, fuckface.</p> : null}
+        {error ? <p className={styles.error}>There was an error during your login attempt. Please try again, fuckface.</p> : null}
       </form>
     );
   }

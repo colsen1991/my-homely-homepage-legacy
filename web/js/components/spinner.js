@@ -1,7 +1,7 @@
 import React from 'react';
 import Spinner from 'react-spin';
 
-const config = {
+export const config = {
   lines: 11,
   length: 0,
   width: 9,
