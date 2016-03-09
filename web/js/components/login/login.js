@@ -17,8 +17,8 @@ export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUs
   else {
     content = (
       <form className={styles.form} onSubmit={doLogin}>
-        <input type="text" placeholder="Username..." onChange={handleUsernameChange}/>
-        <input type="password" placeholder="Password..." onChange={handlePasswordChange}/>
+        <input type="text" placeholder="Username..." onChange={handleUsernameChange} disabled={posting}/>
+        <input type="password" placeholder="Password..." onChange={handlePasswordChange} disabled={posting}/>
         <input type="submit" value="Login" disabled={posting}/>
         {error ? <p>There was an error during your login attempt. Please try again, fuckface.</p> : null}
       </form>

@@ -1,5 +1,8 @@
 import { createAction } from 'redux-actions';
-import { GET, POST } from './utils/httpUtils';
+import {
+  GET,
+  POST
+} from './utils/httpUtils';
 
 export const FETCH_EXCERPTS = 'FETCH_EXCERPTS';
 export const FETCH_EXCERPTS_SUCCESSFUL = 'FETCH_EXCERTPS_SUCCESSFUL';
@@ -31,16 +34,16 @@ export const loginError = createAction(LOGIN_ERROR);
 export const usernameChanged = createAction(USERNAME_CHANGED);
 export const passwordChanged = createAction(PASSWORD_CHANGED);
 
-function fetchData(dispatch, url, fetchAction, successAction, errorAction, defaultIfNoData = {}) {
-  dispatch(fetchAction());
+function fetchData(dispatch, url, startAction, successAction, errorAction, defaultIfNoData = {}) {
+  dispatch(startAction());
 
   return GET(url, {}, defaultIfNoData)
     .then(json => dispatch(successAction(json)))
     .catch(error => dispatch(errorAction(error)));
 }
 
-function postData(dispatch, url, data, fetchAction, successAction, errorAction, defaultIfNoData = {}) {
-  dispatch(fetchAction());
+function postData(dispatch, url, data, startAction, successAction, errorAction, defaultIfNoData = {}) {
+  dispatch(startAction());
 
   return POST(url, {}, data, defaultIfNoData)
     .then(json => dispatch(successAction(json)))
@@ -61,6 +64,6 @@ export const fetchBlogActionCreator = (id) => {
 
 export const loginActionCreator = (username, password) => {
   return dispatch => {
-    return postData(dispatch, '/api/secure/login', { username, password }, login, loginSuccess, loginError);
+    return postData(dispatch, '/api/login', { username, password }, login, loginSuccess, loginError);
   }
-}
+};
