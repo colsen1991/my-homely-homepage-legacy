@@ -22,11 +22,18 @@ export const initialState = {
   routing: {},
   excerpts: {
     data: [],
+    date: '',
     fetching: true,
     error: false
   },
   blog: {
-    data: {},
+    data: {
+      id: '',
+      title: '',
+      date: '',
+      excerpt: '',
+      text: ''
+    },
     fetching: true,
     error: false,
     showComments: false

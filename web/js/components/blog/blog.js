@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 import Comments from '../comments/comments';
 import Spinner from '../spinner';
@@ -21,12 +22,13 @@ class Blog extends Component {
     if (error)
       return <RequestWentToShit status={data.response.status}/>;
 
-    const { title, excerpt, text } = data;
+    const { title, date, author, excerpt, text } = data;
 
     return (
       <article className={styles.blogPost}>
         <header>
           <h1>{title}</h1>
+          <address>Published on <time pubDate dateTime={date} title={date}>{date}</time> by <Link rel="author" to="/about">{author}</Link></address>
           <p>{excerpt}</p>
         </header>
         <ReactMarkdown source={text}/>

@@ -33,31 +33,31 @@ export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUs
   );
 };
 
-export function mapStateToProps({ login }) {
-  return login;
+export function mapStateToProps({ login: { error, posting, success, username, password } }) {
+  return { error, posting, success, username, password };
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
     handleUsernameChange: event => dispatch(usernameChanged(event)),
     handlePasswordChange: event => dispatch(passwordChanged(event)),
+    doLoginWrapper: (username, password) => event => {
+      event.preventDefault();
+      
+      loginActionCreator(username, password)(dispatch)
+    },
     dispatch
   };
 }
 
-export function mergeProps({ loggedIn, error, posting, success, username, password }, { handleUsernameChange, handlePasswordChange, dispatch }, ignore) {
+export function mergeProps({ error, posting, success, username, password }, { handleUsernameChange, handlePasswordChange, doLoginWrapper }, ignore) {
   return {
-    loggedIn,
     error,
     posting,
     success,
     handleUsernameChange,
     handlePasswordChange,
-    doLogin: event => {
-      event.preventDefault();
-
-      loginActionCreator(username, password)(dispatch);
-    }
+    doLogin: doLoginWrapper(username, password)
   };
 }
 

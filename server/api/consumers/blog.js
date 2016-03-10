@@ -15,7 +15,7 @@ function getBlog(req, res) {
 }
 
 function getExcerpts(req, res) {
-  Blog.find({}, { id: 1, title: 1, excerpt: 1 }, (error, data) => {
+  Blog.find({}, { id: 1, title: 1, date: 1, excerpt: 1 }, (error, data) => {
     if (error) {
       wadsworth.logError(error);
       res.sendStatus(500);
