@@ -1,8 +1,12 @@
 html
   font-family 'Roboto Slab', serif
-  font-size 16px / 24px
+  font-size 16px
   overflow-y scroll
   color #F5F5F5
+
+@media screen and (max-width: 480px)
+  html
+    font-size 12px
 
 body, button, input, p, span, a, h1, h2, h3, header, footer, nav, div
   font-family inherit
@@ -10,6 +14,7 @@ body, button, input, p, span, a, h1, h2, h3, header, footer, nav, div
 input
   border none
 
+button,
 input[type="password"],
 input[type="text"]
   &:disabled
@@ -18,10 +23,10 @@ input[type="text"]
 input[type="submit"]
   cursor pointer
   background-color #FF6B00
-  color #F5F5F5
+  color #000000
 
   &:hover
-    color #000000
+    color #F5F5F5
 
   &:disabled
     background-color #965A1B
@@ -29,10 +34,10 @@ input[type="submit"]
 button
   background-color #FF6B00
   border none
-  color #F5F5F5
+  color #000000
 
   &:hover
-    color #000000
+    color #F5F5F5
 
 body
   background #171717

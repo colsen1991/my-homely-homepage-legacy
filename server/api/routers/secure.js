@@ -1,10 +1,12 @@
 const express = require('express');
-const authenticationConsumer = require('../consumers/authentication');
+const userConsumer = require('../consumers/user');
+const blogConsumer = require('../consumers/blog');
 const validateJwtMiddleware = require('../../middleware/validateJwt');
 
 const router = express.Router();
 
 router.use(validateJwtMiddleware);
-router.get('/users', authenticationConsumer.getUsers);
+router.get('/users', userConsumer.getUsers);
+router.get('/allBlogs', blogConsumer.getAllBlogs);
 
 module.exports = router;

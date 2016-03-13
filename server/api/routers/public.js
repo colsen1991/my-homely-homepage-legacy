@@ -1,6 +1,6 @@
 const express = require('express');
 const blogConsumer = require('../consumers/blog');
-const authenticationConsumer = require('../consumers/authentication');
+const authenticationConsumer = require('../consumers/user');
 
 const router = express.Router();
 

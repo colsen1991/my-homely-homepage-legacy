@@ -15,22 +15,26 @@ import {
   PASSWORD_CHANGED,
   LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  FETCH_ALL_BLOGS,
+  FETCH_ALL_BLOGS_SUCCESSFUL,
+  FETCH_ALL_BLOGS_ERROR
 } from './actions';
 
 export const initialState = {
   routing: {},
   excerpts: {
     data: [],
-    date: '',
     fetching: true,
     error: false
   },
   blog: {
     data: {
       id: '',
+      headerImageLink: '',
       title: '',
       date: '',
+      author: '',
       excerpt: '',
       text: ''
     },
@@ -46,6 +50,11 @@ export const initialState = {
     username: '',
     password: '',
     token: ''
+  },
+  allBlogs: {
+    data: [],
+    fetching: true,
+    error: false
   }
 };
 
@@ -96,9 +105,23 @@ function login(login = initialState.login, { type, payload, error }) {
   }
 }
 
+export function allBlogs(allBlogs = initialState.allBlogs, { type, payload, error }) {
+  switch (type) {
+    case FETCH_ALL_BLOGS:
+      return { ...allBlogs, fetching: true, error: false };
+    case FETCH_ALL_BLOGS_SUCCESSFUL:
+      return { ... allBlogs, fetching: false, error: false, data: payload };
+    case FETCH_ALL_BLOGS_ERROR:
+      return { ...allBlogs, fetching: false, error, data: payload };
+    default:
+      return allBlogs;
+  }
+}
+
 export default combineReducers({
   routing: routerReducer,
   excerpts,
   blog,
-  login
+  login,
+  allBlogs
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import {
   loginActionCreator,
   usernameChanged,
@@ -11,13 +11,13 @@ import styles from './login.styl';
 export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUsernameChange, handlePasswordChange }) => {
   let content;
 
-  if (success) content = <p>You have logged in successfully. Click <Link to="/admin">here</Link> to go to the admin page.</p>;
+  if (success) browserHistory.push('/admin');
   else if (loggedIn) content = <p>You are already logged in...</p>;
   else {
     content = (
       <form className={styles.form} onSubmit={doLogin}>
-        <input type="text" placeholder="Username..." onChange={handleUsernameChange} disabled={posting}/>
-        <input type="password" placeholder="Password..." onChange={handlePasswordChange} disabled={posting}/>
+        <input type="text" placeholder="Username..." onChange={handleUsernameChange} disabled={posting} required/>
+        <input type="password" placeholder="Password..." onChange={handlePasswordChange} disabled={posting} required/>
         <input type="submit" value="Login" disabled={posting}/>
         {error ? <p className={styles.error}>There was an error during your login attempt. Please try again, fuckface.</p> : null}
       </form>
@@ -43,7 +43,7 @@ export function mapDispatchToProps(dispatch) {
     handlePasswordChange: event => dispatch(passwordChanged(event)),
     doLoginWrapper: (username, password) => event => {
       event.preventDefault();
-      
+
       loginActionCreator(username, password)(dispatch)
     },
     dispatch

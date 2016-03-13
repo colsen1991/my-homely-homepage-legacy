@@ -12,7 +12,7 @@ function checkStatus(response) {
   }
 }
 
-function parseJSON( defaultIfNoData) {
+function parseJSON(defaultIfNoData) {
   return response => {
     if (response.status === 204)
       return defaultIfNoData;

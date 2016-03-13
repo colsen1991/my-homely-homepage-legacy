@@ -5,8 +5,8 @@ import {
 } from './utils/httpUtils';
 
 export const FETCH_EXCERPTS = 'FETCH_EXCERPTS';
-export const FETCH_EXCERPTS_SUCCESSFUL = 'FETCH_EXCERTPS_SUCCESSFUL';
-export const FETCH_EXCERPTS_ERROR = 'FETCH_EXCERTPS_ERROR';
+export const FETCH_EXCERPTS_SUCCESSFUL = 'FETCH_EXCERPTS_SUCCESSFUL';
+export const FETCH_EXCERPTS_ERROR = 'FETCH_EXCERPTS_ERROR';
 
 export const FETCH_BLOG = 'FETCH_BLOG';
 export const FETCH_BLOG_SUCCESSFUL = 'FETCH_BLOG_SUCCESSFUL';
@@ -18,6 +18,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const USERNAME_CHANGED = 'USERNAME_CHANGED';
 export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
+
+export const FETCH_ALL_BLOGS = 'FETCH_ALL_BLOGS';
+export const FETCH_ALL_BLOGS_SUCCESSFUL = 'FETCH_ALL_BLOGS_SUCCESSFUL';
+export const FETCH_ALL_BLOGS_ERROR = 'FETCH_ALL_BLOGS_ERROR';
 
 export const fetchExcerpts = createAction(FETCH_EXCERPTS);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
@@ -34,25 +38,29 @@ export const loginError = createAction(LOGIN_ERROR);
 export const usernameChanged = createAction(USERNAME_CHANGED);
 export const passwordChanged = createAction(PASSWORD_CHANGED);
 
-function fetchData(dispatch, url, startAction, successAction, errorAction, defaultIfNoData = {}) {
+export const fetchAllBlogs = createAction(FETCH_ALL_BLOGS);
+export const fetchAllBlogsSuccess = createAction(FETCH_ALL_BLOGS_SUCCESSFUL);
+export const fetchAllBlogsError = createAction(FETCH_ALL_BLOGS_ERROR);
+
+function fetchData(dispatch, url, startAction, successAction, errorAction, options = {}, defaultIfNoData = {}) {
   dispatch(startAction());
 
-  return GET(url, {}, defaultIfNoData)
+  return GET(url, options, defaultIfNoData)
     .then(json => dispatch(successAction(json)))
     .catch(error => dispatch(errorAction(error)));
 }
 
-function postData(dispatch, url, data, startAction, successAction, errorAction, defaultIfNoData = {}) {
+function postData(dispatch, url, data, startAction, successAction, errorAction, options = {}, defaultIfNoData = {}) {
   dispatch(startAction());
 
-  return POST(url, {}, data, defaultIfNoData)
+  return POST(url, options, data, defaultIfNoData)
     .then(json => dispatch(successAction(json)))
     .catch(error => dispatch(errorAction(error)));
 }
 
 export const fetchExcerptsActionCreator = () => {
   return dispatch => {
-    return fetchData(dispatch, '/api/blog/excerpts', fetchExcerpts, fetchExcerptsSuccess, fetchExcerptsError, []);
+    return fetchData(dispatch, '/api/blog/excerpts', fetchExcerpts, fetchExcerptsSuccess, fetchExcerptsError, {}, []);
   }
 };
 
@@ -65,5 +73,17 @@ export const fetchBlogActionCreator = (id) => {
 export const loginActionCreator = (username, password) => {
   return dispatch => {
     return postData(dispatch, '/api/login', { username, password }, login, loginSuccess, loginError);
+  }
+};
+
+export const fetchAllBlogsActionCreator = (token) => {
+  return dispatch => {
+    const options = {
+      headers: {
+        Authorization: token
+      }
+    };
+
+    return fetchData(dispatch, '/api/secure/allBlogs', fetchAllBlogs, fetchAllBlogsSuccess, fetchAllBlogsError, options, []);
   }
 };

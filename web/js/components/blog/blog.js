@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
+import Excerpt from './excerpt';
 import Comments from '../comments/comments';
 import Spinner from '../spinner';
 import RequestWentToShit from '../errors/requestWentToShit';
@@ -22,15 +22,11 @@ class Blog extends Component {
     if (error)
       return <RequestWentToShit status={data.response.status}/>;
 
-    const { title, date, author, excerpt, text } = data;
+    const { text, ...excerpt } = data;
 
     return (
-      <article className={styles.blogPost}>
-        <header>
-          <h1>{title}</h1>
-          <address>Published on <time pubDate dateTime={date} title={date}>{date}</time> by <Link rel="author" to="/about">{author}</Link></address>
-          <p>{excerpt}</p>
-        </header>
+      <article className={styles.blog}>
+        <Excerpt id={id} linkable={false} {...excerpt}/>
         <ReactMarkdown source={text}/>
         <Comments shortname="test" identifier={id}/>
       </article>
