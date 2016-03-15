@@ -1,18 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import {
-  loginActionCreator,
+  login,
   usernameChanged,
   passwordChanged
 } from '../../actions';
 import styles from './login.styl';
 
-export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUsernameChange, handlePasswordChange }) => {
+export const LoginForm = ({ loggedIn, error, posting, doLogin, handleUsernameChange, handlePasswordChange }) => {
   let content;
 
-  if (success) browserHistory.push('/admin');
-  else if (loggedIn) content = <p>You are already logged in...</p>;
+  if (loggedIn) content = <p>You are already logged in...</p>;
   else {
     content = (
       <form className={styles.form} onSubmit={doLogin}>
@@ -32,8 +30,8 @@ export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUs
   );
 };
 
-export function mapStateToProps({ login: { error, posting, success, username, password } }) {
-  return { error, posting, success, username, password };
+export function mapStateToProps({ login: { error, posting, username, password } }) {
+  return { error, posting, username, password };
 }
 
 export function mapDispatchToProps(dispatch) {
@@ -43,16 +41,15 @@ export function mapDispatchToProps(dispatch) {
     doLoginWrapper: (username, password) => event => {
       event.preventDefault();
 
-      loginActionCreator(username, password)(dispatch)
+      dispatch(login(username, password));
     }
   };
 }
 
-export function mergeProps({ error, posting, success, username, password }, { handleUsernameChange, handlePasswordChange, doLoginWrapper }, ignore) {
+export function mergeProps({ error, posting, username, password }, { handleUsernameChange, handlePasswordChange, doLoginWrapper }, ignore) {
   return {
     error,
     posting,
-    success,
     handleUsernameChange,
     handlePasswordChange,
     doLogin: doLoginWrapper(username, password)

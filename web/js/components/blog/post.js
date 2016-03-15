@@ -5,7 +5,7 @@ import Excerpt from './excerpt';
 import Comments from '../comments/comments';
 import Spinner from '../spinner';
 import RequestWentToShit from '../errors/requestWentToShit';
-import { fetchBlogActionCreator } from '../../actions';
+import { fetchBlog } from '../../actions';
 import styles from './blog.styl';
 
 class Blog extends Component {
@@ -39,7 +39,7 @@ export function mapStateToProps({ blog }) {
 }
 
 export function mapDispatchToProps(dispatch, { params: { id } }) {
-  return { fetchBlog: () => fetchBlogActionCreator(id)(dispatch) };
+  return { fetchBlog: () => dispatch(fetchBlog(id)) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog)

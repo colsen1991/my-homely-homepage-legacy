@@ -1,3 +1,5 @@
+import { AJAX } from '../actions';
+
 function status200ish(status) {
   return status >= 200 && status < 300;
 }
@@ -27,10 +29,20 @@ function ajax(url, options, defaultIfNoData) {
     .then(parseJSON(defaultIfNoData))
 }
 
-export function GET(url, options = {}, defaultIfNoData) {
-  return ajax(url, options, defaultIfNoData);
-}
+export default function ajaxMiddleware({ dispatch, getState }) {
+  return next => action => {
+    const { type, payload } = action;
 
-export function POST(url, options = {}, data, defaultIfNoData) {
-  return ajax(url, { ...options, method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }, defaultIfNoData);
+    if (type !== AJAX) return next(action);
+
+    const { url, options = {}, auth, defaultIfNoData = {}, actions: { start, success, error } } = payload;
+
+    if (auth)
+      options.headers = { ...options.headers, Authorization: getState().login.token };
+
+    dispatch(start());
+    ajax(url, options, defaultIfNoData)
+      .then(json => dispatch(success(json)))
+      .catch(err => dispatch(error(err)));
+  };
 }

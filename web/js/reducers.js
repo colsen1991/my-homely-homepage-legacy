@@ -4,19 +4,19 @@ import {
   LOCATION_CHANGE
 } from 'react-router-redux';
 import {
-  FETCH_EXCERPTS,
+  FETCH_EXCERPTS_START,
   FETCH_EXCERPTS_SUCCESSFUL,
   FETCH_EXCERPTS_ERROR,
-  FETCH_BLOG,
+  FETCH_BLOG_START,
   FETCH_BLOG_SUCCESSFUL,
   FETCH_BLOG_ERROR,
   SHOW_COMMENTS,
   USERNAME_CHANGED,
   PASSWORD_CHANGED,
-  LOGIN,
+  LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  FETCH_ALL_BLOGS,
+  FETCH_ALL_BLOGS_START,
   FETCH_ALL_BLOGS_SUCCESSFUL,
   FETCH_ALL_BLOGS_ERROR
 } from './actions';
@@ -60,7 +60,7 @@ export const initialState = {
 
 export function excerpts(excerpts = initialState.excerpts, { type, payload, error }) {
   switch (type) {
-    case FETCH_EXCERPTS:
+    case FETCH_EXCERPTS_START:
       return { ...excerpts, fetching: true, error: false };
     case FETCH_EXCERPTS_SUCCESSFUL:
       return { ... excerpts, fetching: false, error: false, data: payload };
@@ -73,7 +73,7 @@ export function excerpts(excerpts = initialState.excerpts, { type, payload, erro
 
 export function blog(blog = initialState.blog, { type, payload, error }) {
   switch (type) {
-    case FETCH_BLOG:
+    case FETCH_BLOG_START:
       return { ...blog, fetching: true, error: false, showComments: false };
     case FETCH_BLOG_SUCCESSFUL:
       return { ... blog, fetching: false, error: false, showComments: false, data: payload };
@@ -92,7 +92,7 @@ function login(login = initialState.login, { type, payload, error }) {
       return { ...login, username: payload.target.value };
     case PASSWORD_CHANGED:
       return { ...login, password: payload.target.value };
-    case LOGIN:
+    case LOGIN_START:
       return { ...login, posting: true, error: false, success: false };
     case LOGIN_SUCCESS:
       return { ...initialState.login, success: true, loggedIn: true, token: payload.token };
@@ -107,7 +107,7 @@ function login(login = initialState.login, { type, payload, error }) {
 
 export function allBlogs(allBlogs = initialState.allBlogs, { type, payload, error }) {
   switch (type) {
-    case FETCH_ALL_BLOGS:
+    case FETCH_ALL_BLOGS_START:
       return { ...allBlogs, fetching: true, error: false };
     case FETCH_ALL_BLOGS_SUCCESSFUL:
       return { ... allBlogs, fetching: false, error: false, data: payload };

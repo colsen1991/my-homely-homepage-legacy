@@ -5,15 +5,15 @@ import {
 } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-import promise from 'redux-promise';
 import createLogger from 'redux-logger';
+import ajaxMiddleware from './middleware/ajaxMiddleware';
 import reducers from './reducers';
 
 export default (history, initialState = {}) => {
   const store = createStore(
     reducers,
     initialState,
-    compose(applyMiddleware(routerMiddleware(history), thunk, promise, createLogger()))
+    compose(applyMiddleware(routerMiddleware(history), thunk, ajaxMiddleware, createLogger()))
   );
 
   if (module.hot) {

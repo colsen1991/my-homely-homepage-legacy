@@ -1,89 +1,109 @@
 import { createAction } from 'redux-actions';
-import {
-  GET,
-  POST
-} from './utils/httpUtils';
+import { browserHistory } from 'react-router';
 
-export const FETCH_EXCERPTS = 'FETCH_EXCERPTS';
+export const AJAX = 'AJAX';
+
+export const FETCH_EXCERPTS_START = 'FETCH_EXCERPTS_START';
 export const FETCH_EXCERPTS_SUCCESSFUL = 'FETCH_EXCERPTS_SUCCESSFUL';
 export const FETCH_EXCERPTS_ERROR = 'FETCH_EXCERPTS_ERROR';
 
-export const FETCH_BLOG = 'FETCH_BLOG';
+export const FETCH_BLOG_START = 'FETCH_BLOG_START';
 export const FETCH_BLOG_SUCCESSFUL = 'FETCH_BLOG_SUCCESSFUL';
 export const FETCH_BLOG_ERROR = 'FETCH_BLOG_ERROR';
 export const SHOW_COMMENTS = 'SHOW_COMMENTS';
 
-export const LOGIN = 'LOGIN';
+export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const USERNAME_CHANGED = 'USERNAME_CHANGED';
 export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
 
-export const FETCH_ALL_BLOGS = 'FETCH_ALL_BLOGS';
+export const FETCH_ALL_BLOGS_START = 'FETCH_ALL_BLOGS_START';
 export const FETCH_ALL_BLOGS_SUCCESSFUL = 'FETCH_ALL_BLOGS_SUCCESSFUL';
 export const FETCH_ALL_BLOGS_ERROR = 'FETCH_ALL_BLOGS_ERROR';
 
-export const fetchExcerpts = createAction(FETCH_EXCERPTS);
+export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
 export const fetchExcerptsError = createAction(FETCH_EXCERPTS_ERROR);
+export const fetchExcerpts = () => {
+  return {
+    type: AJAX,
+    payload: {
+      url: '/api/blog/excerpts',
+      defaultIfNoData: [],
+      actions: {
+        start: fetchExcerptsStart,
+        success: fetchExcerptsSuccess,
+        error: fetchExcerptsError
+      }
+    }
+  };
+};
 
-export const fetchBlog = createAction(FETCH_BLOG);
+export const fetchBlogStart = createAction(FETCH_BLOG_START);
 export const fetchBlogSuccess = createAction(FETCH_BLOG_SUCCESSFUL);
 export const fetchBlogError = createAction(FETCH_BLOG_ERROR);
 export const showComments = createAction(SHOW_COMMENTS);
+export const fetchBlog = (id) => {
+  return {
+    type: AJAX,
+    payload: {
+      url: `/api/blog/${id}`,
+      actions: {
+        start: fetchBlogStart,
+        success: fetchBlogSuccess,
+        error: fetchBlogError
+      }
+    }
+  };
+};
 
-export const login = createAction(LOGIN);
-export const loginSuccess = createAction(LOGIN_SUCCESS);
+export const loginStart = createAction(LOGIN_START);
+export const loginSuccess = (payload) => {
+  return dispatch => {
+    dispatch(loginActualSuccess(payload));
+
+    browserHistory.push('/admin');
+  }
+};
+export const loginActualSuccess = createAction(LOGIN_SUCCESS);
 export const loginError = createAction(LOGIN_ERROR);
 export const usernameChanged = createAction(USERNAME_CHANGED);
 export const passwordChanged = createAction(PASSWORD_CHANGED);
+export const login = (username, password) => {
+  return {
+    type: AJAX,
+    payload: {
+      url: '/api/login',
+      options: {
+        method: 'post',
+        body: JSON.stringify({username, password}),
+        headers: { 'Content-Type': 'application/json' }
+      },
+      actions: {
+        start: loginStart,
+        success: loginSuccess,
+        error: loginError
+      }
+    }
+  };
+};
 
-export const fetchAllBlogs = createAction(FETCH_ALL_BLOGS);
+export const fetchAllBlogsStart = createAction(FETCH_ALL_BLOGS_START);
 export const fetchAllBlogsSuccess = createAction(FETCH_ALL_BLOGS_SUCCESSFUL);
 export const fetchAllBlogsError = createAction(FETCH_ALL_BLOGS_ERROR);
-
-function fetchData(dispatch, url, startAction, successAction, errorAction, options = {}, defaultIfNoData = {}) {
-  dispatch(startAction());
-
-  return GET(url, options, defaultIfNoData)
-    .then(json => dispatch(successAction(json)))
-    .catch(error => dispatch(errorAction(error)));
-}
-
-function postData(dispatch, url, data, startAction, successAction, errorAction, options = {}, defaultIfNoData = {}) {
-  dispatch(startAction());
-
-  return POST(url, options, data, defaultIfNoData)
-    .then(json => dispatch(successAction(json)))
-    .catch(error => dispatch(errorAction(error)));
-}
-
-export const fetchExcerptsActionCreator = () => {
-  return dispatch => {
-    return fetchData(dispatch, '/api/blog/excerpts', fetchExcerpts, fetchExcerptsSuccess, fetchExcerptsError, {}, []);
-  }
-};
-
-export const fetchBlogActionCreator = (id) => {
-  return dispatch => {
-    return fetchData(dispatch, `/api/blog/${id}`, fetchBlog, fetchBlogSuccess, fetchBlogError);
-  }
-};
-
-export const loginActionCreator = (username, password) => {
-  return dispatch => {
-    return postData(dispatch, '/api/login', { username, password }, login, loginSuccess, loginError);
-  }
-};
-
-export const fetchAllBlogsActionCreator = () => {
-  return (dispatch, getState) => {
-    const options = {
-      headers: {
-        Authorization: getState().login.token
+export const fetchAllBlogs = () => {
+  return {
+    type: AJAX,
+    payload: {
+      url: '/api/secure/allBlogs',
+      auth: true,
+      defaultIfNoData: [],
+      actions: {
+        start: fetchAllBlogsStart,
+        success: fetchAllBlogsSuccess,
+        error: fetchAllBlogsError
       }
-    };
-
-    return fetchData(dispatch, '/api/secure/allBlogs', fetchAllBlogs, fetchAllBlogsSuccess, fetchAllBlogsError, options, []);
-  }
+    }
+  };
 };

@@ -7,7 +7,7 @@ import Root from './components/root';
 import '../css/app.styl';
 
 window.onerror = () => {
-  console.error('js error!'); // temp
+  console.error('js error!'); // TODO temp
 };
 
 const store = createStore(browserHistory);

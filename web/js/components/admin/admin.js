@@ -4,7 +4,7 @@ import {
   browserHistory
 } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchAllBlogsActionCreator } from '../../actions';
+import { fetchAllBlogs } from '../../actions';
 import Spinner from '../spinner';
 import RequestWentToShit from '../errors/requestWentToShit';
 import styles from './admin.styl';
@@ -73,4 +73,4 @@ function mapStateToProps({ login: { loggedIn }, allBlogs }) {
   return { loggedIn, ...allBlogs };
 }
 
-export default connect(mapStateToProps, { fetchAllBlogs: fetchAllBlogsActionCreator })(Admin);
+export default connect(mapStateToProps, { fetchAllBlogs: fetchAllBlogs })(Admin);

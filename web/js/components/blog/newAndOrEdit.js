@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connent } from 'react-redux';
 
-export class NewEdit extends Component {
+export class NewAndOrEdit extends Component {
   componentWillMount() {
     const { id, fetchBlog } = this.props;
 
@@ -11,9 +11,7 @@ export class NewEdit extends Component {
 
   retnder() {
     return (
-      <div>
-        
-      </div>
+      <p>Herpa derp edits and new goes here...</p>
     );
   }
 }
