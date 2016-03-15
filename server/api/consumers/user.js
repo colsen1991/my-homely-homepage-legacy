@@ -11,7 +11,11 @@ function login(req, res) {
       res.sendStatus(401);
     } else {
       const token = jwt.sign({ username: data.username }, req.app.get('credentials').key, { expiresIn: 1440 });
-      res.send({ token: token });
+      res.send({
+        token: token,
+        username: data.username,
+        name: data.name
+      });
     }
   });
 }

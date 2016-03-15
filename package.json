@@ -38,6 +38,8 @@
     "babel-preset-react-hmre": "^1.0.0",
     "babel-preset-stage-2": "^6.5.0",
     "css-loader": "^0.23.1",
+    "exports-loader": "^0.6.3",
+    "imports-loader": "^0.6.5",
     "json-loader": "^0.5.4",
     "nodemon": "^1.9.1",
     "react-transform-hmr": "^1.0.2",
@@ -51,6 +53,7 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "classnames": "^2.2.3",
+    "es6-promise": "^3.1.2",
     "express": "^4.13.4",
     "history": "^2.0.0",
     "jsonwebtoken": "^5.7.0",

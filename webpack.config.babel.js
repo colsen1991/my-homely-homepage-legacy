@@ -31,6 +31,10 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      'Promise': 'es6-promise',
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    })
   ]
 };

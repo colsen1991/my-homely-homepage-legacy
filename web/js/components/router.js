@@ -7,7 +7,7 @@ import {
 import App from './app';
 import FrontPage from './frontPage';
 import BlogList from './blog/excerpts';
-import BlogPost from './blog/blog';
+import BlogPost from './blog/post';
 import About from './about';
 import Admin from './admin/admin';
 import Login from './login/login';

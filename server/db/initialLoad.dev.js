@@ -15,7 +15,8 @@ for (var i = 1; i <= 10; i++) {
 
 db.users.insert({
   username: 'admin',
-  password: 'Password1'
+  password: 'Password1',
+  name: 'Christer Olsen'
 });
 
 

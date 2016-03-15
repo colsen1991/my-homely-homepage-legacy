@@ -26,7 +26,6 @@ export const LoginForm = ({ loggedIn, error, posting, success, doLogin, handleUs
 
   return (
     <div className={styles.content}>
-      <h1>Login</h1>
       {content}
     </div>
 
@@ -45,8 +44,7 @@ export function mapDispatchToProps(dispatch) {
       event.preventDefault();
 
       loginActionCreator(username, password)(dispatch)
-    },
-    dispatch
+    }
   };
 }
 

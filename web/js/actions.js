@@ -76,11 +76,11 @@ export const loginActionCreator = (username, password) => {
   }
 };
 
-export const fetchAllBlogsActionCreator = (token) => {
-  return dispatch => {
+export const fetchAllBlogsActionCreator = () => {
+  return (dispatch, getState) => {
     const options = {
       headers: {
-        Authorization: token
+        Authorization: getState().login.token
       }
     };
 

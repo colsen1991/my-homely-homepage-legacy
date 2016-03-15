@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 module.exports = mongoose.model('Blog', new mongoose.Schema({
   id: String,
+  headerImageLink: String,
   title: String,
+  date: String,
+  author: String,
   excerpt: String,
-  text: String
+  text: String,
+  published: Boolean
 }));

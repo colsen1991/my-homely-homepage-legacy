@@ -14,7 +14,7 @@ export const Linkable = ({ linkable, to, children }) => {
   return <div>{children}</div>;
 };
 
-export default ({ id, title, date, excerpt, author, linkable = true, headerImageLink }) => {
+export default ({ id, title, date, excerpt, author, linkable = true, headerImageLink, showLine }) => {
   const formattedDate = new Date(date).toUTCString();
 
   return (

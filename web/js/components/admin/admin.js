@@ -28,7 +28,7 @@ export const BlogTable = ({ blogs }) => {
         blogs.sort(sortByDate).map(({ id, title, date, published }) => {
           return (
             <tr key={id}>
-              <td><Link to={`/admin/blog/${id}`}>{title}</Link></td>
+              <td><Link to={`/editBlog/${id}`}>{title}</Link></td>
               <td>{new Date(date).toUTCString()}</td>
               <td>{published ? 'Yes' : 'No'}</td>
             </tr>
@@ -62,26 +62,15 @@ export class Admin extends Component {
 
     return (
       <div className={styles.admin}>
-        <h1>Admin</h1>
-        <Link to="/admin/newBlog" className={styles.newBlogLink}>Write new Blog post</Link>
+        <Link to="/newBlog" className={styles.newBlogLink}>Write new Blog post</Link>
         <BlogTable blogs={data}/>
       </div>
     );
   }
 }
 
-function mapStateToProps({ login: { loggedIn, token }, allBlogs }) {
-  return { loggedIn, token, ...allBlogs };
+function mapStateToProps({ login: { loggedIn }, allBlogs }) {
+  return { loggedIn, ...allBlogs };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchAllBlogsWrapper: (token) => () => fetchAllBlogsActionCreator(token)(dispatch)
-  }
-}
-
-function mergeProps({ token, ...stateProps }, { fetchAllBlogsWrapper }, ignore) {
-  return { ...stateProps, fetchAllBlogs: fetchAllBlogsWrapper(token) };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Admin);
+export default connect(mapStateToProps, { fetchAllBlogs: fetchAllBlogsActionCreator })(Admin);
