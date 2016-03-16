@@ -11,6 +11,7 @@ import BlogPost from './blog/post';
 import About from './about';
 import Admin from './admin/admin';
 import Login from './login/login';
+import NewOrEdit from './blog/newOrEdit';
 import PageNotFound from './errors/404';
 
 export default ({ history }) => (
@@ -23,6 +24,8 @@ export default ({ history }) => (
       <Route path='about' component={About}/>
       <Route path='login' component={Login}/>
       <Route path='admin' component={Admin}/>
+      <Route path='editBlog/:id' component={NewOrEdit}/>
+      <Route path='newBlog' component={NewOrEdit}/>
       <Route path='*' component={PageNotFound}/>
     </Route>
   </Router>

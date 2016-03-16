@@ -18,7 +18,10 @@ import {
   LOGIN_ERROR,
   FETCH_ALL_BLOGS_START,
   FETCH_ALL_BLOGS_SUCCESSFUL,
-  FETCH_ALL_BLOGS_ERROR
+  FETCH_ALL_BLOGS_ERROR,
+  FETCH_BLOG_FOR_EDITING_START,
+  FETCH_BLOG_FOR_EDITING_SUCCESSFUL,
+  FETCH_BLOG_FOR_EDITING_ERROR
 } from './actions';
 
 export const initialState = {
@@ -55,6 +58,22 @@ export const initialState = {
     data: [],
     fetching: true,
     error: false
+  },
+  forEditing: {
+    data: {
+      id: '',
+      headerImageLink: '',
+      title: '',
+      date: '',
+      author: '',
+      excerpt: '',
+      text: '',
+      published: false
+    },
+    fetching: true,
+    errorFetching: false,
+    saving: false,
+    errorSaving: false
   }
 };
 
@@ -115,6 +134,21 @@ export function allBlogs(allBlogs = initialState.allBlogs, { type, payload, erro
       return { ...allBlogs, fetching: false, error, data: payload };
     default:
       return allBlogs;
+  }
+}
+
+export function blog(blog = initialState.blog, { type, payload, error }) {
+  switch (type) {
+    case FETCH_BLOG_START:
+      return { ...blog, fetching: true, error: false, showComments: false };
+    case FETCH_BLOG_SUCCESSFUL:
+      return { ... blog, fetching: false, error: false, showComments: false, data: payload };
+    case FETCH_BLOG_ERROR:
+      return { ...blog, fetching: false, error, showComments: false, data: payload };
+    case SHOW_COMMENTS:
+      return { ...blog, showComments: true };
+    default:
+      return blog;
   }
 }
 

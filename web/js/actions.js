@@ -22,6 +22,10 @@ export const FETCH_ALL_BLOGS_START = 'FETCH_ALL_BLOGS_START';
 export const FETCH_ALL_BLOGS_SUCCESSFUL = 'FETCH_ALL_BLOGS_SUCCESSFUL';
 export const FETCH_ALL_BLOGS_ERROR = 'FETCH_ALL_BLOGS_ERROR';
 
+export const FETCH_BLOG_FOR_EDITING_START = 'FETCH_BLOG_FOR_EDITING_START';
+export const FETCH_BLOG_FOR_EDITING_SUCCESSFUL = 'FETCH_BLOG_FOR_EDITING_SUCCESSFUL';
+export const FETCH_BLOG_FOR_EDITING_ERROR = 'FETCH_BLOG_FOR_EDITING_ERROR';
+
 export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
 export const fetchExcerptsError = createAction(FETCH_EXCERPTS_ERROR);
@@ -103,6 +107,23 @@ export const fetchAllBlogs = () => {
         start: fetchAllBlogsStart,
         success: fetchAllBlogsSuccess,
         error: fetchAllBlogsError
+      }
+    }
+  };
+};
+
+export const fetchBlogForEditingStart = createAction(FETCH_BLOG_FOR_EDITING_START);
+export const fetchBlogForEditingSuccess = createAction(FETCH_BLOG_FOR_EDITING_SUCCESSFUL);
+export const fetchBlogForEditingError = createAction(FETCH_BLOG_FOR_EDITING_ERROR);
+export const fetchBlogForEditing = (id) => {
+  return {
+    type: AJAX,
+    payload: {
+      url: `/api/secure/blog/${id}`,
+      actions: {
+        start: fetchBlogForEditingStart,
+        success: fetchBlogForEditingSuccess,
+        error: fetchBlogForEditingError
       }
     }
   };
