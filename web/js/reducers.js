@@ -137,16 +137,16 @@ export function allBlogs(allBlogs = initialState.allBlogs, { type, payload, erro
   }
 }
 
-export function blog(blog = initialState.blog, { type, payload, error }) {
+export function forEditing(blog = initialState.forEditing, { type, payload, error }) {
   switch (type) {
-    case FETCH_BLOG_START:
-      return { ...blog, fetching: true, error: false, showComments: false };
-    case FETCH_BLOG_SUCCESSFUL:
-      return { ... blog, fetching: false, error: false, showComments: false, data: payload };
-    case FETCH_BLOG_ERROR:
-      return { ...blog, fetching: false, error, showComments: false, data: payload };
-    case SHOW_COMMENTS:
-      return { ...blog, showComments: true };
+    case FETCH_BLOG_FOR_EDITING_START:
+      return { ...blog, fetching: true, errorFetching: false };
+    case FETCH_BLOG_FOR_EDITING_SUCCESSFUL:
+      return { ... blog, fetching: false, errorFetching: false, data: payload };
+    case FETCH_BLOG_FOR_EDITING_ERROR:
+      return { ...blog, fetching: false, errorFetching: error, data: payload };
+    case LOCATION_CHANGE:
+      return initialState.forEditing;
     default:
       return blog;
   }
@@ -157,5 +157,6 @@ export default combineReducers({
   excerpts,
   blog,
   login,
-  allBlogs
+  allBlogs,
+  forEditing
 });

@@ -40,6 +40,20 @@ function getAllBlogs(req, res) {
   });
 }
 
+function getBlogForEditing(req, res) {
+  Blog.findOne({ id: req.params.id }, { _id: 0 }, (error, data) => {
+    if (error) {
+      wadsworth.logError(error);
+      res.sendStatus(500);
+    } else if (data) {
+      res.send(data);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+}
+
 exports.getBlog = getBlog;
 exports.getExcerpts = getExcerpts;
 exports.getAllBlogs = getAllBlogs;
+exports.getBlogForEditing = getBlogForEditing;

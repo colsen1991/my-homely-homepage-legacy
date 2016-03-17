@@ -120,6 +120,7 @@ export const fetchBlogForEditing = (id) => {
     type: AJAX,
     payload: {
       url: `/api/secure/blog/${id}`,
+      auth: true,
       actions: {
         start: fetchBlogForEditingStart,
         success: fetchBlogForEditingSuccess,
