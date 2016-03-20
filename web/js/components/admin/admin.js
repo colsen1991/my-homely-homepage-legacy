@@ -19,7 +19,7 @@ export const BlogTable = ({ blogs }) => {
       <thead>
       <tr>
         <td><strong>Title</strong></td>
-        <td><strong>Date</strong></td>
+        <td><strong>Date Written</strong></td>
         <td><strong>Published</strong></td>
       </tr>
       </thead>

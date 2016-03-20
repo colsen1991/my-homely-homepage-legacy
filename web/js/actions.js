@@ -25,6 +25,11 @@ export const FETCH_ALL_BLOGS_ERROR = 'FETCH_ALL_BLOGS_ERROR';
 export const FETCH_BLOG_FOR_EDITING_START = 'FETCH_BLOG_FOR_EDITING_START';
 export const FETCH_BLOG_FOR_EDITING_SUCCESSFUL = 'FETCH_BLOG_FOR_EDITING_SUCCESSFUL';
 export const FETCH_BLOG_FOR_EDITING_ERROR = 'FETCH_BLOG_FOR_EDITING_ERROR';
+export const TITLE_CHANGED = 'TITLE_CHANGED';
+export const HEADER_IMAGE_LINK_CHANGED = 'HEADER_IMAGE_LINK_CHANGED';
+export const EXCERPT_CHANGED = 'EXCERPT_CHANGED';
+export const TEXT_CHANGED = 'TEXT_CHANGED';
+export const PUBLISHED_CHANGED = 'PUBLISHED_CHANGED';
 
 export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
@@ -129,3 +134,8 @@ export const fetchBlogForEditing = (id) => {
     }
   };
 };
+export const titleChanged = createAction(TITLE_CHANGED);
+export const headerImageLinkChanged = createAction(HEADER_IMAGE_LINK_CHANGED);
+export const excerptChanged = createAction(EXCERPT_CHANGED);
+export const textChanged = createAction(TEXT_CHANGED);
+export const publishedChanged = createAction(PUBLISHED_CHANGED);

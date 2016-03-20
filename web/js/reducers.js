@@ -21,7 +21,12 @@ import {
   FETCH_ALL_BLOGS_ERROR,
   FETCH_BLOG_FOR_EDITING_START,
   FETCH_BLOG_FOR_EDITING_SUCCESSFUL,
-  FETCH_BLOG_FOR_EDITING_ERROR
+  FETCH_BLOG_FOR_EDITING_ERROR,
+  TITLE_CHANGED,
+HEADER_IMAGE_LINK_CHANGED,
+EXCERPT_CHANGED,
+TEXT_CHANGED,
+PUBLISHED_CHANGED
 } from './actions';
 
 export const initialState = {
@@ -59,7 +64,7 @@ export const initialState = {
     fetching: true,
     error: false
   },
-  forEditing: {
+  blogForEditing: {
     data: {
       id: '',
       headerImageLink: '',
@@ -137,7 +142,7 @@ export function allBlogs(allBlogs = initialState.allBlogs, { type, payload, erro
   }
 }
 
-export function forEditing(blog = initialState.forEditing, { type, payload, error }) {
+export function blogForEditing(blog = initialState.blogForEditing, { type, payload, error }) {
   switch (type) {
     case FETCH_BLOG_FOR_EDITING_START:
       return { ...blog, fetching: true, errorFetching: false };
@@ -145,8 +150,18 @@ export function forEditing(blog = initialState.forEditing, { type, payload, erro
       return { ... blog, fetching: false, errorFetching: false, data: payload };
     case FETCH_BLOG_FOR_EDITING_ERROR:
       return { ...blog, fetching: false, errorFetching: error, data: payload };
+    case TITLE_CHANGED:
+      return { ...blog, data: { ...blog.data, title: payload.target.value }};
+    case HEADER_IMAGE_LINK_CHANGED:
+      return { ...blog, data: { ...blog.data, headerImageLink: payload.target.value }};
+    case EXCERPT_CHANGED:
+      return { ...blog, data: { ...blog.data, excerpt: payload.target.value }};
+    case TEXT_CHANGED:
+      return { ...blog, data: { ...blog.data, text: payload.target.value }};
+    case PUBLISHED_CHANGED:
+      return { ...blog, data: { ...blog.data, published: !!payload.target.value }};
     case LOCATION_CHANGE:
-      return initialState.forEditing;
+      return initialState.blogForEditing;
     default:
       return blog;
   }
@@ -158,5 +173,5 @@ export default combineReducers({
   blog,
   login,
   allBlogs,
-  forEditing
+  blogForEditing
 });

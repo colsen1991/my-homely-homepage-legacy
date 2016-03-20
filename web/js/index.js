@@ -7,14 +7,24 @@ import Root from './components/root';
 import '../css/app.styl';
 
 window.onerror = () => {
-  console.error('js error!'); // TODO temp
+  console.error('JS error!'); // TODO Error to server
 };
 
-const store = createStore(browserHistory);
+// TODO Initial state from local storage
 
+const store = createStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Root store={store} history={history}/>,
   document.getElementById('app-root')
 );
+
+let doneUnloading = false;
+
+window.onunload = window.onbeforeunload = () => {
+  if (!doneUnloading) {
+    doneUnloading = true;
+    // TODO Save state to local storage
+  }
+};
