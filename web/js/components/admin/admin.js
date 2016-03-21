@@ -7,11 +7,8 @@ import { connect } from 'react-redux';
 import { fetchAllBlogs } from '../../actions';
 import Spinner from '../spinner';
 import RequestWentToShit from '../errors/requestWentToShit';
+import { sortByDate } from '../../util/arrayUtils';
 import styles from './admin.styl';
-
-function sortByDate({ date: a }, { date: b }) {
-  return new Date(a).getTime() - new Date(b).getTime();
-}
 
 export const BlogTable = ({ blogs }) => {
   return (
@@ -25,10 +22,10 @@ export const BlogTable = ({ blogs }) => {
       </thead>
       <tbody>
       {
-        blogs.sort(sortByDate).map(({ id, title, date, published }) => {
+        blogs.sort(sortByDate).map(({ _id, title, date, published }) => {
           return (
-            <tr key={id}>
-              <td><Link to={`/editBlog/${id}`}>{title}</Link></td>
+            <tr key={_id}>
+              <td><Link to={`/editBlog/${_id}`}>{title}</Link></td>
               <td>{new Date(date).toUTCString()}</td>
               <td>{published ? 'Yes' : 'No'}</td>
             </tr>

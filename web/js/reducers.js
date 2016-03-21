@@ -23,10 +23,13 @@ import {
   FETCH_BLOG_FOR_EDITING_SUCCESSFUL,
   FETCH_BLOG_FOR_EDITING_ERROR,
   TITLE_CHANGED,
-HEADER_IMAGE_LINK_CHANGED,
-EXCERPT_CHANGED,
-TEXT_CHANGED,
-PUBLISHED_CHANGED
+  HEADER_IMAGE_LINK_CHANGED,
+  EXCERPT_CHANGED,
+  TEXT_CHANGED,
+  PUBLISHED_CHANGED,
+  SAVE_BLOG_START,
+  SAVE_BLOG_SUCCESSFUL,
+  SAVE_BLOG_ERROR
 } from './actions';
 
 export const initialState = {
@@ -57,7 +60,8 @@ export const initialState = {
     success: false,
     username: '',
     password: '',
-    token: ''
+    token: '',
+    name: ''
   },
   allBlogs: {
     data: [],
@@ -78,6 +82,7 @@ export const initialState = {
     fetching: true,
     errorFetching: false,
     saving: false,
+    successSaving: false,
     errorSaving: false
   }
 };
@@ -119,11 +124,11 @@ function login(login = initialState.login, { type, payload, error }) {
     case LOGIN_START:
       return { ...login, posting: true, error: false, success: false };
     case LOGIN_SUCCESS:
-      return { ...initialState.login, success: true, loggedIn: true, token: payload.token };
+      return { ...initialState.login, success: true, loggedIn: true, token: payload.token, name: payload.name };
     case LOGIN_ERROR:
       return { ...login, posting: false, error, success: false, loggedIn: false };
     case LOCATION_CHANGE:
-      return { ...initialState.login, loggedIn: login.loggedIn, token: login.token };
+      return { ...initialState.login, loggedIn: login.loggedIn, token: login.token, name: login.name };
     default:
       return login;
   }
@@ -151,15 +156,21 @@ export function blogForEditing(blog = initialState.blogForEditing, { type, paylo
     case FETCH_BLOG_FOR_EDITING_ERROR:
       return { ...blog, fetching: false, errorFetching: error, data: payload };
     case TITLE_CHANGED:
-      return { ...blog, data: { ...blog.data, title: payload.target.value }};
+      return { ...blog, data: { ...blog.data, title: payload.target.value } };
     case HEADER_IMAGE_LINK_CHANGED:
-      return { ...blog, data: { ...blog.data, headerImageLink: payload.target.value }};
+      return { ...blog, data: { ...blog.data, headerImageLink: payload.target.value } };
     case EXCERPT_CHANGED:
-      return { ...blog, data: { ...blog.data, excerpt: payload.target.value }};
+      return { ...blog, data: { ...blog.data, excerpt: payload.target.value } };
     case TEXT_CHANGED:
-      return { ...blog, data: { ...blog.data, text: payload.target.value }};
+      return { ...blog, data: { ...blog.data, text: payload.target.value } };
     case PUBLISHED_CHANGED:
-      return { ...blog, data: { ...blog.data, published: !!payload.target.value }};
+      return { ...blog, data: { ...blog.data, published: !blog.data.published } };
+    case SAVE_BLOG_START:
+      return { ...blog, saving: true, errorSaving: false, successSaving: false };
+    case SAVE_BLOG_SUCCESSFUL:
+      return { ...blog, saving: false, errorSaving: false, successSaving: true };
+    case SAVE_BLOG_ERROR:
+      return { ...blog, saving: false, errorSaving: error, successSaving: false };
     case LOCATION_CHANGE:
       return initialState.blogForEditing;
     default:

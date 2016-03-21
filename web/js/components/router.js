@@ -24,7 +24,7 @@ export default ({ history }) => (
       <Route path='about' component={About}/>
       <Route path='login' component={Login}/>
       <Route path='admin' component={Admin}/>
-      <Route path='editBlog/:id' component={NewOrEdit}/>
+      <Route path='editBlog/:_id' component={NewOrEdit}/>
       <Route path='newBlog' component={NewOrEdit}/>
       <Route path='*' component={PageNotFound}/>
     </Route>

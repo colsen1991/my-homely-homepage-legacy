@@ -20,19 +20,21 @@ class Excerpts extends Component {
     if (error)
       return <RequestWentToShit status={data.response.status}/>;
 
-    if (data.length > 0) {
-      return (
-        <div>
-          {
-            data.map((excerpt, index, arr) => (
-              <div className={styles.excerptListWrapper} key={excerpt.id}>
-                <Excerpt {...excerpt} showLine={arr}/>{index !== (arr.length - 1) ? <hr className={styles.line}/> : null}
-              </div>
-            ))
-          }
-        </div>
-      );
-    } else return <p>No blogs here :(</p>;
+    if (data.length <= 0)
+      return <p>No blogs here :(</p>;
+
+    return (
+      <div>
+        {
+          data.map((excerpt, index, arr) => (
+            <section className={styles.excerptListWrapper} key={excerpt.id}>
+              <Excerpt {...excerpt} showLine={arr}/>
+              {index !== (arr.length - 1) ? <hr className={styles.line}/> : null}
+            </section>
+          ))
+        }
+      </div>
+    );
   }
 }
 

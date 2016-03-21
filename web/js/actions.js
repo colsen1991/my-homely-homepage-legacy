@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { browserHistory } from 'react-router';
+import { makeBlogId } from './util/stringUtils';
 
 export const AJAX = 'AJAX';
 
@@ -30,6 +31,9 @@ export const HEADER_IMAGE_LINK_CHANGED = 'HEADER_IMAGE_LINK_CHANGED';
 export const EXCERPT_CHANGED = 'EXCERPT_CHANGED';
 export const TEXT_CHANGED = 'TEXT_CHANGED';
 export const PUBLISHED_CHANGED = 'PUBLISHED_CHANGED';
+export const SAVE_BLOG_START = 'SAVE_BLOG_START';
+export const SAVE_BLOG_SUCCESSFUL = 'SAVE_BLOG_SUCCESSFUL';
+export const SAVE_BLOG_ERROR = 'SAVE_BLOG_ERROR';
 
 export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
@@ -86,7 +90,7 @@ export const login = (username, password) => {
       url: '/api/login',
       options: {
         method: 'post',
-        body: JSON.stringify({username, password}),
+        body: JSON.stringify({ username, password }),
         headers: { 'Content-Type': 'application/json' }
       },
       actions: {
@@ -120,11 +124,11 @@ export const fetchAllBlogs = () => {
 export const fetchBlogForEditingStart = createAction(FETCH_BLOG_FOR_EDITING_START);
 export const fetchBlogForEditingSuccess = createAction(FETCH_BLOG_FOR_EDITING_SUCCESSFUL);
 export const fetchBlogForEditingError = createAction(FETCH_BLOG_FOR_EDITING_ERROR);
-export const fetchBlogForEditing = (id) => {
+export const fetchBlogForEditing = (_id) => {
   return {
     type: AJAX,
     payload: {
-      url: `/api/secure/blog/${id}`,
+      url: `/api/secure/blog/${_id}`,
       auth: true,
       actions: {
         start: fetchBlogForEditingStart,
@@ -139,3 +143,31 @@ export const headerImageLinkChanged = createAction(HEADER_IMAGE_LINK_CHANGED);
 export const excerptChanged = createAction(EXCERPT_CHANGED);
 export const textChanged = createAction(TEXT_CHANGED);
 export const publishedChanged = createAction(PUBLISHED_CHANGED);
+export const saveBlogStart = createAction(SAVE_BLOG_START);
+export const saveBlogSuccess = createAction(SAVE_BLOG_SUCCESSFUL);
+export const saveBlogError = createAction(SAVE_BLOG_ERROR);
+export const saveBlog = (data, _id = null) => {
+  const blog = {
+    ...data,
+    id: makeBlogId(data.title),
+    date: _id ? data.date : new Date().toString()
+  };
+
+  return {
+    type: AJAX,
+    payload: {
+      url: _id ? `/api/secure/blog/${_id}` : '/api/secure/blog',
+      auth: true,
+      options: {
+        method: _id ? 'put' : 'post',
+        body: JSON.stringify({ blog }),
+        headers: { 'Content-Type': 'application/json' }
+      },
+      actions: {
+        start: saveBlogStart,
+        success: saveBlogSuccess,
+        error: saveBlogError
+      }
+    }
+  };
+};

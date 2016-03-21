@@ -26,18 +26,16 @@ export const HeaderLink = ({ to, activePath, children }) => {
 
 export const SiteHeader = ({ activePath }) => {
   return (
-    <div className={styles.siteHeader}>
-      <header>
-        <h1>
-          <Link to="/">My Homely Homepage</Link>
-        </h1>
-      </header>
+    <header className={styles.siteHeader}>
+      <h1>
+        <Link to="/">My Homely Homepage</Link>
+      </h1>
       <nav className={styles.navigationBar}>
         <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
         <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
         <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
       </nav>
-    </div>
+    </header>
   )
 };
 

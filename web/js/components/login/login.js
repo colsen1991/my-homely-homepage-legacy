@@ -46,12 +46,10 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export function mergeProps({ error, posting, username, password }, { handleUsernameChange, handlePasswordChange, doLoginWrapper }, ignore) {
+export function mergeProps({ username, password, ...stateProps }, { doLoginWrapper, ...dispatchProps }, ignore) {
   return {
-    error,
-    posting,
-    handleUsernameChange,
-    handlePasswordChange,
+    ...stateProps,
+    ...dispatchProps,
     doLogin: doLoginWrapper(username, password)
   };
 }

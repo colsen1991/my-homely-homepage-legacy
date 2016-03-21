@@ -18,16 +18,15 @@ export default ({ id, title, date, excerpt, author, linkable = true, headerImage
   const formattedDate = new Date(date).toUTCString();
 
   return (
-    <div className={styles.excerpt}>
-      <header>
-        <Linkable to={`/blog/${id}`} linkable={linkable}>
-          <img src={headerImageLink} alt="Image yo" style={{width: '100%'}}/>
-          <h1>{title}</h1>
-        </Linkable>
-        <address>Published on <time pubDate dateTime={formattedDate} title={formattedDate}>{formattedDate}</time> by <Link rel="author" to="/about">{author}</Link></address>
-        <p>{excerpt}</p>
-      </header>
-    </div>
+    <header className={styles.excerpt}>
+      <Linkable to={`/blog/${id}`} linkable={linkable}>
+        <img src={headerImageLink} alt="Image yo" style={{width: '100%'}}/>
+        <h1>{title}</h1>
+      </Linkable>
+      <address>Published on
+        <time pubDate dateTime={formattedDate} title={formattedDate}>{formattedDate}</time> by <Link rel="author" to="/about">{author}</Link></address>
+      <p>{excerpt}</p>
+    </header>
   );
 };
 
