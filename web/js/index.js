@@ -4,7 +4,9 @@ import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createStore from './store';
 import Root from './components/root';
-import '../css/app.styl';
+import '../style/app.styl';
+
+require.context('../img', true, /^\.\//);
 
 window.onerror = () => {
   console.error('JS error!'); // TODO Error to server
@@ -19,12 +21,3 @@ render(
   <Root store={store} history={history}/>,
   document.getElementById('app-root')
 );
-
-let doneUnloading = false;
-
-window.onunload = window.onbeforeunload = () => {
-  if (!doneUnloading) {
-    doneUnloading = true;
-    // TODO Save state to local storage
-  }
-};

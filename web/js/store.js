@@ -7,9 +7,9 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import ajaxMiddleware from './middleware/ajaxMiddleware';
-import reducers from './reducers';
+import reducers, { initialState } from './reducers';
 
-export default (history, initialState = {}) => {
+export default (history) => {
   const store = createStore(
     reducers,
     initialState,

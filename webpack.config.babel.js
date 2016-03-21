@@ -8,8 +8,8 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    filename: 'app.js',
+    publicPath: '/web/'
   },
   module: {
     loaders: [
@@ -25,6 +25,11 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json'
+      },
+      {
+        test: /\.ico$/,
+        exclude: /node_modules/,
+        loader: 'file-loader?name=img/[path][name].[ext]&context=./web/img'
       }
     ]
   },
