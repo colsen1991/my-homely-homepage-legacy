@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const fs = require('fs');
 const wadsworth = require('../logging/wadsworth');
 
 function connect(dbConfig) {
