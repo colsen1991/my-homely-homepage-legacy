@@ -1,3 +1,6 @@
 {
-  "ignore": ["web/", "server/db/initialLoad.dev.js"]
+  "ignore": [
+    "web/",
+    "server/db/initialLoad.dev.js"
+  ]
 }

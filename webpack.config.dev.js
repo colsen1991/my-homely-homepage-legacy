@@ -7,19 +7,23 @@ module.exports = {
     './web/js/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'build', 'web', 'js'),
     filename: 'app.js',
-    publicPath: '/web/'
+    publicPath: '/js/'
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
+        include: path.join(__dirname, 'web', 'js'),
         loader: 'babel',
-        include: path.join(__dirname, 'web', 'js')
+        query: {
+          presets: [ 'react', 'es2015', 'stage-2', 'react-hmre' ]
+        }
       },
       {
         test: /\.styl$/,
+        include: path.join(__dirname, 'web'),
         loader: 'style!css?modules!stylus'
       },
       {
@@ -28,18 +32,24 @@ module.exports = {
       },
       {
         test: /\.ico$/,
-        exclude: /node_modules/,
-        loader: 'file-loader?name=img/[path][name].[ext]&context=./web/img'
+        include: path.join(__dirname, 'web', 'img'),
+        loader: 'url?name=../img/[path][name].[ext]&context=./web/img'
       }
     ]
   },
   devtool: 'cheap-module-eval-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
     new webpack.ProvidePlugin({
       'Promise': 'es6-promise',
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    })
-  ]
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
+  node: {
+    fs: 'empty'
+  }
 };

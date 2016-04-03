@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Link,
-  browserHistory
-} from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchAllBlogs } from '../../actions';
 import Spinner from '../spinner';

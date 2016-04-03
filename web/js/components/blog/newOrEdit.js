@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  browserHistory,
-  Link
-} from 'react-router';
-import {
-  fetchBlogForEditing,
-  titleChanged,
-  headerImageLinkChanged,
-  excerptChanged,
-  textChanged,
-  publishedChanged,
-  saveBlog
-} from '../../actions';
+import { browserHistory, Link } from 'react-router';
+import { fetchBlogForEditing, titleChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../actions';
 import Spinner from '../spinner';
 import RequestWentToShit from '../errors/requestWentToShit';
 import styles from './blog.styl';

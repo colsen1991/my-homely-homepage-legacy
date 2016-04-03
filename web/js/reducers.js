@@ -1,8 +1,5 @@
 import { combineReducers } from 'redux';
-import {
-  routerReducer,
-  LOCATION_CHANGE
-} from 'react-router-redux';
+import { routerReducer, LOCATION_CHANGE } from 'react-router-redux';
 import {
   FETCH_EXCERPTS_START,
   FETCH_EXCERPTS_SUCCESSFUL,

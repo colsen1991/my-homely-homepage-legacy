@@ -9,7 +9,7 @@ const errorMiddleware = require('./server/middleware/error');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
 
-process.env.NODE_ENV = process.argv[ 2 ];
+process.env.NODE_ENV = JSON.stringify(process.argv[ 2 ]);
 
 const httpsApp = express();
 
@@ -19,8 +19,8 @@ httpsApp.set('credentials', {
   key: fs.readFileSync('./server/config/ssl/private_key.dev.key')
 });
 
-if (process.env.NODE_ENV === 'development') {
-  const webpackConfig = require('./webpack.config.babel');
+if (process.env.NODE_ENV === JSON.stringify('development')) {
+  const webpackConfig = require('./webpack.config.dev.js');
   const compiler = require('webpack')(webpackConfig);
 
   httpsApp.use(require('webpack-dev-middleware')(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
@@ -30,7 +30,8 @@ if (process.env.NODE_ENV === 'development') {
 httpsApp.use(bodyParser.urlencoded({ extended: true }));
 httpsApp.use(bodyParser.json());
 
-httpsApp.use(express.static('web'));
+httpsApp.use('/js', express.static(`${__dirname}/web/js`));
+httpsApp.use('/img', express.static(`${__dirname}/web/img`));
 httpsApp.use('/api', publicRouter);
 httpsApp.use('/api/secure', secureRouter);
 httpsApp.get('*', (req, res) => res.sendFile(`${__dirname}/web/index.html`));

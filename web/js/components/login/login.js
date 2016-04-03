@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  login,
-  usernameChanged,
-  passwordChanged
-} from '../../actions';
+import { login, usernameChanged, passwordChanged } from '../../actions';
 import styles from './login.styl';
 
 export const LoginForm = ({ loggedIn, error, posting, doLogin, handleUsernameChange, handlePasswordChange }) => {

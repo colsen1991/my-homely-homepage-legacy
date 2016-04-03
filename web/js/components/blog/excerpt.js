@@ -24,7 +24,8 @@ export default ({ id, title, date, excerpt, author, linkable = true, headerImage
         <h1>{title}</h1>
       </Linkable>
       <address>Published on
-        <time pubDate dateTime={formattedDate} title={formattedDate}>{formattedDate}</time> by <Link rel="author" to="/about">{author}</Link></address>
+        <time pubDate dateTime={formattedDate} title={formattedDate}>{formattedDate}</time>
+        by <Link rel="author" to="/about">{author}</Link></address>
       <p>{excerpt}</p>
     </header>
   );

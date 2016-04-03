@@ -25,8 +25,11 @@
   },
   "homepage": "https://github.com/colsen1991/my-homely-homepage#readme",
   "scripts": {
-    "server": "node server.js production",
+    "server": "node server.js development",
     "server:nodemon": "nodemon server.js development",
+    "server:prod": "npm run build && cd build/ && node server.js production",
+    "clean": "rimraf build/*",
+    "build": "npm run clean && webpack --config webpack.config.prod.js",
     "database": "mongod"
   },
   "devDependencies": {
@@ -37,6 +40,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.0",
     "babel-preset-stage-2": "^6.5.0",
+    "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.1",
     "exports-loader": "^0.6.3",
     "file-loader": "^0.8.5",
@@ -45,8 +49,10 @@
     "nodemon": "^1.9.1",
     "react-transform-hmr": "^1.0.2",
     "redux-logger": "^2.6.1",
+    "rimraf": "^2.5.2",
     "style-loader": "^0.13.0",
     "stylus-loader": "^1.5.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.7.1"
