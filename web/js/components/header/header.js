@@ -28,7 +28,7 @@ export const SiteHeader = ({ activePath }) => {
   return (
     <header className={styles.siteHeader}>
       <h1>
-        <Link to="/">My Homely Homepage</Link>
+        <Link to="/" tabIndex="-1">My Homely Homepage</Link>
       </h1>
       <nav className={styles.navigationBar}>
         <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
