@@ -11,7 +11,7 @@ export const Linkable = ({ linkable, to, children }) => {
     )
   }
 
-  return <div>{children}</div>;
+  return <div className={styles.linkable}>{children}</div>;
 };
 
 export default ({ id, title, date, excerpt, author, linkable = true, headerImageLink, showLine }) => {

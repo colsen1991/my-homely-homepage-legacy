@@ -11,10 +11,19 @@
 .excerpt
   .linkable
     display block
+    position relative
+    color inherit
 
-  h1
-    font-size 3rem
-    margin 0
+    h1
+      font-size 4rem
+      margin 0
+      position absolute
+      bottom 1%
+      background rgba(0, 0, 0, 0.5)
+      width 100%
+
+      @media screen and (max-width: 640px)
+        font-size 3rem
 
 .line
   border-color #171717
