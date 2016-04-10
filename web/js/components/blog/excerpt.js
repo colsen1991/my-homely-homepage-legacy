@@ -20,12 +20,12 @@ export default ({ id, title, date, excerpt, author, linkable = true, headerImage
   return (
     <header className={styles.excerpt}>
       <Linkable to={`/blog/${id}`} linkable={linkable}>
-        <img src={headerImageLink} alt="Image yo" style={{width: '100%'}}/>
         <h1>{title}</h1>
+        <img src={headerImageLink} alt="Header image" style={{width: '100%'}}/>
       </Linkable>
-      <address>Published on
-        <time pubDate dateTime={formattedDate} title={formattedDate}>{formattedDate}</time>
-        by <Link rel="author" to="/about">{author}</Link></address>
+      <address>
+        Published on <time pubDate="pubDate" dateTime={formattedDate} title={formattedDate}>{formattedDate}</time> by <Link rel="author" to="/about">{author}</Link>
+      </address>
       <p>{excerpt}</p>
     </header>
   );

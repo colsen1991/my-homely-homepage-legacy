@@ -31,7 +31,7 @@ module.exports = {
         loader: 'json'
       },
       {
-        test: /\.ico$/,
+        test: /\.(ico|png)$/,
         include: path.join(__dirname, 'web', 'img'),
         loader: 'url?name=../img/[path][name].[ext]&context=./web/img'
       }

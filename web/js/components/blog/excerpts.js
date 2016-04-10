@@ -27,7 +27,7 @@ class Excerpts extends Component {
       <div>
         {
           data.map((excerpt, index, arr) => (
-            <section className={styles.excerptListWrapper} key={excerpt.id}>
+            <section key={excerpt.id}>
               <Excerpt {...excerpt} showLine={arr}/>
               {index !== (arr.length - 1) ? <hr className={styles.line}/> : null}
             </section>
