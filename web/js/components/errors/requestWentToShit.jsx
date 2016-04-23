@@ -1,7 +1,7 @@
 import React from 'react';
-import PageNotFound from './404';
-import InternalServerError from './500';
-import UnknowError from './unkown';
+import PageNotFound from './404.jsx';
+import InternalServerError from './500.jsx';
+import UnknowError from './unkown.jsx';
 
 export default ({ status }) => {
   if (status === 404)
@@ -11,4 +11,4 @@ export default ({ status }) => {
     return <InternalServerError/>;
 
   return <UnknowError/>;
-}
+};

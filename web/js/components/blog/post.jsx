@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
-import Excerpt from './excerpt';
-import Comments from '../comments/comments';
-import Spinner from '../spinner';
-import RequestWentToShit from '../errors/requestWentToShit';
+import Excerpt from './excerpt.jsx';
+import Comments from '../comments/comments.jsx';
+import Spinner from '../spinner.jsx';
+import RequestWentToShit from '../errors/requestWentToShit.jsx';
 import { fetchBlog } from '../../actions';
 import styles from './blog.styl';
 
@@ -14,7 +14,7 @@ class Blog extends Component {
   }
 
   render() {
-    const { data, fetching, error, id }  = this.props;
+    const { data, fetching, error, id } = this.props;
 
     if (fetching)
       return <Spinner/>;
@@ -42,4 +42,4 @@ export function mapDispatchToProps(dispatch, { params: { id } }) {
   return { fetchBlog: () => dispatch(fetchBlog(id)) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blog)
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
   entry: [
     'webpack-hot-middleware/client',
-    './web/js/index'
+    './web/js/index.jsx'
   ],
   output: {
     path: path.join(__dirname, 'build', 'web', 'js'),
@@ -14,11 +14,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.join(__dirname, 'web', 'js'),
         loader: 'babel',
         query: {
-          presets: [ 'react', 'es2015', 'stage-2', 'react-hmre' ]
+          presets: ['react', 'es2015', 'stage-2', 'react-hmre']
         }
       },
       {
@@ -43,8 +43,8 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new webpack.ProvidePlugin({
-      'Promise': 'es6-promise',
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      Promise: 'es6-promise',
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()

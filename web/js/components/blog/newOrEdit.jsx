@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
 import { fetchBlogForEditing, titleChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../actions';
-import Spinner from '../spinner';
-import RequestWentToShit from '../errors/requestWentToShit';
+import Spinner from '../spinner.jsx';
+import RequestWentToShit from '../errors/requestWentToShit.jsx';
 import styles from './blog.styl';
 
 export class NewOrEdit extends Component {
@@ -39,7 +39,7 @@ export class NewOrEdit extends Component {
     } = this.props;
 
     if (successSaving && !_id)
-      return <p className={styles.success}> Save successful! Wanna return to the <Link to="/admin">admin</Link> page?</p>;
+      return <p className={styles.success}> Save successful!Wanna return to the <Link to="/admin">admin</Link> page?</p>;
 
     if ((fetching && _id) || saving)
       return <Spinner/>;
@@ -57,8 +57,8 @@ export class NewOrEdit extends Component {
         <textarea className={styles.postTextarea} placeholder="Text..." defaultValue={text} onChange={handleTextChange} required/>
         <label><input type="checkbox" defaultChecked={published} onChange={handlePublishedChange}/> Published?</label>
         <input type="submit" defaultValue="Save" disabled={saving}/>
-        {errorSaving ? <p className={styles.error}>An error occured when saving. Please try again... :(</p> : null}
-        {successSaving ? <p className={styles.success}>Save was successful! :D</p> : null}
+        {errorSaving ? <p className={styles.error}>An error occured when saving.Please try again...: (</p> : null}
+        {successSaving ? <p className={styles.success}>Save was successful!: D</p> : null}
       </form>
     );
   }
@@ -93,7 +93,7 @@ export function mergeProps({ data, name, ...stateProps }, { saveWrapper, ...disp
     data,
     save: saveWrapper({ ...data, author }),
     ...ownProps
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(NewOrEdit);

@@ -2,37 +2,33 @@ import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchAllBlogs } from '../../actions';
-import Spinner from '../spinner';
-import RequestWentToShit from '../errors/requestWentToShit';
+import Spinner from '../spinner.jsx';
+import RequestWentToShit from '../errors/requestWentToShit.jsx';
 import { sortByDate } from '../../util/arrayUtils';
 import styles from './admin.styl';
 
-export const BlogTable = ({ blogs }) => {
-  return (
-    <table>
-      <thead>
+export const BlogTable = ({ blogs }) => (
+  <table>
+    <thead>
       <tr>
         <td><strong>Title</strong></td>
         <td><strong>Date Written</strong></td>
         <td><strong>Published</strong></td>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       {
-        blogs.sort(sortByDate).map(({ _id, title, date, published }) => {
-          return (
-            <tr key={_id}>
-              <td><Link to={`/editBlog/${_id}`}>{title}</Link></td>
-              <td>{new Date(date).toUTCString()}</td>
-              <td>{published ? 'Yes' : 'No'}</td>
-            </tr>
-          )
-        })
+        blogs.sort(sortByDate).map(({ _id, title, date, published }) => (
+          <tr key={_id}>
+            <td><Link to={`/editBlog/${_id}`}>{title}</Link></td>
+            <td>{new Date(date).toUTCString()}</td>
+            <td>{published ? 'Yes' : 'No'}</td>
+          </tr>
+        ))
       }
-      </tbody>
-    </table>
-  )
-};
+    </tbody>
+  </table>
+);
 
 export class Admin extends Component {
   componentWillMount() {
@@ -67,4 +63,4 @@ function mapStateToProps({ login: { loggedIn }, allBlogs }) {
   return { loggedIn, ...allBlogs };
 }
 
-export default connect(mapStateToProps, { fetchAllBlogs: fetchAllBlogs })(Admin);
+export default connect(mapStateToProps, { fetchAllBlogs })(Admin);

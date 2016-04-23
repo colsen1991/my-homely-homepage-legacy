@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import Routes from './router';
+import Routes from './router.jsx';
 
 export default class extends Component {
   render() {

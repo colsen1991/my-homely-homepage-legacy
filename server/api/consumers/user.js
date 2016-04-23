@@ -12,7 +12,7 @@ function login(req, res) {
     } else {
       const token = jwt.sign({ username: data.username }, req.app.get('credentials').key, { expiresIn: 1440 });
       res.send({
-        token: token,
+        token,
         username: data.username,
         name: data.name
       });
@@ -20,16 +20,4 @@ function login(req, res) {
   });
 }
 
-function getUsers(req, res) {
-  User.find((error, data) => {
-    if (error) {
-      wadsworth.logError(error);
-      res.sendStatus(500);
-    } else {
-      res.send(data);
-    }
-  });
-}
-
 exports.login = login;
-exports.getUsers = getUsers;

@@ -3,19 +3,19 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: [ './web/js/index' ],
+  entry: ['./web/js/index.jsx'],
   output: {
     path: path.join(__dirname, 'build', 'web', 'js'),
-    filename: 'app.js'
+    filename: 'app.jsx'
   },
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.join(__dirname, 'web', 'js'),
         loader: 'babel',
         query: {
-          presets: [ 'react', 'es2015', 'stage-2' ]
+          presets: ['react', 'es2015', 'stage-2']
         }
       },
       {
@@ -39,8 +39,8 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.ProvidePlugin({
-      'Promise': 'es6-promise',
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      Promise: 'es6-promise',
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),

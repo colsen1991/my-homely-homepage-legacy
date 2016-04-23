@@ -3,13 +3,14 @@ import { render } from 'react-dom';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createStore from './store/store';
-import Root from './components/root';
+import Root from './components/root.jsx';
 import '../style/app.styl';
 
 require.context('../img', true, /^\.\//);
 
 window.onerror = () => {
-  console.error('JS error!'); // TODO Error to server
+  // TODO Error to server
+  console.error('JS error!'); // eslint-disable-line
 };
 
 // TODO Initial state from local storage

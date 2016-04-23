@@ -31,7 +31,8 @@
     "clean": "rimraf build/*",
     "build": "npm run clean && webpack --config webpack.config.prod.js",
     "testdata": "mongo localhost:27017/my-homeley-homepage ./server/db/initialLoad.dev.js",
-    "database": "mongod"
+    "database": "mongod",
+    "lint": "./node_modules/eslint/bin/eslint.js ."
   },
   "devDependencies": {
     "babel-core": "^6.3.15",

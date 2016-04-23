@@ -7,11 +7,10 @@ function status200ish(status) {
 function checkStatus(response) {
   if (status200ish(response.status))
     return response;
-  else {
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
+
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
 }
 
 function parseJSON(defaultIfNoData) {
@@ -20,13 +19,13 @@ function parseJSON(defaultIfNoData) {
       return defaultIfNoData;
 
     return response.json();
-  }
+  };
 }
 
 function ajax(url, options, defaultIfNoData) {
   return fetch(url, options)
     .then(checkStatus)
-    .then(parseJSON(defaultIfNoData))
+    .then(parseJSON(defaultIfNoData));
 }
 
 export default function ajaxMiddleware({ dispatch, getState }) {

@@ -5,11 +5,6 @@ import createLogger from 'redux-logger';
 import ajaxMiddleware from '../middleware/ajaxMiddleware';
 import reducers, { initialState } from '../reducers';
 
-let logger;
-
-if (process.env.NODE_ENV === JSON.stringify('development'))
-  logger = require('redux-logger');
-
 export default (history) => {
   const store = createStore(
     reducers,
@@ -25,4 +20,4 @@ export default (history) => {
   }
 
   return store;
-}
+};

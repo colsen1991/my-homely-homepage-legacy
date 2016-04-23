@@ -8,20 +8,20 @@ export const Linkable = ({ linkable, to, children }) => {
       <Link to={to} className={styles.linkable}>
         {children}
       </Link>
-    )
+    );
   }
 
   return <div className={styles.linkable}>{children}</div>;
 };
 
-export default ({ id, title, date, excerpt, author, linkable = true, headerImageLink, showLine }) => {
+export default ({ id, title, date, excerpt, author, linkable = true, headerImageLink }) => {
   const formattedDate = new Date(date).toUTCString();
 
   return (
     <header className={styles.excerpt}>
       <Linkable to={`/blog/${id}`} linkable={linkable}>
         <h1>{title}</h1>
-        <img src={headerImageLink} alt="Header image" style={{width: '100%'}}/>
+        <img src={headerImageLink} alt="Header"/>
       </Linkable>
       <address>
         Published on <time pubDate="pubDate" dateTime={formattedDate} title={formattedDate}>{formattedDate}</time> by <Link rel="author" to="/about">{author}</Link>

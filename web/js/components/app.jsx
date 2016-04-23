@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './header/header';
-import Content from './content/content';
-import Footer from './footer/footer';
+import Header from './header/header.jsx';
+import Content from './content/content.jsx';
+import Footer from './footer/footer.jsx';
 
 export default ({ children }) => (
   <div>

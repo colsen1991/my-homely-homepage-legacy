@@ -1,7 +1,7 @@
 const path = require('path');
 const wadsworth = require('../logging/wadsworth');
 
-function errorHandler(error, req, res, ignore) {
+function errorHandler(error, req, res, ignore) { // eslint-disable-line
   wadsworth.logError(error);
 
   res.status(500);

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 db.dropDatabase();
 
 for (var i = 1; i <= 10; i++) {
@@ -18,5 +20,3 @@ db.users.insert({
   password: 'a',
   name: 'Christer Olsen'
 });
-
-

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Spinner from '../spinner';
-import RequestWentToShit from '../errors/requestWentToShit';
-import Excerpt from './excerpt';
+import Spinner from '../spinner.jsx';
+import RequestWentToShit from '../errors/requestWentToShit.jsx';
+import Excerpt from './excerpt.jsx';
 import { fetchExcerpts } from '../../actions';
 import styles from './blog.styl';
 
@@ -12,10 +12,10 @@ class Excerpts extends Component {
   }
 
   render() {
-    const { data, fetching, error }  = this.props;
+    const { data, fetching, error } = this.props;
 
     if (fetching)
-      return <Spinner/>;
+      return <Spinner />;
 
     if (error)
       return <RequestWentToShit status={data.response.status}/>;
@@ -28,8 +28,8 @@ class Excerpts extends Component {
         {
           data.map((excerpt, index, arr) => (
             <section key={excerpt.id}>
-              <Excerpt {...excerpt} showLine={arr}/>
-              {index !== (arr.length - 1) ? <hr className={styles.line}/> : null}
+              <Excerpt {...excerpt} showLine={arr} />
+              {index !== (arr.length - 1) ? <hr className={styles.line} /> : null}
             </section>
           ))
         }
@@ -42,4 +42,4 @@ export function mapStateToProps({ excerpts }) {
   return { ...excerpts };
 }
 
-export default connect(mapStateToProps, { fetchExcerpts })(Excerpts)
+export default connect(mapStateToProps, { fetchExcerpts })(Excerpts);

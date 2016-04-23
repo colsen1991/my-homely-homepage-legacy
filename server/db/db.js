@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const wadsworth = require('../logging/wadsworth');
 
 function connect(dbConfig) {
-  const uri = 'mongodb://' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.db;
+  const uri = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.db}`;
 
   mongoose.connection.on('open', () => {
     wadsworth.logInfo(`Server connected to: ${uri}`);

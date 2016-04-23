@@ -9,7 +9,7 @@ const errorMiddleware = require('./server/middleware/error');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
 
-process.env.NODE_ENV = JSON.stringify(process.argv[ 2 ]);
+process.env.NODE_ENV = JSON.stringify(process.argv[2]);
 
 const httpsApp = express();
 

@@ -13,4 +13,4 @@ export default () => (
       <Link to="https://www.linkedin.com/in/christer-olsen-15845b53"><img src="/img/linkedin.png" alt="LinkedIn"/></Link>
     </span>
   </footer>
-)
+);

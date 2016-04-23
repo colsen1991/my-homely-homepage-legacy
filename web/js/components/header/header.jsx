@@ -24,21 +24,19 @@ export const HeaderLink = ({ to, activePath, children }) => {
   return <Link {...props}>{children}</Link>;
 };
 
-export const SiteHeader = ({ activePath }) => {
-  return (
-    <header className={styles.siteHeader}>
-      <h1>
-        <Link to="/" tabIndex="-1">Christer Does Stuff</Link>
-      </h1>
-      <p>Rantings and ravings of an unknow Norwegian guy</p>
-      <nav className={styles.navigationBar}>
-        <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
-        <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
-        <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
-      </nav>
-    </header>
-  )
-};
+export const SiteHeader = ({ activePath }) => (
+  <header className={styles.siteHeader}>
+    <h1>
+      <Link to="/" tabIndex="-1">Christer Does Stuff</Link>
+    </h1>
+    <p>Rantings and ravings of an unknow Norwegian guy</p>
+    <nav className={styles.navigationBar}>
+      <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
+      <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
+      <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
+    </nav>
+  </header>
+);
 
 export function connectStateToProps({ routing: { locationBeforeTransitions: { pathname } } }) {
   return { activePath: pathname };
