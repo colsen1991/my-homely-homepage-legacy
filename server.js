@@ -6,10 +6,13 @@ const bodyParser = require('body-parser');
 const publicRouter = require('./server/api/routers/public');
 const secureRouter = require('./server/api/routers/secure');
 const errorMiddleware = require('./server/middleware/error');
+const loggerMiddleware = require('./server/middleware/log');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
 
 process.env.NODE_ENV = JSON.stringify(process.argv[2]);
+
+// ======================================================================================================================
 
 const httpsApp = express();
 
@@ -29,6 +32,7 @@ if (process.env.NODE_ENV === JSON.stringify('development')) {
 
 httpsApp.use(bodyParser.urlencoded({ extended: true }));
 httpsApp.use(bodyParser.json());
+httpsApp.use(loggerMiddleware);
 
 httpsApp.use('/js', express.static(`${__dirname}/web/js`));
 httpsApp.use('/img', express.static(`${__dirname}/web/img`));
@@ -48,9 +52,11 @@ httpsServer.listen(443, () => {
   wadsworth.logInfo(`Node server listening at https://${host}:${port}`);
 });
 
+// ======================================================================================================================
 
 const httpApp = express();
 
+httpApp.use(loggerMiddleware);
 httpApp.get('*', (req, res) => res.redirect(`https://localhost${req.url}`));
 
 const httpServer = http.createServer(httpApp);

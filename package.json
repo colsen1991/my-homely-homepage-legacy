@@ -32,7 +32,7 @@
     "build": "npm run clean && webpack --config webpack.config.prod.js",
     "testdata": "mongo localhost:27017/my-homeley-homepage ./server/db/initialLoad.dev.js",
     "database": "mongod",
-    "lint": "./node_modules/eslint/bin/eslint.js ."
+    "lint": "node ./node_modules/eslint/bin/eslint.js ."
   },
   "devDependencies": {
     "babel-core": "^6.3.15",
@@ -67,6 +67,7 @@
     "history": "^2.0.0",
     "jsonwebtoken": "^5.7.0",
     "mongoose": "^4.4.5",
+    "morgan": "^1.7.0",
     "path": "^0.12.7",
     "react": "^15",
     "react-disqus-thread": "^0.3.1",

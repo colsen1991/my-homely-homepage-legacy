@@ -1,13 +1,31 @@
+/* eslint-disable no-console */
+const fs = require('fs');
+const path = require('path');
+
+const serverLogFile = path.resolve(__dirname, '..', '..', 'server.log');
+
+function writeFile(type, text) {
+  fs.appendFile(serverLogFile, `[${type}] ${new Date().toUTCString()}: ${text}\n`, 'utf8', error => {
+    if (error) console.error(error);
+  });
+}
+
 function logInfo(info) {
-  console.info(info); // eslint-disable-line
+  writeFile('INFO', info);
+
+  console.info(info);
 }
 
 function logWarning(warning) {
-  console.warn(warning); // eslint-disable-line
+  writeFile('WARN', warning);
+
+  console.warn(warning);
 }
 
 function logError(error) {
-  console.error(error.stack); // eslint-disable-line
+  writeFile('ERROR', error);
+
+  console.error(error.stack);
 }
 
 exports.logInfo = logInfo;

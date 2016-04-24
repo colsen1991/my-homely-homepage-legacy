@@ -43,8 +43,8 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new webpack.ProvidePlugin({
-      Promise: 'es6-promise',
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      Promise: 'exports?global.Promise!es6-promise',
+      fetch: 'exports?self.fetch!whatwg-fetch'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()

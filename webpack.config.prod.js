@@ -6,7 +6,7 @@ module.exports = {
   entry: ['./web/js/index.jsx'],
   output: {
     path: path.join(__dirname, 'build', 'web', 'js'),
-    filename: 'app.jsx'
+    filename: 'app.js'
   },
   module: {
     loaders: [
@@ -39,8 +39,8 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.ProvidePlugin({
-      Promise: 'es6-promise',
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      Promise: 'exports?global.Promise!es6-promise',
+      fetch: 'exports?self.fetch!whatwg-fetch'
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
