@@ -9,7 +9,10 @@ export default (history) => {
   const store = createStore(
     reducers,
     initialState,
-    compose(applyMiddleware(routerMiddleware(history), thunk, ajaxMiddleware, createLogger()))
+    compose(
+      applyMiddleware(routerMiddleware(history), thunk, ajaxMiddleware, createLogger()),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
   );
 
   if (module.hot) {
