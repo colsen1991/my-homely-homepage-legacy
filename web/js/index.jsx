@@ -13,7 +13,16 @@ window.onerror = () => {
   console.error('JS error!'); // eslint-disable-line
 };
 
-// TODO Initial state from local storage
+const ssc = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+let sscIndex = 0;
+
+window.onkeydown = ({ which }) => {
+  if (ssc[sscIndex] === which) {
+    sscIndex++;
+
+    if (sscIndex === ssc.length && confirm('goto admin?')) browserHistory.push('/admin'); // eslint-disable-line
+  } else sscIndex = 0;
+};
 
 const store = createStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
