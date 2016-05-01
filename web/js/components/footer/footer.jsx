@@ -10,6 +10,8 @@ export default () => (
       <a target="_blank" href="https://github.com/colsen1991"><img src="/img/github.png" alt="GitHub"/></a>
       <a target="_blank" href="https://twitter.com/colsen1991"><img src="/img/twitter.png" alt="Twitter"/></a>
       <a target="_blank" href="https://www.linkedin.com/in/christer-olsen-15845b53"><img src="/img/linkedin.png" alt="LinkedIn"/></a>
+      <a target="_blank" href="https://www.couchsurfing.com/people/christer-olsen"><img src="/img/couchsurfing.png" alt="LinkedIn"/></a>
+      <a target="_blank" href="https://www.airbnb.com/users/show/59022431"><img src="/img/airbnb.png" alt="LinkedIn"/></a>
     </span>
   </footer>
 );
