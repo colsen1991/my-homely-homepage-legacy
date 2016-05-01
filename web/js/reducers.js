@@ -20,6 +20,7 @@ import {
   FETCH_BLOG_FOR_EDITING_SUCCESSFUL,
   FETCH_BLOG_FOR_EDITING_ERROR,
   TITLE_CHANGED,
+  TAGS_CHANGED,
   HEADER_IMAGE_LINK_CHANGED,
   EXCERPT_CHANGED,
   TEXT_CHANGED,
@@ -48,7 +49,9 @@ export const initialState = {
     },
     fetching: true,
     error: false,
-    showComments: false
+    showComments: false,
+    search: '',
+    tags: ''
   },
   login: {
     loggedIn: false,
@@ -70,6 +73,7 @@ export const initialState = {
       id: '',
       headerImageLink: '',
       title: '',
+      tags: [],
       date: '',
       author: '',
       excerpt: '',
@@ -115,9 +119,9 @@ export function blog(blog = initialState.blog, { type, payload, error }) {
 function login(login = initialState.login, { type, payload, error }) {
   switch (type) {
     case USERNAME_CHANGED:
-      return { ...login, username: payload.target.value };
+      return { ...login, username: payload };
     case PASSWORD_CHANGED:
-      return { ...login, password: payload.target.value };
+      return { ...login, password: payload };
     case LOGIN_START:
       return { ...login, posting: true, error: false, success: false };
     case LOGIN_SUCCESS:
@@ -153,13 +157,15 @@ export function blogForEditing(blog = initialState.blogForEditing, { type, paylo
     case FETCH_BLOG_FOR_EDITING_ERROR:
       return { ...blog, fetching: false, errorFetching: error, data: payload };
     case TITLE_CHANGED:
-      return { ...blog, data: { ...blog.data, title: payload.target.value } };
+      return { ...blog, data: { ...blog.data, title: payload } };
+    case TAGS_CHANGED:
+      return { ...blog, data: { ...blog.data, tags: payload } };
     case HEADER_IMAGE_LINK_CHANGED:
-      return { ...blog, data: { ...blog.data, headerImageLink: payload.target.value } };
+      return { ...blog, data: { ...blog.data, headerImageLink: payload } };
     case EXCERPT_CHANGED:
-      return { ...blog, data: { ...blog.data, excerpt: payload.target.value } };
+      return { ...blog, data: { ...blog.data, excerpt: payload } };
     case TEXT_CHANGED:
-      return { ...blog, data: { ...blog.data, text: payload.target.value } };
+      return { ...blog, data: { ...blog.data, text: payload } };
     case PUBLISHED_CHANGED:
       return { ...blog, data: { ...blog.data, published: !blog.data.published } };
     case SAVE_BLOG_START:

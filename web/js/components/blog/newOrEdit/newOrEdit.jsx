@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
-import { fetchBlogForEditing, titleChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../../actions';
+import { fetchBlogForEditing, titleChanged, tagsChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../../actions';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import styles from './newOrEdit.styl';
@@ -31,6 +31,7 @@ export class NewOrEdit extends Component {
       errorSaving,
       data,
       handleTitleChange,
+      handleTagsChange,
       handleHeaderImageLinkChange,
       handleExcerptChange,
       handleTextChange,
@@ -47,11 +48,12 @@ export class NewOrEdit extends Component {
     if ((errorFetching && _id))
       return <RequestWentToShit response={data.response}/>;
 
-    const { title, excerpt, headerImageLink, text, published } = data;
+    const { title, tags, excerpt, headerImageLink, text, published } = data;
 
     return (
       <form onSubmit={save} className={styles.newOrEditForm}>
         <input type="text" placeholder="Title..." disabled={saving} defaultValue={title} onChange={handleTitleChange} required/>
+        <input type="text" placeholder="Tags..." disabled={saving} defaultValue={tags} onChange={handleTagsChange} required/>
         <input type="url" placeholder="Header image link..." disabled={saving} defaultValue={headerImageLink} onChange={handleHeaderImageLinkChange} required/>
         <textarea placeholder="Excerpt..." defaultValue={excerpt} onChange={handleExcerptChange} required/>
         <textarea className={styles.postTextarea} placeholder="Text..." defaultValue={text} onChange={handleTextChange} required/>
@@ -77,6 +79,7 @@ export function mapDispatchToProps(dispatch, { params: { _id } }) {
       dispatch(saveBlog(blog, _id));
     },
     handleTitleChange: (event) => dispatch(titleChanged(event)),
+    handleTagsChange: (event) => dispatch(tagsChanged(event)),
     handleHeaderImageLinkChange: (event) => dispatch(headerImageLinkChanged(event)),
     handleExcerptChange: (event) => dispatch(excerptChanged(event)),
     handleTextChange: (event) => dispatch(textChanged(event)),

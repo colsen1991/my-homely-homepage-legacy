@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import { browserHistory } from 'react-router';
 import { makeBlogId } from './util/stringUtils';
+import { extractValueFromEvent } from './util/actionsUtils';
 
 export const AJAX = 'AJAX';
 
@@ -27,6 +28,7 @@ export const FETCH_BLOG_FOR_EDITING_START = 'FETCH_BLOG_FOR_EDITING_START';
 export const FETCH_BLOG_FOR_EDITING_SUCCESSFUL = 'FETCH_BLOG_FOR_EDITING_SUCCESSFUL';
 export const FETCH_BLOG_FOR_EDITING_ERROR = 'FETCH_BLOG_FOR_EDITING_ERROR';
 export const TITLE_CHANGED = 'TITLE_CHANGED';
+export const TAGS_CHANGED = 'TAGS_CHANGED';
 export const HEADER_IMAGE_LINK_CHANGED = 'HEADER_IMAGE_LINK_CHANGED';
 export const EXCERPT_CHANGED = 'EXCERPT_CHANGED';
 export const TEXT_CHANGED = 'TEXT_CHANGED';
@@ -75,8 +77,8 @@ export const loginSuccess = payload => dispatch => {
   browserHistory.push('/admin');
 };
 export const loginError = createAction(LOGIN_ERROR);
-export const usernameChanged = createAction(USERNAME_CHANGED);
-export const passwordChanged = createAction(PASSWORD_CHANGED);
+export const usernameChanged = createAction(USERNAME_CHANGED, extractValueFromEvent);
+export const passwordChanged = createAction(PASSWORD_CHANGED, extractValueFromEvent);
 export const login = (username, password) => ({
   type: AJAX,
   payload: {
@@ -126,10 +128,11 @@ export const fetchBlogForEditing = (_id) => ({
     }
   }
 });
-export const titleChanged = createAction(TITLE_CHANGED);
-export const headerImageLinkChanged = createAction(HEADER_IMAGE_LINK_CHANGED);
-export const excerptChanged = createAction(EXCERPT_CHANGED);
-export const textChanged = createAction(TEXT_CHANGED);
+export const titleChanged = createAction(TITLE_CHANGED, extractValueFromEvent, extractValueFromEvent);
+export const tagsChanged = createAction(TAGS_CHANGED, event => extractValueFromEvent(event).split(' '));
+export const headerImageLinkChanged = createAction(HEADER_IMAGE_LINK_CHANGED, extractValueFromEvent);
+export const excerptChanged = createAction(EXCERPT_CHANGED, extractValueFromEvent);
+export const textChanged = createAction(TEXT_CHANGED, extractValueFromEvent);
 export const publishedChanged = createAction(PUBLISHED_CHANGED);
 export const saveBlogStart = createAction(SAVE_BLOG_START);
 export const saveBlogSuccess = createAction(SAVE_BLOG_SUCCESSFUL);
