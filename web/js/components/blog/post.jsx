@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import Excerpt from './excerpt.jsx';
 import Comments from '../comments/comments.jsx';
 import Spinner from '../spinner.jsx';
-import RequestWentToShit from '../errors/requestWentToShit.jsx';
+import { RequestWentToShit } from '../errors.jsx';
 import { fetchBlog } from '../../actions';
 import styles from './blog.styl';
 
@@ -20,7 +20,7 @@ class Blog extends Component {
       return <Spinner/>;
 
     if (error)
-      return <RequestWentToShit status={data.response.status}/>;
+      return <RequestWentToShit response={data.response}/>;
 
     const { text, ...excerpt } = data;
 

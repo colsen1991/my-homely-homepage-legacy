@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../spinner.jsx';
-import RequestWentToShit from '../errors/requestWentToShit.jsx';
+import { RequestWentToShit } from '../errors.jsx';
 import Excerpt from './excerpt.jsx';
 import { fetchExcerpts } from '../../actions';
 import styles from './blog.styl';
@@ -18,7 +18,7 @@ class Excerpts extends Component {
       return <Spinner />;
 
     if (error)
-      return <RequestWentToShit status={data.response.status}/>;
+      return <RequestWentToShit response={data.response}/>;
 
     if (data.length <= 0)
       return <p>No blogs here :(</p>;

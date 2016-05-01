@@ -8,7 +8,7 @@ import About from './about.jsx';
 import Admin from './admin/admin.jsx';
 import Login from './login/login.jsx';
 import NewOrEdit from './blog/newOrEdit.jsx';
-import PageNotFound from './errors/404.jsx';
+import { PageNotFound } from './errors.jsx';
 
 export default ({ history }) => (
   <Router history={history}>

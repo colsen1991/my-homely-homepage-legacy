@@ -13,7 +13,7 @@ export const LoginForm = ({ loggedIn, error, posting, doLogin, handleUsernameCha
         <input type="text" placeholder="Username..." onChange={handleUsernameChange} disabled={posting} required/>
         <input type="password" placeholder="Password..." onChange={handlePasswordChange} disabled={posting} required/>
         <input type="submit" value="Login" disabled={posting}/>
-        {error ? <p className={styles.error}>There was an error during your login attempt. Please try again, fuckface.</p> : null}
+        {error ? <p className={styles.error}>There was an error during your login attempt. Please try again.</p> : null}
       </form>
     );
   }

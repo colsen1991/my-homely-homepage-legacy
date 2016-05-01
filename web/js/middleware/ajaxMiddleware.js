@@ -5,10 +5,10 @@ function status200ish(status) {
 }
 
 function checkStatus(response) {
-  if (status200ish(response.status))
+  if (response && status200ish(response.status))
     return response;
 
-  const error = new Error(response.statusText);
+  const error = new Error('Server responded with error.');
   error.response = response;
   throw error;
 }

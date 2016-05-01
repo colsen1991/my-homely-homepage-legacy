@@ -3,7 +3,7 @@ import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchAllBlogs } from '../../actions';
 import Spinner from '../spinner.jsx';
-import RequestWentToShit from '../errors/requestWentToShit.jsx';
+import { RequestWentToShit } from '../errors.jsx';
 import { sortByDate } from '../../util/arrayUtils';
 import styles from './admin.styl';
 
@@ -48,7 +48,7 @@ export class Admin extends Component {
       return <Spinner/>;
 
     if (error)
-      return <RequestWentToShit status={data.response.status}/>;
+      return <RequestWentToShit response={data.response}/>;
 
     return (
       <div className={styles.admin}>

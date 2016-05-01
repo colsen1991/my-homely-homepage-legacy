@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
 import { fetchBlogForEditing, titleChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../actions';
 import Spinner from '../spinner.jsx';
-import RequestWentToShit from '../errors/requestWentToShit.jsx';
+import { RequestWentToShit } from '../errors.jsx';
 import styles from './blog.styl';
 
 export class NewOrEdit extends Component {
@@ -45,7 +45,7 @@ export class NewOrEdit extends Component {
       return <Spinner/>;
 
     if ((errorFetching && _id))
-      return <RequestWentToShit status={data.response.status}/>;
+      return <RequestWentToShit response={data.response}/>;
 
     const { title, excerpt, headerImageLink, text, published } = data;
 
