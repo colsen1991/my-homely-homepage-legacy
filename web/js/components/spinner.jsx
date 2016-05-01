@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from 'react-spin';
+import ReactSpinner from 'react-spin';
 
 const config = {
   lines: 11,
@@ -10,4 +10,6 @@ const config = {
   trail: 50
 };
 
-export default () => <Spinner config={config}/>;
+const Spinner = () => <ReactSpinner config={config}/>;
+
+export default Spinner;

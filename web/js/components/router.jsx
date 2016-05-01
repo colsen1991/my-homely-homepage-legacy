@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router as ReactRouter, Route, IndexRoute } from 'react-router';
 import App from './app.jsx';
 import FrontPage from './frontPage.jsx';
 import BlogList from './blog/excerpts.jsx';
@@ -10,8 +10,8 @@ import Login from './login/login.jsx';
 import NewOrEdit from './blog/newOrEdit.jsx';
 import { PageNotFound } from './errors.jsx';
 
-export default ({ history }) => (
-  <Router history={history}>
+const Router = ({ history }) => (
+  <ReactRouter history={history}>
     <Route path="/" component={App}>
       <IndexRoute component={FrontPage}/>
       <Route path="blog" component={BlogList}/>
@@ -24,5 +24,7 @@ export default ({ history }) => (
       <Route path="newBlog" component={NewOrEdit}/>
       <Route path="*" component={PageNotFound}/>
     </Route>
-  </Router>
+  </ReactRouter>
 );
+
+export default Router;

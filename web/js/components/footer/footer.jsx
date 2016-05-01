@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './footer.styl';
 
-export default () => (
+const Footer = () => (
   <footer className={styles.footer}>
     <span>Copyright © 2016 Christer Olsen</span>
     <span className={styles.images}>
@@ -15,3 +15,5 @@ export default () => (
     </span>
   </footer>
 );
+
+export default Footer;

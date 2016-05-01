@@ -3,7 +3,7 @@ import Header from './header/header.jsx';
 import Content from './content/content.jsx';
 import Footer from './footer/footer.jsx';
 
-export default ({ children }) => (
+const App = ({ children }) => (
   <div>
     <Header/>
     <Content>
@@ -12,3 +12,5 @@ export default ({ children }) => (
     <Footer/>
   </div>
 );
+
+export default App;

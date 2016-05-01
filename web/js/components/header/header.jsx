@@ -24,8 +24,8 @@ export const HeaderLink = ({ to, activePath, children }) => {
   return <Link {...props}>{children}</Link>;
 };
 
-export const SiteHeader = ({ activePath }) => (
-  <header className={styles.siteHeader}>
+export const Header = ({ activePath }) => (
+  <header className={styles.header}>
     <h1>
       <Link to="/" tabIndex="-1">Christer Does Stuff</Link>
     </h1>
@@ -42,4 +42,4 @@ export function connectStateToProps({ routing: { locationBeforeTransitions: { pa
   return { activePath: pathname };
 }
 
-export default connect(connectStateToProps)(SiteHeader);
+export default connect(connectStateToProps)(Header);

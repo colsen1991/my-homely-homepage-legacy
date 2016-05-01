@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Routes from './router.jsx';
 
-export default class extends Component {
+class Root extends Component {
   render() {
     return (
       <Provider store={this.props.store}>
@@ -11,3 +11,5 @@ export default class extends Component {
     );
   }
 }
+
+export default Root;

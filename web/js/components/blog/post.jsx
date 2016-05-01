@@ -8,7 +8,7 @@ import { RequestWentToShit } from '../errors.jsx';
 import { fetchBlog } from '../../actions';
 import styles from './blog.styl';
 
-class Blog extends Component {
+export class Blog extends Component {
   componentDidMount() {
     this.props.fetchBlog();
   }

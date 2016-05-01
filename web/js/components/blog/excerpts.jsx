@@ -6,7 +6,7 @@ import Excerpt from './excerpt.jsx';
 import { fetchExcerpts } from '../../actions';
 import styles from './blog.styl';
 
-class Excerpts extends Component {
+export class Excerpts extends Component {
   componentDidMount() {
     this.props.fetchExcerpts();
   }

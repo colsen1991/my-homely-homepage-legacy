@@ -14,7 +14,7 @@ export const Linkable = ({ linkable, to, children }) => {
   return <div className={styles.linkable}>{children}</div>;
 };
 
-export default ({ id, title, date, excerpt, author, linkable = true, headerImageLink }) => {
+const Excerpt = ({ id, title, date, excerpt, author, linkable = true, headerImageLink }) => {
   const formattedDate = new Date(date).toUTCString();
 
   return (
@@ -31,3 +31,4 @@ export default ({ id, title, date, excerpt, author, linkable = true, headerImage
   );
 };
 
+export default Excerpt;

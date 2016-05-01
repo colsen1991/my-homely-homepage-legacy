@@ -1,3 +1,5 @@
 import React from 'react';
 
-export default () => <p>Hello world!</p>;
+const FrontPage = () => <p>Hello world!</p>;
+
+export default FrontPage;
