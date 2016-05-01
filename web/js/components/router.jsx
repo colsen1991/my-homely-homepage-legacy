@@ -2,12 +2,12 @@ import React from 'react';
 import { Router as ReactRouter, Route, IndexRoute } from 'react-router';
 import App from './app.jsx';
 import FrontPage from './frontPage.jsx';
-import BlogList from './blog/excerpts.jsx';
-import BlogPost from './blog/post.jsx';
+import BlogList from './blog/excerpts/excerpts.jsx';
+import BlogPost from './blog/post/post.jsx';
 import About from './about.jsx';
 import Admin from './admin/admin.jsx';
 import Login from './login/login.jsx';
-import NewOrEdit from './blog/newOrEdit.jsx';
+import NewOrEdit from './blog/newOrEdit/newOrEdit.jsx';
 import { PageNotFound } from './errors.jsx';
 
 const Router = ({ history }) => (

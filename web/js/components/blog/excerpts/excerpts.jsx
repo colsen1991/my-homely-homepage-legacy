@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Spinner from '../spinner.jsx';
-import { RequestWentToShit } from '../errors.jsx';
-import Excerpt from './excerpt.jsx';
-import { fetchExcerpts } from '../../actions';
-import styles from './blog.styl';
+import Spinner from '../../spinner.jsx';
+import { RequestWentToShit } from '../../errors.jsx';
+import Excerpt from '../excerpt/excerpt.jsx';
+import { fetchExcerpts } from '../../../actions';
+import styles from './excerpts.styl';
 
 export class Excerpts extends Component {
   componentDidMount() {

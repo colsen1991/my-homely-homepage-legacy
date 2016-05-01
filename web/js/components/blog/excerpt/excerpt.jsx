@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import styles from './blog.styl';
+import styles from './excerpt.styl';
 
 export const Linkable = ({ linkable, to, children }) => {
   if (linkable) {

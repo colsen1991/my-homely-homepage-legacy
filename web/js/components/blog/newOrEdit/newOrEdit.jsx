@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
-import { fetchBlogForEditing, titleChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../actions';
-import Spinner from '../spinner.jsx';
-import { RequestWentToShit } from '../errors.jsx';
-import styles from './blog.styl';
+import { fetchBlogForEditing, titleChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../../actions';
+import Spinner from '../../spinner.jsx';
+import { RequestWentToShit } from '../../errors.jsx';
+import styles from './newOrEdit.styl';
 
 export class NewOrEdit extends Component {
   componentWillMount() {

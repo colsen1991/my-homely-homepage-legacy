@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
-import Excerpt from './excerpt.jsx';
-import Comments from '../comments/comments.jsx';
-import Spinner from '../spinner.jsx';
-import { RequestWentToShit } from '../errors.jsx';
-import { fetchBlog } from '../../actions';
-import styles from './blog.styl';
+import Excerpt from '../excerpt/excerpt.jsx';
+import Comments from '../../comments/comments.jsx';
+import Spinner from '../../spinner.jsx';
+import { RequestWentToShit } from '../../errors.jsx';
+import { fetchBlog } from '../../../actions';
+import styles from './post.styl';
 
 export class Blog extends Component {
   componentDidMount() {
