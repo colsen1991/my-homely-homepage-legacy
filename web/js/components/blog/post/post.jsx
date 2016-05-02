@@ -26,7 +26,7 @@ export class Blog extends Component {
 
     return (
       <article className={styles.blog}>
-        <Excerpt id={id} linkable={false} {...excerpt}/>
+        <Excerpt id={id} {...excerpt}/>
         <ReactMarkdown source={text}/>
         <Comments shortname="test" identifier={id}/>
       </article>

@@ -14,17 +14,23 @@ export const Linkable = ({ linkable, to, children }) => {
   return <div className={styles.linkable}>{children}</div>;
 };
 
-const Excerpt = ({ id, title, date, excerpt, author, linkable = true, headerImageLink }) => {
+// TODO Add onClick which triggers search.
+export const Tags = ({ tags, clickable }) => (
+  <span className={styles.tags}>in {tags.map((tag, i) => <button key={`${i}-${tag}`} disabled={clickable ? '' : 'disabled'}>{tag}</button>)}</span>
+  );
+
+const Excerpt = ({ id, title, tags, date, excerpt, clickable, headerImageLink }) => {
   const formattedDate = new Date(date).toUTCString();
 
   return (
     <header className={styles.excerpt}>
-      <Linkable to={`/blog/${id}`} linkable={linkable}>
+      <Linkable to={`/blog/${id}`} linkable={clickable}>
         <h1>{title}</h1>
         <img src={headerImageLink} alt="Header"/>
       </Linkable>
       <address>
-        Published on <time pubDate="pubDate" dateTime={formattedDate} title={formattedDate}>{formattedDate}</time> by <Link rel="author" to="/about">{author}</Link>
+        Published on <time pubDate="pubDate" dateTime={formattedDate} title={formattedDate}>{formattedDate} </time>
+        <Tags tags={tags} clickable={clickable}/>
       </address>
       <p>{excerpt}</p>
     </header>

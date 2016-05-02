@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer, LOCATION_CHANGE } from 'react-router-redux';
 import {
+  SEARCH_EXCERPTS,
   FETCH_EXCERPTS_START,
   FETCH_EXCERPTS_SUCCESSFUL,
   FETCH_EXCERPTS_ERROR,
@@ -35,13 +36,15 @@ export const initialState = {
   excerpts: {
     data: [],
     fetching: true,
-    error: false
+    error: false,
+    search: 'travel'
   },
   blog: {
     data: {
       id: '',
       headerImageLink: '',
       title: '',
+      tags: [],
       date: '',
       author: '',
       excerpt: '',
@@ -49,9 +52,7 @@ export const initialState = {
     },
     fetching: true,
     error: false,
-    showComments: false,
-    search: '',
-    tags: ''
+    showComments: false
   },
   login: {
     loggedIn: false,
@@ -96,6 +97,8 @@ export function excerpts(excerpts = initialState.excerpts, { type, payload, erro
       return { ... excerpts, fetching: false, error: false, data: payload };
     case FETCH_EXCERPTS_ERROR:
       return { ...excerpts, fetching: false, error, data: payload };
+    case SEARCH_EXCERPTS:
+      return { ... excerpts, search: payload };
     default:
       return excerpts;
   }
