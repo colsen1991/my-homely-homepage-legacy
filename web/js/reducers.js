@@ -37,7 +37,7 @@ export const initialState = {
     data: [],
     fetching: true,
     error: false,
-    search: 'travel'
+    search: ''
   },
   blog: {
     data: {
@@ -46,7 +46,6 @@ export const initialState = {
       title: '',
       tags: [],
       date: '',
-      author: '',
       excerpt: '',
       text: ''
     },
@@ -62,7 +61,6 @@ export const initialState = {
     username: '',
     password: '',
     token: '',
-    name: ''
   },
   allBlogs: {
     data: [],
@@ -76,7 +74,6 @@ export const initialState = {
       title: '',
       tags: [],
       date: '',
-      author: '',
       excerpt: '',
       text: '',
       published: false
@@ -98,7 +95,9 @@ export function excerpts(excerpts = initialState.excerpts, { type, payload, erro
     case FETCH_EXCERPTS_ERROR:
       return { ...excerpts, fetching: false, error, data: payload };
     case SEARCH_EXCERPTS:
-      return { ... excerpts, search: payload };
+      return { ...excerpts, search: payload };
+    case LOCATION_CHANGE:
+      return initialState.excerpts;
     default:
       return excerpts;
   }
@@ -128,11 +127,11 @@ function login(login = initialState.login, { type, payload, error }) {
     case LOGIN_START:
       return { ...login, posting: true, error: false, success: false };
     case LOGIN_SUCCESS:
-      return { ...initialState.login, success: true, loggedIn: true, token: payload.token, name: payload.name };
+      return { ...initialState.login, username: login.username, success: true, loggedIn: true, token: payload.token };
     case LOGIN_ERROR:
       return { ...login, posting: false, error, success: false, loggedIn: false };
     case LOCATION_CHANGE:
-      return { ...initialState.login, loggedIn: login.loggedIn, token: login.token, name: login.name };
+      return { ...initialState.login, loggedIn: login.loggedIn, token: login.token };
     default:
       return login;
   }

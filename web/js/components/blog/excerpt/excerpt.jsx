@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Tags from '../tags/tags.jsx';
 import styles from './excerpt.styl';
 
 export const Linkable = ({ linkable, to, children }) => {
@@ -13,11 +14,6 @@ export const Linkable = ({ linkable, to, children }) => {
 
   return <div className={styles.linkable}>{children}</div>;
 };
-
-// TODO Add onClick which triggers search.
-export const Tags = ({ tags, clickable }) => (
-  <span className={styles.tags}>in {tags.map((tag, i) => <button key={`${i}-${tag}`} disabled={clickable ? '' : 'disabled'}>{tag}</button>)}</span>
-  );
 
 const Excerpt = ({ id, title, tags, date, excerpt, clickable, headerImageLink }) => {
   const formattedDate = new Date(date).toUTCString();

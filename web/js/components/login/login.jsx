@@ -42,11 +42,12 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export function mergeProps({ username, password, ...stateProps }, { doLoginWrapper, ...dispatchProps }) {
+export function mergeProps({ username, password, ...stateProps }, { doLoginWrapper, ...dispatchProps }, ownProps) {
   return {
     ...stateProps,
     ...dispatchProps,
-    doLogin: doLoginWrapper(username, password)
+    doLogin: doLoginWrapper(username, password),
+    ...ownProps
   };
 }
 

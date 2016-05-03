@@ -66,8 +66,8 @@ export class NewOrEdit extends Component {
   }
 }
 
-export function mapStateToProps({ blogForEditing, login: { name, loggedIn } }) {
-  return { ...blogForEditing, name, loggedIn };
+export function mapStateToProps({ blogForEditing, login: { loggedIn } }) {
+  return { ...blogForEditing, loggedIn };
 }
 
 export function mapDispatchToProps(dispatch, { params: { _id } }) {
@@ -88,13 +88,11 @@ export function mapDispatchToProps(dispatch, { params: { _id } }) {
 }
 
 export function mergeProps({ data, name, ...stateProps }, { saveWrapper, ...dispatchProps }, ownProps) {
-  const author = data.author || name;
-
   return {
     ...stateProps,
     ...dispatchProps,
     data,
-    save: saveWrapper({ ...data, author }),
+    save: saveWrapper({ ...data }),
     ...ownProps
   };
 }

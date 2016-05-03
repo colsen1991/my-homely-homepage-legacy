@@ -38,7 +38,16 @@ export const SAVE_BLOG_START = 'SAVE_BLOG_START';
 export const SAVE_BLOG_SUCCESSFUL = 'SAVE_BLOG_SUCCESSFUL';
 export const SAVE_BLOG_ERROR = 'SAVE_BLOG_ERROR';
 
-export const searchExcerpts = createAction(SEARCH_EXCERPTS);
+export const searchExcerpts = event => {
+  const payload = extractValueFromEvent(event);
+
+  window.history.replaceState({}, 'search', `?search=${payload}`);
+
+  return {
+    type: SEARCH_EXCERPTS,
+    payload
+  };
+};
 export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
 export const fetchExcerptsError = createAction(FETCH_EXCERPTS_ERROR);
@@ -142,25 +151,25 @@ export const saveBlogError = createAction(SAVE_BLOG_ERROR);
 export const saveBlog = (data, _id = null) => {
   const blog = {
     ...data,
-    id: makeBlogId(data.title),
+  id: makeBlogId(data.title),
     date: _id ? data.date : new Date().toString()
   };
 
-  return {
-    type: AJAX,
-    payload: {
-      url: _id ? `/api/secure/blog/${_id}` : '/api/secure/blog',
-      auth: true,
-      options: {
-        method: _id ? 'put' : 'post',
-        body: JSON.stringify({ blog }),
-        headers: { 'Content-Type': 'application/json' }
-      },
-      actions: {
-        start: saveBlogStart,
-        success: saveBlogSuccess,
-        error: saveBlogError
-      }
+return {
+  type: AJAX,
+  payload: {
+    url: _id ? `/api/secure/blog/${_id}` : '/api/secure/blog',
+    auth: true,
+    options: {
+      method: _id ? 'put' : 'post',
+      body: JSON.stringify({ blog }),
+      headers: { 'Content-Type': 'application/json' }
+    },
+    actions: {
+      start: saveBlogStart,
+      success: saveBlogSuccess,
+      error: saveBlogError
     }
-  };
+  }
+};
 };

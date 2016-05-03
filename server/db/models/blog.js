@@ -5,7 +5,6 @@ module.exports = mongoose.model('Blog', new mongoose.Schema({
   headerImageLink: String,
   title: String,
   date: String,
-  author: String,
   excerpt: String,
   text: String,
   published: Boolean
