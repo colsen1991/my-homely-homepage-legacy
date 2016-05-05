@@ -4,8 +4,8 @@ import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createStore from './store/store';
 import Root from './components/root.jsx';
+import 'babel-polyfill';
 import '../style/app.styl';
-
 require.context('../img', true, /^\.\//);
 
 window.onerror = () => {
