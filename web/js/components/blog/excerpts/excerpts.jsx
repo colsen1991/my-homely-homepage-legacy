@@ -1,30 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import Excerpt from '../excerpt/excerpt.jsx';
 import { fetchExcerpts, searchExcerpts } from '../../../actions';
 import styles from './excerpts.styl';
 
-export const Search = ({ handleSearch }) => <input role="search" type="search" onKeyUp={handleSearch} placeholder="Search..."/>;
+export const Search = ({ handleSearch, ...rest }) => <input role="search" type="search" onKeyUp={handleSearch} {...rest} placeholder="Search..."/>;
 
 export class Excerpts extends Component {
+  constructor(props) {
+    super(props);
+
+    this.initialSearchDone = false;
+  }
+
   componentDidMount() {
     this.props.fetchExcerpts();
   }
 
   componentWillReceiveProps(nextProp) {
-    const { fetching, error, data, location: { search: locationSearch }, search } = nextProp;
-    if (!fetching && !error && data.length > 0) {
-      const [name, val] = locationSearch.split('=');
+    const { fetching, error, data, location: { search: unparsedLocSearch }, search: searchProp } = nextProp;
 
-      if (name.substr(1) === search && val)
-        this.props.handleSearch(locationSearch);
+    if (!this.initialSearchDone && !fetching && !error && data.length > 0) {
+      const { search: locSearch } = queryString.parse(unparsedLocSearch);
+
+      if (locSearch && locSearch !== searchProp) {
+        this.props.handleSearch(locSearch);
+        this.initialSearchDone = true;
+      }
     }
   }
 
   render() {
-    const { data, fetching, error, handleSearch } = this.props;
+    const { data, fetching, error, handleSearch, location: { search: unparsedLocSearch } } = this.props;
+    const { search: locSearch } = queryString.parse(unparsedLocSearch);
 
     if (fetching)
       return <Spinner />;
@@ -43,7 +54,7 @@ export class Excerpts extends Component {
 
     return (
       <div className={styles.excerpts}>
-        <Search handleSearch={handleSearch}/>
+        <Search handleSearch={handleSearch} defaultValue={locSearch || ''}/>
         {
           data.map((excerpt, index, arr) => (
             <section key={excerpt.id}>

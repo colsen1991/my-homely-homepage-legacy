@@ -151,25 +151,25 @@ export const saveBlogError = createAction(SAVE_BLOG_ERROR);
 export const saveBlog = (data, _id = null) => {
   const blog = {
     ...data,
-  id: makeBlogId(data.title),
+    id: makeBlogId(data.title),
     date: _id ? data.date : new Date().toString()
   };
 
-return {
-  type: AJAX,
-  payload: {
-    url: _id ? `/api/secure/blog/${_id}` : '/api/secure/blog',
-    auth: true,
-    options: {
-      method: _id ? 'put' : 'post',
-      body: JSON.stringify({ blog }),
-      headers: { 'Content-Type': 'application/json' }
-    },
-    actions: {
-      start: saveBlogStart,
-      success: saveBlogSuccess,
-      error: saveBlogError
+  return {
+    type: AJAX,
+    payload: {
+      url: _id ? `/api/secure/blog/${_id}` : '/api/secure/blog',
+      auth: true,
+      options: {
+        method: _id ? 'put' : 'post',
+        body: JSON.stringify({ blog }),
+        headers: { 'Content-Type': 'application/json' }
+      },
+      actions: {
+        start: saveBlogStart,
+        success: saveBlogSuccess,
+        error: saveBlogError
+      }
     }
-  }
-};
+  };
 };
