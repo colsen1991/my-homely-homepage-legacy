@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import styles from './header.styl';
@@ -8,7 +8,7 @@ export function doesHrefAndPathMatch(href, path = '/') {
   if (href === '/')
     return href === path;
 
-  return path.indexOf(href) >= 0;
+  return path.includes(href);
 }
 
 export const HeaderLink = ({ to, activePath, children }) => {
@@ -24,22 +24,22 @@ export const HeaderLink = ({ to, activePath, children }) => {
   return <Link {...props}>{children}</Link>;
 };
 
-export const Header = ({ activePath }) => (
+export const Header = ({ activePath, search }) => (
   <header className={styles.header}>
     <h1>
-      <Link to="/" tabIndex="-1">Christer Does Stuff</Link>
+      <Link to="/" tabIndex="-1">Christer Olsen</Link>
     </h1>
-    <p>Rantings and ravings of an unknow Norwegian guy</p>
     <nav className={styles.navigationBar}>
       <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
       <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
       <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
+      <input role="search" type="search" value={search.split('=')[1]} onChange={event => browserHistory.push('/blog?search=' + escape(event.target.value))} placeholder="Search..." />
     </nav>
   </header>
 );
 
-export function connectStateToProps({ routing: { locationBeforeTransitions: { pathname } } }) {
-  return { activePath: pathname };
+export function connectStateToProps({ routing: { locationBeforeTransitions: { pathname, search } } }) {
+  return { activePath: pathname, search };
 }
 
 export default connect(connectStateToProps)(Header);

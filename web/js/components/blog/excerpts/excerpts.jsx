@@ -1,41 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { browserHistory } from 'react-router';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import Excerpt from '../excerpt/excerpt.jsx';
 import { fetchExcerpts, searchExcerpts } from '../../../actions';
 import styles from './excerpts.styl';
 
-export const Search = ({ handleSearch, ...rest }) => <input role="search" type="search" onKeyUp={handleSearch} {...rest} placeholder="Search..."/>;
+export const Search = ({ ...props }) => <input role="search" type="search" {...props} placeholder="Search..."/>;
 
 export class Excerpts extends Component {
-  constructor(props) {
-    super(props);
-
-    this.initialSearchDone = false;
-  }
-
   componentDidMount() {
     this.props.fetchExcerpts();
   }
 
-  componentWillReceiveProps(nextProp) {
-    const { fetching, error, data, location: { search: unparsedLocSearch }, search: searchProp } = nextProp;
-
-    if (!this.initialSearchDone && !fetching && !error && data.length > 0) {
-      const { search: locSearch } = queryString.parse(unparsedLocSearch);
-
-      if (locSearch && locSearch !== searchProp) {
-        this.props.handleSearch(locSearch);
-        this.initialSearchDone = true;
-      }
-    }
-  }
-
   render() {
-    const { data, fetching, error, handleSearch, location: { search: unparsedLocSearch } } = this.props;
-    const { search: locSearch } = queryString.parse(unparsedLocSearch);
+    const { data, fetching, error, search, handleSearch } = this.props;
 
     if (fetching)
       return <Spinner />;
@@ -46,15 +27,14 @@ export class Excerpts extends Component {
     if (data.length <= 0) {
       return (
         <div className={styles.excerpts}>
-          <Search handleSearch={handleSearch}/>
-          <p>No blogs here: (</p>
+          <p>No blogs here :(</p>
+          <p>Could be I havent written anything, or you could try searching for something other than</p>
         </div>
       );
     }
 
     return (
       <div className={styles.excerpts}>
-        <Search handleSearch={handleSearch} defaultValue={locSearch || ''}/>
         {
           data.map((excerpt, index, arr) => (
             <section key={excerpt.id}>
@@ -68,7 +48,19 @@ export class Excerpts extends Component {
   }
 }
 
-export function mapStateToProps({ excerpts: { data, search, ...excerpts } }) {
+export function mapStateToProps({ excerpts }) {
+  return excerpts;
+}
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    fetchExcerpts: () => dispatch(fetchExcerpts())
+  };
+}
+
+export function mergeProps({ data, ...stateProps }, { dispatch, ...dispatchProps }, { location: { search: unparsedLocationSearch }, ...ownProps }) {
+  const { search = '' } = queryString.parse(unparsedLocationSearch);
   const actualSearch = search.toLowerCase();
   const filteredData = actualSearch ? data.filter(({ date, excerpt, tags, title }) => (
     title.toLowerCase().includes(actualSearch) ||
@@ -79,32 +71,10 @@ export function mapStateToProps({ excerpts: { data, search, ...excerpts } }) {
   )) : data;
 
   return {
-    ...excerpts,
-    data: filteredData,
-    search,
-    handleSearchWrapper: dispatch => event => {
-      const which = event.which;
-
-      if (typeof event === 'string' || which === 13 || which === 27)
-        return dispatch(searchExcerpts(event));
-
-      return null;
-    }
-  };
-}
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    fetchExcerpts: () => dispatch(fetchExcerpts()),
-    dispatch
-  };
-}
-
-export function mergeProps({ handleSearchWrapper, ...stateProps }, { dispatch, ...dispatchProps }, ownProps) {
-  return {
     ...stateProps,
+    data: filteredData,
     ...dispatchProps,
-    handleSearch: handleSearchWrapper(dispatch),
+    search,
     ...ownProps
   };
 }
