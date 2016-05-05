@@ -15,18 +15,18 @@ export const Linkable = ({ linkable, to, children }) => {
   return <div className={styles.linkable}>{children}</div>;
 };
 
-const Excerpt = ({ id, title, tags, date, excerpt, clickable, headerImageLink }) => {
+const Excerpt = ({ id, title, tags, date, excerpt, linkable, disableTags, headerImageLink }) => {
   const formattedDate = new Date(date).toUTCString();
 
   return (
     <header className={styles.excerpt}>
-      <Linkable to={`/blog/${id}`} linkable={clickable}>
+      <Linkable to={`/blog/${id}`} linkable={linkable}>
         <h1>{title}</h1>
         <img src={headerImageLink} alt="Header"/>
       </Linkable>
       <address>
         Published on <time pubDate="pubDate" dateTime={formattedDate} title={formattedDate}>{formattedDate} </time>
-        <Tags tags={tags} clickable={clickable}/>
+        <Tags tags={tags} disabled={disableTags}/>
       </address>
       <p>{excerpt}</p>
     </header>

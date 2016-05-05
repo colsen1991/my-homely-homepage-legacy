@@ -58,7 +58,7 @@ export class Excerpts extends Component {
         {
           data.map((excerpt, index, arr) => (
             <section key={excerpt.id}>
-              <Excerpt {...excerpt} clickable showLine={arr} />
+              <Excerpt {...excerpt} showLine={arr} linkable disableTags/>
               {index !== (arr.length - 1) ? <hr className={styles.line} /> : null}
             </section>
           ))

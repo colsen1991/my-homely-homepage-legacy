@@ -96,8 +96,6 @@ export function excerpts(excerpts = initialState.excerpts, { type, payload, erro
       return { ...excerpts, fetching: false, error, data: payload };
     case SEARCH_EXCERPTS:
       return { ...excerpts, search: payload };
-    case LOCATION_CHANGE:
-      return initialState.excerpts;
     default:
       return excerpts;
   }

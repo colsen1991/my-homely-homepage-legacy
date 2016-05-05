@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router';
 import styles from './tags.styl';
 
-// TODO Add onClick which triggers search.
-const Tags = ({ tags, clickable }) => (
-  <span className={styles.tags}>in {tags.map((tag, i) => <a href="#" role="button" key={`${i}-${tag}`} disabled={clickable ? '' : 'disabled'}>{tag} </a>)}</span>
+const Tags = ({ tags, disabled }) => (
+  <span className={styles.tags}>
+    in {tags.map((tag, i) => <Link to={`/blog?search=${tag}`} value={tag} role="button" key={`${i}-${tag}`} disabled={disabled ? 'disabled' : ''}>#{tag} </Link>)}
+  </span>
 );
 
 export default Tags;
