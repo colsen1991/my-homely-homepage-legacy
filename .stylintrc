@@ -1,0 +1,15 @@
+{
+  "brackets": {
+    "expect": "never"
+  },
+  "colons": {
+    "expect": "never"
+  },
+  "semicolons": {
+    "expect": "never"
+  },
+  "quotePref": "double",
+  "namingConvention": "camelCase",
+  "namingConventionStrict": true,
+  "prefixVarsWithDollar": "alway"  
+}

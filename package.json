@@ -32,7 +32,7 @@
     "build": "npm run clean && webpack --config webpack.config.prod.js",
     "testdata": "mongo localhost:27017/my-homeley-homepage ./server/db/initialLoad.dev.js",
     "database": "mongod",
-    "lint": "eslint ."
+    "lint": "eslint ./server && eslint ./web && stylint ./web"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",
