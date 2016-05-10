@@ -5,7 +5,8 @@ import { extractValueFromEvent } from './util/actionsUtils';
 
 export const AJAX = 'AJAX';
 
-export const SEARCH_EXCERPTS = 'SEARCH_EXCERPTS';
+export const SEARCH = 'SEARCH';
+
 export const FETCH_EXCERPTS_START = 'FETCH_EXCERPTS_START';
 export const FETCH_EXCERPTS_SUCCESSFUL = 'FETCH_EXCERPTS_SUCCESSFUL';
 export const FETCH_EXCERPTS_ERROR = 'FETCH_EXCERPTS_ERROR';
@@ -38,16 +39,14 @@ export const SAVE_BLOG_START = 'SAVE_BLOG_START';
 export const SAVE_BLOG_SUCCESSFUL = 'SAVE_BLOG_SUCCESSFUL';
 export const SAVE_BLOG_ERROR = 'SAVE_BLOG_ERROR';
 
-export const searchExcerpts = event => {
+export const search = event => {
   const payload = extractValueFromEvent(event);
 
-  window.history.replaceState({}, 'search', `?search=${payload}`);
+  browserHistory.push(`/blog?search=${payload}`);
 
-  return {
-    type: SEARCH_EXCERPTS,
-    payload
-  };
+  return { type: SEARCH, payload };
 };
+
 export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
 export const fetchExcerptsSuccess = createAction(FETCH_EXCERPTS_SUCCESSFUL);
 export const fetchExcerptsError = createAction(FETCH_EXCERPTS_ERROR);

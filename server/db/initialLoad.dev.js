@@ -2,7 +2,7 @@
 
 db.dropDatabase();
 
-var tags = ['travelling', 'brewing', 'programming', 'life', 'other'];
+var tags = ['#travelling', '#brewing', '#programming', '#life', '#other'];
 
 for (var i = 1; i <= 10; i++) {
   db.blogs.insert({

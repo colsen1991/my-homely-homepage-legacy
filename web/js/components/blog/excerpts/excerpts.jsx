@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
-import { browserHistory } from 'react-router';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import Excerpt from '../excerpt/excerpt.jsx';
-import { fetchExcerpts, searchExcerpts } from '../../../actions';
+import { fetchExcerpts } from '../../../actions';
 import styles from './excerpts.styl';
 
 export const Search = ({ ...props }) => <input role="search" type="search" {...props} placeholder="Search..."/>;
@@ -16,7 +14,7 @@ export class Excerpts extends Component {
   }
 
   render() {
-    const { data, fetching, error, search, handleSearch } = this.props;
+    const { data, fetching, error } = this.props;
 
     if (fetching)
       return <Spinner />;
@@ -28,7 +26,7 @@ export class Excerpts extends Component {
       return (
         <div className={styles.excerpts}>
           <p>No blogs here :(</p>
-          <p>Could be I havent written anything, or you could try searching for something other than</p>
+          <p>Could be I haven't written anything, or you could try searching for something else...</p>
         </div>
       );
     }
@@ -48,19 +46,7 @@ export class Excerpts extends Component {
   }
 }
 
-export function mapStateToProps({ excerpts }) {
-  return excerpts;
-}
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    fetchExcerpts: () => dispatch(fetchExcerpts())
-  };
-}
-
-export function mergeProps({ data, ...stateProps }, { dispatch, ...dispatchProps }, { location: { search: unparsedLocationSearch }, ...ownProps }) {
-  const { search = '' } = queryString.parse(unparsedLocationSearch);
+export function mapStateToProps({ excerpts: { data, ...excerpts }, routing: { locationBeforeTransitions: { query: { search = '' } } } }) {
   const actualSearch = search.toLowerCase();
   const filteredData = actualSearch ? data.filter(({ date, excerpt, tags, title }) => (
     title.toLowerCase().includes(actualSearch) ||
@@ -71,12 +57,9 @@ export function mergeProps({ data, ...stateProps }, { dispatch, ...dispatchProps
   )) : data;
 
   return {
-    ...stateProps,
     data: filteredData,
-    ...dispatchProps,
-    search,
-    ...ownProps
+    ...excerpts
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Excerpts);
+export default connect(mapStateToProps, { fetchExcerpts })(Excerpts);

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { search as searchAction } from '../../actions';
 import styles from './header.styl';
 
 export function doesHrefAndPathMatch(href, path = '/') {
@@ -24,7 +25,7 @@ export const HeaderLink = ({ to, activePath, children }) => {
   return <Link {...props}>{children}</Link>;
 };
 
-export const Header = ({ activePath, search }) => (
+export const Header = ({ activePath, currentSearch, handleSearch }) => (
   <header className={styles.header}>
     <h1>
       <Link to="/" tabIndex="-1">Christer Olsen</Link>
@@ -33,13 +34,13 @@ export const Header = ({ activePath, search }) => (
       <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
       <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
       <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
-      <input role="search" type="search" value={search.split('=')[1]} onChange={event => browserHistory.push('/blog?search=' + escape(event.target.value))} placeholder="Search..." />
+      <input role="search" type="search" value={currentSearch} onChange={handleSearch} placeholder="Search..." />
     </nav>
   </header>
 );
 
-export function connectStateToProps({ routing: { locationBeforeTransitions: { pathname, search } } }) {
-  return { activePath: pathname, search };
+export function connectStateToProps({ routing: { locationBeforeTransitions: { pathname, query: { search = '' } } } }) {
+  return { activePath: pathname, currentSearch: decodeURIComponent(search) };
 }
 
-export default connect(connectStateToProps)(Header);
+export default connect(connectStateToProps, { handleSearch: searchAction })(Header);

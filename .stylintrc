@@ -11,5 +11,5 @@
   "quotePref": "double",
   "namingConvention": "camelCase",
   "namingConventionStrict": true,
-  "prefixVarsWithDollar": "alway"  
+  "prefixVarsWithDollar": "always"
 }

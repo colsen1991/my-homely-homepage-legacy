@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
 import ajaxMiddleware from '../middleware/ajaxMiddleware';
 import reducers, { initialState } from '../reducers';
 
@@ -10,7 +9,7 @@ export default (history) => {
     reducers,
     initialState,
     compose(
-      applyMiddleware(routerMiddleware(history), thunk, ajaxMiddleware, createLogger()),
+      applyMiddleware(routerMiddleware(history), thunk, ajaxMiddleware),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );

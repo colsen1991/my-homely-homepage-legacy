@@ -21,11 +21,27 @@
     
     input
       position absolute
-      right 2em
+      right 2.5em
+      width 15em
+      
+      @media screen and (max-width 640px)
+        width 10em
+      
+      @media screen and (max-width 540px)
+        width 8.5em
+      
+      @media screen and (max-width 480px)
+        width 10em
+      
+      @media screen and (max-width 380px)
+        width 7em
     
     a
       margin 0 1em
       padding 0.5em
+      
+      @media screen and (max-width 480px)
+        margin 0 0.5em
 
       &:first-child
         margin-left 0
