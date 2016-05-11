@@ -6,9 +6,31 @@ import Excerpt from '../excerpt/excerpt.jsx';
 import { fetchExcerpts } from '../../../actions';
 import styles from './excerpts.styl';
 
-export const Search = ({ ...props }) => <input role="search" type="search" {...props} placeholder="Search..."/>;
+export const Excerpts = ({ data }) => {
+  if (data.length <= 0) {
+    return (
+      <div>
+        <p>No blogs here :(</p>
+        <p>Could be I haven't written anything, or you could try searching for something else...</p>
+      </div>
+    );
+  }
 
-export class Excerpts extends Component {
+  return (
+    <div className={styles.excerpts}>
+      {
+        data.map((excerpt, index, arr) => (
+          <section key={excerpt.id}>
+            <Excerpt {...excerpt} showLine={arr} linkable/>
+            {index !== (arr.length - 1) ? <hr className={styles.line} /> : null}
+          </section>
+        ))
+      }
+    </div>
+  );
+};
+
+export class ExcerptsContainer extends Component {
   componentDidMount() {
     this.props.fetchExcerpts();
   }
@@ -17,32 +39,12 @@ export class Excerpts extends Component {
     const { data, fetching, error } = this.props;
 
     if (fetching)
-      return <Spinner />;
+      return <Spinner/>;
 
     if (error)
       return <RequestWentToShit response={data.response}/>;
 
-    if (data.length <= 0) {
-      return (
-        <div className={styles.excerpts}>
-          <p>No blogs here :(</p>
-          <p>Could be I haven't written anything, or you could try searching for something else...</p>
-        </div>
-      );
-    }
-
-    return (
-      <div className={styles.excerpts}>
-        {
-          data.map((excerpt, index, arr) => (
-            <section key={excerpt.id}>
-              <Excerpt {...excerpt} showLine={arr} linkable disableTags/>
-              {index !== (arr.length - 1) ? <hr className={styles.line} /> : null}
-            </section>
-          ))
-        }
-      </div>
-    );
+    return <Excerpts data={data}/>;
   }
 }
 
@@ -62,4 +64,4 @@ export function mapStateToProps({ excerpts: { data, ...excerpts }, routing: { lo
   };
 }
 
-export default connect(mapStateToProps, { fetchExcerpts })(Excerpts);
+export default connect(mapStateToProps, { fetchExcerpts })(ExcerptsContainer);

@@ -7,7 +7,7 @@ import { RequestWentToShit } from '../errors.jsx';
 import { sortByDate } from '../../util/arrayUtils';
 import styles from './admin.styl';
 
-export const BlogTable = ({ blogs }) => (
+export const BlogPostsTable = ({ data }) => (
   <table>
     <thead>
       <tr>
@@ -18,9 +18,9 @@ export const BlogTable = ({ blogs }) => (
     </thead>
     <tbody>
       {
-        blogs.sort(sortByDate).map(({ _id, title, date, published }) => (
+        data.map(({ _id, title, date, published }) => (
           <tr key={_id}>
-            <td><Link to={`/editBlog/${_id}`}>{title}</Link></td>
+            <td><Link to={`/blog/edit/${_id}`}>{title}</Link></td>
             <td>{new Date(date).toUTCString()}</td>
             <td>{published ? 'Yes' : 'No'}</td>
           </tr>
@@ -30,7 +30,14 @@ export const BlogTable = ({ blogs }) => (
   </table>
 );
 
-export class Admin extends Component {
+export const Admin = ({ data }) => (
+  <div className={styles.admin}>
+    <Link to="/blog/new" className={styles.newBlogLink}>Write new blog post?</Link>
+    <BlogPostsTable data={data}/>
+  </div>
+);
+
+export class AdminContainer extends Component {
   componentWillMount() {
     if (!this.props.loggedIn)
       browserHistory.push('/login');
@@ -50,17 +57,12 @@ export class Admin extends Component {
     if (error)
       return <RequestWentToShit response={data.response}/>;
 
-    return (
-      <div className={styles.admin}>
-        <Link to="/newBlog" className={styles.newBlogLink}>Write new Blog post</Link>
-        <BlogTable blogs={data}/>
-      </div>
-    );
+    return <Admin data={data}/>;
   }
 }
 
-function mapStateToProps({ login: { loggedIn }, allBlogs }) {
-  return { loggedIn, ...allBlogs };
+function mapStateToProps({ login: { loggedIn }, allBlogs: { data, allBlogs } }) {
+  return { loggedIn, ...allBlogs, data: data.sort(sortByDate) };
 }
 
-export default connect(mapStateToProps, { fetchAllBlogs })(Admin);
+export default connect(mapStateToProps, { fetchAllBlogs })(AdminContainer);

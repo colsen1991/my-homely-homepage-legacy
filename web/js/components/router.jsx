@@ -2,6 +2,7 @@ import React from 'react';
 import { Router as ReactRouter, Route, IndexRoute } from 'react-router';
 import App from './app.jsx';
 import FrontPage from './frontPage.jsx';
+import Blog from './blog/blog.jsx';
 import BlogList from './blog/excerpts/excerpts.jsx';
 import BlogPost from './blog/post/post.jsx';
 import About from './about.jsx';
@@ -14,14 +15,15 @@ const Router = ({ history }) => (
   <ReactRouter history={history}>
     <Route path="/" component={App}>
       <IndexRoute component={FrontPage}/>
-      <Route path="blog" component={BlogList}/>
-      <Route path="blog/:id" component={BlogPost}/>
-      <Route path="blog/*" component={BlogPost}/>
+      <Route path="blog" component={Blog}>
+        <IndexRoute component={BlogList}/>
+        <Route path="new" component={NewOrEdit}/>
+        <Route path="edit/:_id" component={NewOrEdit}/>
+        <Route path=":id" component={BlogPost}/>
+      </Route>
       <Route path="about" component={About}/>
       <Route path="login" component={Login}/>
       <Route path="admin" component={Admin}/>
-      <Route path="editBlog/:_id" component={NewOrEdit}/>
-      <Route path="newBlog" component={NewOrEdit}/>
       <Route path="*" component={PageNotFound}/>
     </Route>
   </ReactRouter>

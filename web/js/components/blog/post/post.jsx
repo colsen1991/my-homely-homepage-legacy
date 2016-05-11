@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import Excerpt from '../excerpt/excerpt.jsx';
-import Comments from '../../comments/comments.jsx';
+import Comments from '../comments/comments.jsx';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import { fetchBlog } from '../../../actions';
 import styles from './post.styl';
 
-export class Blog extends Component {
+export const Post = ({ id, data: { text, ...excerpt } }) => (
+  <article className={styles.blog}>
+    <Excerpt id={id} {...excerpt}/>
+    <ReactMarkdown source={text}/>
+    <Comments shortname="test" identifier={id}/>
+  </article>
+);
+
+export class PostContainer extends Component {
   componentDidMount() {
     this.props.fetchBlog();
   }
@@ -22,15 +30,7 @@ export class Blog extends Component {
     if (error)
       return <RequestWentToShit response={data.response}/>;
 
-    const { text, ...excerpt } = data;
-
-    return (
-      <article className={styles.blog}>
-        <Excerpt id={id} {...excerpt}/>
-        <ReactMarkdown source={text}/>
-        <Comments shortname="test" identifier={id}/>
-      </article>
-    );
+    return <Post data={data} id={id}/>;
   }
 }
 
@@ -42,4 +42,4 @@ export function mapDispatchToProps(dispatch, { params: { id } }) {
   return { fetchBlog: () => dispatch(fetchBlog(id)) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blog);
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

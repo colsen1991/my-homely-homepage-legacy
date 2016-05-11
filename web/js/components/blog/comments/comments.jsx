@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactDisqusThread from 'react-disqus-thread';
-import { showComments as showCommentsAction } from '../../actions';
+import { showComments as showCommentsAction } from '../../../actions';
 import styles from './comments.styl';
 
 export const Comments = ({ showComments, doShowComments, ...disqusProps }) => {

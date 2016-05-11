@@ -1,22 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
 import Tags from '../tags/tags.jsx';
+import Linkable from '../../linkable/linkable.jsx';
 import styles from './excerpt.styl';
 
-export const Linkable = ({ linkable, to, children }) => {
-  if (linkable) {
-    return (
-      <Link to={to} className={styles.linkable}>
-        {children}
-      </Link>
-    );
-  }
-
-  return <div className={styles.linkable}>{children}</div>;
-};
-
-const Excerpt = ({ id, title, tags, date, excerpt, linkable, disableTags, headerImageLink }) => {
-  const formattedDate = new Date(date).toUTCString();
+const Excerpt = ({ id, title, tags, date, excerpt, linkable, headerImageLink }) => {
+  const formattedDate = new Date(date).toUTCString().substr(0, 16);
 
   return (
     <header className={styles.excerpt}>
@@ -26,7 +14,7 @@ const Excerpt = ({ id, title, tags, date, excerpt, linkable, disableTags, header
       </Linkable>
       <address>
         Published on <time pubDate="pubDate" dateTime={formattedDate} title={formattedDate}>{formattedDate} </time>
-        <Tags tags={tags} disabled={disableTags}/>
+        <Tags tags={tags}/>
       </address>
       <p>{excerpt}</p>
     </header>

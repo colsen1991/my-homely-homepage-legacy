@@ -6,11 +6,51 @@ import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import styles from './newOrEdit.styl';
 
-export class NewOrEdit extends Component {
-  componentWillMount() {
-    const { loggedIn } = this.props;
+export const NewOrEdit = ({
+      saving,
+      successSaving,
+      errorSaving,
+      save,
+      handleTitleChange,
+      handleTagsChange,
+      handleHeaderImageLinkChange,
+      handleExcerptChange,
+      handleTextChange,
+      handlePublishedChange,
+      _id,
+      data: {
+        title,
+        tags,
+        excerpt,
+        headerImageLink,
+        text,
+        published
+      }
+    }) => {
+  if (saving)
+    return <Spinner/>;
 
-    if (!loggedIn)
+  if (successSaving && !_id)
+    return <p className={styles.success}> Save successful! Wanna return to the <Link to="/admin">admin</Link> page?</p>;
+
+  return (
+    <form onSubmit={save} className={styles.newOrEditForm}>
+      <input type="text" placeholder="Title..." defaultValue={title} onChange={handleTitleChange} required/>
+      <input type="text" placeholder="Tags..." defaultValue={tags} onChange={handleTagsChange} required/>
+      <input type="url" placeholder="Header image link..." defaultValue={headerImageLink} onChange={handleHeaderImageLinkChange} required/>
+      <textarea placeholder="Excerpt..." defaultValue={excerpt} onChange={handleExcerptChange} required/>
+      <textarea className={styles.postTextarea} placeholder="Text..." defaultValue={text} onChange={handleTextChange} required/>
+      <label><input type="checkbox" defaultChecked={published} onChange={handlePublishedChange}/> Published?</label>
+      <input type="submit" defaultValue="Save"/>
+      {errorSaving ? <p className={styles.error}>An error occured when saving.Please try again...: (</p> : null}
+      {successSaving ? <p className={styles.success}>Save was successful!: D</p> : null}
+    </form>
+  );
+};
+
+export class NewOrEditContainer extends Component {
+  componentWillMount() {
+    if (!this.props.loggedIn)
       browserHistory.push('/login');
   }
 
@@ -25,49 +65,30 @@ export class NewOrEdit extends Component {
     const {
       fetching,
       errorFetching,
-      save,
-      saving,
-      successSaving,
-      errorSaving,
       data,
-      handleTitleChange,
-      handleTagsChange,
-      handleHeaderImageLinkChange,
-      handleExcerptChange,
-      handleTextChange,
-      handlePublishedChange,
-      params: { _id }
+      params: { _id },
+      ...rest
     } = this.props;
 
-    if (successSaving && !_id)
-      return <p className={styles.success}> Save successful! Wanna return to the <Link to="/admin">admin</Link> page?</p>;
-
-    if ((fetching && _id) || saving)
+    if ((fetching && _id))
       return <Spinner/>;
 
     if ((errorFetching && _id))
       return <RequestWentToShit response={data.response}/>;
 
-    const { title, tags, excerpt, headerImageLink, text, published } = data;
-
-    return (
-      <form onSubmit={save} className={styles.newOrEditForm}>
-        <input type="text" placeholder="Title..." disabled={saving} defaultValue={title} onChange={handleTitleChange} required/>
-        <input type="text" placeholder="Tags..." disabled={saving} defaultValue={tags} onChange={handleTagsChange} required/>
-        <input type="url" placeholder="Header image link..." disabled={saving} defaultValue={headerImageLink} onChange={handleHeaderImageLinkChange} required/>
-        <textarea placeholder="Excerpt..." defaultValue={excerpt} onChange={handleExcerptChange} required/>
-        <textarea className={styles.postTextarea} placeholder="Text..." defaultValue={text} onChange={handleTextChange} required/>
-        <label><input type="checkbox" defaultChecked={published} onChange={handlePublishedChange}/> Published?</label>
-        <input type="submit" defaultValue="Save" disabled={saving}/>
-        {errorSaving ? <p className={styles.error}>An error occured when saving.Please try again...: (</p> : null}
-        {successSaving ? <p className={styles.success}>Save was successful!: D</p> : null}
-      </form>
-    );
+    return <NewOrEdit _id={_id} data={data} {...rest}/>;
   }
 }
 
-export function mapStateToProps({ blogForEditing, login: { loggedIn } }) {
-  return { ...blogForEditing, loggedIn };
+export function mapStateToProps({ blogForEditing: { data: { tags, ...data }, ...blogForEditing }, login: { loggedIn } }) {
+  return {
+    ...blogForEditing,
+    data: {
+      ...data,
+      tags: tags.join(' ')
+    },
+    loggedIn
+  };
 }
 
 export function mapDispatchToProps(dispatch, { params: { _id } }) {
@@ -97,4 +118,4 @@ export function mergeProps({ data, name, ...stateProps }, { saveWrapper, ...disp
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(NewOrEdit);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(NewOrEditContainer);
