@@ -2,10 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
+const path = require('path');
 const bodyParser = require('body-parser');
 const publicRouter = require('./server/api/routers/public');
 const secureRouter = require('./server/api/routers/secure');
-const errorMiddleware = require('./server/middleware/error');
 const loggerMiddleware = require('./server/middleware/log');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
@@ -39,7 +39,16 @@ httpsApp.use('/img', express.static(`${__dirname}/web/img`));
 httpsApp.use('/api', publicRouter);
 httpsApp.use('/api/secure', secureRouter);
 httpsApp.get('*', (req, res) => res.sendFile(`${__dirname}/web/index.html`));
-httpsApp.use(errorMiddleware);
+httpsApp.use((error, req, res, ignore) => { // eslint-disable-line
+  wadsworth.logError(error);
+
+  res.status(500);
+
+  if (req.xhr)
+    res.json({ error: 'A thing happened...' });
+  else
+    res.sendFile(path.resolve(`${__dirname}/../../web/error.html`));
+});
 
 db.connect(httpsApp.get('dbConfig'));
 

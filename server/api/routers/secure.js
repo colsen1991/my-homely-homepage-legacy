@@ -1,6 +1,6 @@
 const express = require('express');
 const blogConsumer = require('../consumers/blog');
-const validateJwtMiddleware = require('../../middleware/validateJwt');
+const validateJwtMiddleware = require('../../middleware/security');
 
 const router = express.Router();
 
