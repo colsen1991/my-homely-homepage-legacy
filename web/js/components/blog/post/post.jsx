@@ -5,24 +5,38 @@ import Excerpt from '../excerpt/excerpt.jsx';
 import Comments from '../comments/comments.jsx';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
-import { fetchBlog } from '../../../actions';
+import { fetchBlog, changeTitle } from '../../../actions';
 import styles from './post.styl';
 
-export const Post = ({ id, data: { text, ...excerpt } }) => (
-  <article className={styles.blog}>
-    <Excerpt id={id} {...excerpt}/>
-    <ReactMarkdown source={text}/>
-    <Comments shortname="test" identifier={id}/>
-  </article>
-);
-
-export class PostContainer extends Component {
+export class Post extends Component {
   componentDidMount() {
-    this.props.fetchBlog();
+    const { changeTitle, data: { title } } = this.props;
+
+    if (changeTitle) changeTitle(title);
   }
 
   render() {
-    const { data, fetching, error, id } = this.props;
+    const { id, data: { text, ...excerpt } } = this.props;
+
+    return (
+      <article className={styles.blog}>
+        <Excerpt id={id} {...excerpt}/>
+        <ReactMarkdown source={text}/>
+        <Comments shortname="test" identifier={id}/>
+      </article>
+    );
+  }
+}
+
+export class PostContainer extends Component {
+  componentDidMount() {
+    const { fetchBlog, params: { id } } = this.props;
+
+    fetchBlog(id);
+  }
+
+  render() {
+    const { data, fetching, error, id, changeTitle } = this.props;
 
     if (fetching)
       return <Spinner/>;
@@ -30,7 +44,7 @@ export class PostContainer extends Component {
     if (error)
       return <RequestWentToShit response={data.response}/>;
 
-    return <Post data={data} id={id}/>;
+    return <Post data={data} id={id} changeTitle={changeTitle}/>;
   }
 }
 
@@ -38,8 +52,4 @@ export function mapStateToProps({ blog }) {
   return { ...blog };
 }
 
-export function mapDispatchToProps(dispatch, { params: { id } }) {
-  return { fetchBlog: () => dispatch(fetchBlog(id)) };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
+export default connect(mapStateToProps, { fetchBlog, changeTitle })(PostContainer);

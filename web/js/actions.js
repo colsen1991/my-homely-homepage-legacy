@@ -7,6 +7,8 @@ export const AJAX = 'AJAX';
 
 export const SEARCH = 'SEARCH';
 
+export const CHANGE_TITLE = 'CHANGE_TITLE';
+
 export const FETCH_EXCERPTS_START = 'FETCH_EXCERPTS_START';
 export const FETCH_EXCERPTS_SUCCESSFUL = 'FETCH_EXCERPTS_SUCCESSFUL';
 export const FETCH_EXCERPTS_ERROR = 'FETCH_EXCERPTS_ERROR';
@@ -43,6 +45,12 @@ export const search = event => {
   const payload = extractValueFromEvent(event);
 
   browserHistory.push(`/blog?search=${payload}`);
+
+  return { type: SEARCH, payload };
+};
+
+export const changeTitle = payload => {
+  document.title = payload;
 
   return { type: SEARCH, payload };
 };

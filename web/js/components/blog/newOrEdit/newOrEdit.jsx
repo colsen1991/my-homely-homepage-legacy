@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory, Link } from 'react-router';
-import { fetchBlogForEditing, titleChanged, tagsChanged, headerImageLinkChanged, excerptChanged, textChanged, publishedChanged, saveBlog } from '../../../actions';
+import {
+  browserHistory,
+  Link } from 'react-router';
+import {
+  fetchBlogForEditing,
+  titleChanged,
+  tagsChanged,
+  headerImageLinkChanged,
+  excerptChanged,
+  textChanged,
+  publishedChanged,
+  saveBlog,
+  changeTitle } from '../../../actions';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import styles from './newOrEdit.styl';
@@ -99,12 +110,13 @@ export function mapDispatchToProps(dispatch, { params: { _id } }) {
 
       dispatch(saveBlog(blog, _id));
     },
-    handleTitleChange: (event) => dispatch(titleChanged(event)),
-    handleTagsChange: (event) => dispatch(tagsChanged(event)),
-    handleHeaderImageLinkChange: (event) => dispatch(headerImageLinkChanged(event)),
-    handleExcerptChange: (event) => dispatch(excerptChanged(event)),
-    handleTextChange: (event) => dispatch(textChanged(event)),
-    handlePublishedChange: (event) => dispatch(publishedChanged(event)),
+    handleTitleChange: event => dispatch(titleChanged(event)),
+    handleTagsChange: event => dispatch(tagsChanged(event)),
+    handleHeaderImageLinkChange: event => dispatch(headerImageLinkChanged(event)),
+    handleExcerptChange: event => dispatch(excerptChanged(event)),
+    handleTextChange: event => dispatch(textChanged(event)),
+    handlePublishedChange: event => dispatch(publishedChanged(event)),
+    changeTitle: title => dispatch(changeTitle(title)),
   };
 }
 

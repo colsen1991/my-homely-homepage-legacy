@@ -3,7 +3,6 @@ import { Router as ReactRouter, Route, IndexRoute } from 'react-router';
 import App from './app.jsx';
 import FrontPage from './frontPage.jsx';
 import Blog from './blog/blog.jsx';
-import BlogList from './blog/excerpts/excerpts.jsx';
 import BlogPost from './blog/post/post.jsx';
 import About from './about.jsx';
 import Admin from './admin/admin.jsx';
@@ -15,8 +14,8 @@ const Router = ({ history }) => (
   <ReactRouter history={history}>
     <Route path="/" component={App}>
       <IndexRoute component={FrontPage}/>
-      <Route path="blog" component={Blog}>
-        <IndexRoute component={BlogList}/>
+      <Route path="blog">
+        <IndexRoute component={Blog}/>
         <Route path="new" component={NewOrEdit}/>
         <Route path="edit/:_id" component={NewOrEdit}/>
         <Route path=":id" component={BlogPost}/>
