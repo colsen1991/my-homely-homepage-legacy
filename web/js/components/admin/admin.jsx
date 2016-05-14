@@ -21,7 +21,7 @@ export const BlogPostsTable = ({ data }) => (
         data.map(({ _id, title, date, published }) => (
           <tr key={_id}>
             <td><Link to={`/blog/edit/${_id}`}>{title}</Link></td>
-            <td>{new Date(date).toUTCString()}</td>
+            <td>{new Date(date).toUTCString().substr(0, 16)}</td>
             <td>{published ? 'Yes' : 'No'}</td>
           </tr>
         ))
