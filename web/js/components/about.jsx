@@ -5,7 +5,7 @@ import { changeTitle } from '../actions';
 export class About extends Component {
   componentDidMount() {
     const { changeTitle } = this.props;
-    
+
     if (changeTitle)
       changeTitle('About');
   }
