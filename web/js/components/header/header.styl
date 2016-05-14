@@ -18,11 +18,12 @@
     
   nav
     display flex
+    justify-content space-between
+    align-content center
     
     input
-      position absolute
-      right 2.5em
       width 15em
+      margin-bottom 3px
       
       @media screen and (max-width 640px)
         width 10em
@@ -36,24 +37,27 @@
       @media screen and (max-width 380px)
         width 7em
     
-    a
-      margin 0 1em
-      padding 0.5em
-      
-      @media screen and (max-width 480px)
-        margin 0 0.5em
+    span
+      display flex
+    
+      a
+        margin 0 1em
+        padding 0.5em
+        
+        @media screen and (max-width 480px)
+          margin 0 0.5em
 
-      &:first-child
-        margin-left 0
+        &:first-child
+          margin-left 0
 
-      &:last-child
-        margin-right 0
+        &:last-child
+          margin-right 0
 
-      &:hover
-        color #F5F5F5
+        &:hover
+          color #F5F5F5
 
-    .activeLink
-      border-bottom 3px solid #000000
+        &.activeLink
+          border-bottom 3px solid #000000
 
-    .inactiveLink
-      border-bottom 3px solid #FF6B00
+        &.inactiveLink
+          border-bottom 3px solid #FF6B00

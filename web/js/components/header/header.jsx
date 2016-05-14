@@ -31,9 +31,11 @@ export const Header = ({ activePath, currentSearch, handleSearch }) => (
       <Link to="/" tabIndex="-1">Christer Olsen</Link>
     </h1>
     <nav className={styles.navigationBar}>
-      <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
-      <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
-      <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
+      <span>
+        <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
+        <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
+        <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
+      </span>
       <input role="search" type="search" value={currentSearch} onChange={handleSearch} placeholder="Search..." />
     </nav>
   </header>
