@@ -44,7 +44,7 @@ export const SAVE_BLOG_ERROR = 'SAVE_BLOG_ERROR';
 export const search = event => {
   const payload = extractValueFromEvent(event);
 
-  browserHistory.push(`/blog?search=${payload}`);
+  browserHistory.push(`/blog?search=${encodeURIComponent(payload)}`);
 
   return { type: SEARCH, payload };
 };
