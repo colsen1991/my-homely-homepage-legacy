@@ -12,7 +12,8 @@ export class Post extends Component {
   componentDidMount() {
     const { changeTitle, data: { title } } = this.props;
 
-    if (changeTitle) changeTitle(title);
+    if (changeTitle)
+      changeTitle(title);
   }
 
   render() {

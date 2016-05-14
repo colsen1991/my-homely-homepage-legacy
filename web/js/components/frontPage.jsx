@@ -1,5 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeTitle } from '../actions';
 
-const FrontPage = () => <p>Hello world!</p>;
+export class FrontPage extends Component {
+  componentDidMount() {
+    this.props.changeTitle('My Homely Homepage');
+  }
 
-export default FrontPage;
+  render() {
+    return <p>Hello world!</p>;
+  }
+}
+
+class FrontPageContainer extends Component {
+  render() {
+    return <FrontPage changeTitle={this.props.changeTitle}/>;
+  }
+}
+
+export default connect(undefined, { changeTitle })(FrontPageContainer);

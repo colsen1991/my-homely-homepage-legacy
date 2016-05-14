@@ -10,7 +10,8 @@ export class Blog extends Component {
   componentDidMount() {
     const { changeTitle } = this.props;
 
-    if (changeTitle) changeTitle('Blog');
+    if (changeTitle)
+      changeTitle('Blog');
   }
 
   render() {

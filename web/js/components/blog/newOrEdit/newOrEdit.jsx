@@ -17,7 +17,20 @@ import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
 import styles from './newOrEdit.styl';
 
-export const NewOrEdit = ({
+class NewOrEdit extends Component {
+  componentDidMount() {
+    const { changeTitle, _id, data: { title } } = this.props;
+
+    if (changeTitle) {
+      if (_id)
+        changeTitle(`Edit ${title}`);
+      else
+        changeTitle('New');
+    }
+  }
+
+  render() {
+    const {
       saving,
       successSaving,
       errorSaving,
@@ -37,27 +50,29 @@ export const NewOrEdit = ({
         text,
         published
       }
-    }) => {
-  if (saving)
-    return <Spinner/>;
+    } = this.props;
 
-  if (successSaving && !_id)
-    return <p className={styles.success}> Save successful! Wanna return to the <Link to="/admin">admin</Link> page?</p>;
+    if (saving)
+      return <Spinner/>;
 
-  return (
-    <form onSubmit={save} className={styles.newOrEditForm}>
-      <input type="text" placeholder="Title..." defaultValue={title} onChange={handleTitleChange} required/>
-      <input type="text" placeholder="Tags..." defaultValue={tags} onChange={handleTagsChange} required/>
-      <input type="url" placeholder="Header image link..." defaultValue={headerImageLink} onChange={handleHeaderImageLinkChange} required/>
-      <textarea placeholder="Excerpt..." defaultValue={excerpt} onChange={handleExcerptChange} required/>
-      <textarea className={styles.postTextarea} placeholder="Text..." defaultValue={text} onChange={handleTextChange} required/>
-      <label><input type="checkbox" defaultChecked={published} onChange={handlePublishedChange}/> Published?</label>
-      <input type="submit" defaultValue="Save"/>
-      {errorSaving ? <p className={styles.error}>An error occured when saving.Please try again...: (</p> : null}
-      {successSaving ? <p className={styles.success}>Save was successful!: D</p> : null}
-    </form>
-  );
-};
+    if (successSaving && !_id)
+      return <p className={styles.success}> Save successful! Wanna return to the <Link to="/admin">admin</Link> page?</p>;
+
+    return (
+      <form onSubmit={save} className={styles.newOrEditForm}>
+        <input type="text" placeholder="Title..." defaultValue={title} onChange={handleTitleChange} required/>
+        <input type="text" placeholder="Tags..." defaultValue={tags} onChange={handleTagsChange} required/>
+        <input type="url" placeholder="Header image link..." defaultValue={headerImageLink} onChange={handleHeaderImageLinkChange} required/>
+        <textarea placeholder="Excerpt..." defaultValue={excerpt} onChange={handleExcerptChange} required/>
+        <textarea className={styles.postTextarea} placeholder="Text..." defaultValue={text} onChange={handleTextChange} required/>
+        <label><input type="checkbox" defaultChecked={published} onChange={handlePublishedChange}/> Published?</label>
+        <input type="submit" defaultValue="Save"/>
+        {errorSaving ? <p className={styles.error}>An error occured when saving.Please try again...: (</p> : null}
+        {successSaving ? <p className={styles.success}>Save was successful!: D</p> : null}
+      </form>
+    );
+  }
+}
 
 export class NewOrEditContainer extends Component {
   componentWillMount() {

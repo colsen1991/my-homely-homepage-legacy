@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchAllBlogs } from '../../actions';
+import { fetchAllBlogs, changeTitle } from '../../actions';
 import Spinner from '../spinner.jsx';
 import { RequestWentToShit } from '../errors.jsx';
 import { sortByDate } from '../../util/arrayUtils';
@@ -30,12 +30,25 @@ export const BlogPostsTable = ({ data }) => (
   </table>
 );
 
-export const Admin = ({ data }) => (
-  <div className={styles.admin}>
-    <Link to="/blog/new" className={styles.newBlogLink}>Write new blog post?</Link>
-    <BlogPostsTable data={data}/>
-  </div>
-);
+export class Admin extends Component {
+  componentDidMount() {
+    const { changeTitle } = this.props;
+
+    if (changeTitle)
+      changeTitle('Admin');
+  }
+
+  render() {
+    const { data } = this.props;
+
+    return (
+      <div className={styles.admin}>
+        <Link to="/blog/new" className={styles.newBlogLink}>Write new blog post?</Link>
+        <BlogPostsTable data={data}/>
+      </div>
+    );
+  }
+}
 
 export class AdminContainer extends Component {
   componentWillMount() {
@@ -49,7 +62,7 @@ export class AdminContainer extends Component {
   }
 
   render() {
-    const { fetching, error, data } = this.props;
+    const { fetching, error, data, changeTitle } = this.props;
 
     if (fetching)
       return <Spinner/>;
@@ -57,7 +70,7 @@ export class AdminContainer extends Component {
     if (error)
       return <RequestWentToShit response={data.response}/>;
 
-    return <Admin data={data}/>;
+    return <Admin data={data} changeTitle={changeTitle}/>;
   }
 }
 
@@ -65,4 +78,4 @@ function mapStateToProps({ login: { loggedIn }, allBlogs: { data, allBlogs } }) 
   return { loggedIn, ...allBlogs, data: data.sort(sortByDate) };
 }
 
-export default connect(mapStateToProps, { fetchAllBlogs })(AdminContainer);
+export default connect(mapStateToProps, { fetchAllBlogs, changeTitle })(AdminContainer);
