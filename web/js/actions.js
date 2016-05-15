@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { browserHistory } from 'react-router';
+import cookies from 'js-cookie';
 import { makeBlogId } from './util/stringUtils';
 import { extractValueFromEvent } from './util/actionsUtils';
 
@@ -93,6 +94,8 @@ export const loginSuccess = payload => dispatch => {
   dispatch(loginActualSuccess(payload));
 
   browserHistory.push('/admin');
+
+  cookies.set('token', payload.token, { expires: 1, secure: true });
 };
 export const loginError = createAction(LOGIN_ERROR);
 export const usernameChanged = createAction(USERNAME_CHANGED, extractValueFromEvent);

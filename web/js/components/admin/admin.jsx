@@ -76,8 +76,12 @@ export class AdminContainer extends Component {
   }
 }
 
-function mapStateToProps({ login: { loggedIn }, allBlogs: { data, allBlogs } }) {
-  return { loggedIn, ...allBlogs, data: data.sort(sortByDate) };
+function mapStateToProps({ login: { loggedIn }, allBlogs: { data, ...allBlogs } }) {
+  return {
+    loggedIn,
+    ...allBlogs,
+    data: data.sort ? data.sort(sortByDate) : data
+  };
 }
 
 function mapDispatchToProps(dispatch) {
