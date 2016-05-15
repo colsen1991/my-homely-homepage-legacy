@@ -52,7 +52,7 @@ export const search = event => {
 export const changeTitle = payload => {
   document.title = payload;
 
-  return { type: SEARCH, payload };
+  return { type: CHANGE_TITLE, payload };
 };
 
 export const fetchExcerptsStart = createAction(FETCH_EXCERPTS_START);
