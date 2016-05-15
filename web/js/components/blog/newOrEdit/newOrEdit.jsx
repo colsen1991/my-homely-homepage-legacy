@@ -77,7 +77,7 @@ class NewOrEdit extends Component {
 export class NewOrEditContainer extends Component {
   componentWillMount() {
     if (!this.props.loggedIn)
-      browserHistory.push('/login');
+      this.props.changeLocation('/login');
   }
 
   componentDidMount() {
@@ -132,6 +132,7 @@ export function mapDispatchToProps(dispatch, { params: { _id } }) {
     handleTextChange: event => dispatch(textChanged(event)),
     handlePublishedChange: event => dispatch(publishedChanged(event)),
     changeTitle: title => dispatch(changeTitle(title)),
+    changeLocation: browserHistory.push
   };
 }
 
