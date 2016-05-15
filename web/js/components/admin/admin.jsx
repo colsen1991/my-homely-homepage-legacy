@@ -52,8 +52,10 @@ export class Admin extends Component {
 
 export class AdminContainer extends Component {
   componentWillMount() {
-    if (!this.props.loggedIn)
-      this.props.changeLocation('/login');
+    const { loggedIn, changeLocation } = this.props;
+
+    if (!loggedIn)
+      changeLocation('/login');
   }
 
   componentDidMount() {
@@ -78,10 +80,12 @@ function mapStateToProps({ login: { loggedIn }, allBlogs: { data, allBlogs } }) 
   return { loggedIn, ...allBlogs, data: data.sort(sortByDate) };
 }
 
-const mapDispatchToProps = {
-  fetchAllBlogs,
-  changeTitle,
-  changeLocation: browserHistory.push
-};
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchAllBlogs: () => dispatch(fetchAllBlogs()),
+    changeTitle: title => dispatch(changeTitle(title)),
+    changeLocation: browserHistory.push
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminContainer);
