@@ -30,6 +30,7 @@ export const Header = ({ activePath, currentSearch, handleSearch }) => (
   <header className={styles.header}>
     <h1>
       <Link to="/" tabIndex="-1">Christer Olsen</Link>
+      <hr/>
     </h1>
     <nav>
       <span className={styles.headerLinks}>

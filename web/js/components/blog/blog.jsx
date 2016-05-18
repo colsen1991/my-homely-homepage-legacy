@@ -4,7 +4,6 @@ import Spinner from '../spinner.jsx';
 import { RequestWentToShit } from '../errors.jsx';
 import Excerpt from './excerpt/excerpt.jsx';
 import { fetchExcerpts, changeTitle } from '../../actions';
-import styles from './blog.styl';
 
 export class Blog extends Component {
   componentDidMount() {
@@ -27,12 +26,12 @@ export class Blog extends Component {
     }
 
     return (
-      <div className={styles.excerpts}>
+      <div>
         {
           data.map((excerpt, index, arr) => (
             <section key={excerpt.id}>
               <Excerpt {...excerpt} showLine={arr} linkable/>
-              {index !== (arr.length - 1) ? <hr className={styles.line} /> : null}
+              {index !== (arr.length - 1) ? <hr/> : null}
             </section>
           ))
         }
