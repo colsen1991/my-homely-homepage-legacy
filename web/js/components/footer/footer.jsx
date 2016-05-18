@@ -1,9 +1,10 @@
 import React from 'react';
+import FontAwesome from 'react-fontawesome';
 import styles from './footer.styl';
 
 const Footer = () => (
   <footer className={styles.footer}>
-    <span>Copyright © 2016 Christer Olsen</span>
+    <span>Copyright <FontAwesome name="copyright"/> 2016 Christer Olsen</span>
     <span className={styles.images}>
       <a target="_blank" href="https://www.facebook.com/colsen1991"><img src="/img/facebook.png" alt="Facebook"/></a>
       <a target="_blank" href="https://plus.google.com/100503672047908745160"><img src="/img/gplus.png" alt="Google+"/></a>

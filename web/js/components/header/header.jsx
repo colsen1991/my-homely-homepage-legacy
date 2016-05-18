@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 import { search as searchAction } from '../../actions';
 import styles from './header.styl';
 
@@ -30,11 +31,11 @@ export const Header = ({ activePath, currentSearch, handleSearch }) => (
     <h1>
       <Link to="/" tabIndex="-1">Christer Olsen</Link>
     </h1>
-    <nav className={styles.navigationBar}>
-      <span>
-        <HeaderLink to="/" activePath={activePath}>Home</HeaderLink>
-        <HeaderLink to="/blog" activePath={activePath}>Blog</HeaderLink>
-        <HeaderLink to="/about" activePath={activePath}>About</HeaderLink>
+    <nav>
+      <span className={styles.headerLinks}>
+        <HeaderLink to="/" activePath={activePath}><FontAwesome name="home"/> Home</HeaderLink>
+        <HeaderLink to="/blog" activePath={activePath}><FontAwesome name="book"/> Blog</HeaderLink>
+        <HeaderLink to="/about" activePath={activePath}><FontAwesome name="question"/> About</HeaderLink>
       </span>
       <input role="search" type="search" value={currentSearch} onChange={handleSearch} placeholder="Search..." />
     </nav>
