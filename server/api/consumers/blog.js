@@ -14,7 +14,7 @@ function getBlog(req, res) {
   });
 }
 
-function getExcerpts(req, res) {
+function getBlogs(req, res) {
   Blog.find({ published: true }, { _id: 0, text: 0, published: 0 }, { sort: { created_at: -1 } }, (error, data) => {
     if (error) {
       wadsworth.logError(error);
@@ -27,7 +27,7 @@ function getExcerpts(req, res) {
   });
 }
 
-function getAllBlogs(req, res) {
+function getBlogsForAdmin(req, res) {
   Blog.find({}, { _id: 1, title: 1, date: 1, published: 1 }, (error, data) => {
     if (error) {
       wadsworth.logError(error);
@@ -54,7 +54,7 @@ function getBlogForEditing(req, res) {
 }
 
 
-function postBlog(req, res) {
+function newBlog(req, res) {
   const newBlog = new Blog(req.body.blog);
 
   newBlog.save((error) => {
@@ -67,7 +67,7 @@ function postBlog(req, res) {
   });
 }
 
-function putBlog(req, res) {
+function updateBlog(req, res) {
   Blog.update({ _id: req.params._id }, req.body.blog, (error, numAffected) => {
     if (error) {
       wadsworth.logError(error);
@@ -81,9 +81,9 @@ function putBlog(req, res) {
 }
 
 
+exports.getBlogs = getBlogs;
 exports.getBlog = getBlog;
-exports.getExcerpts = getExcerpts;
-exports.getAllBlogs = getAllBlogs;
+exports.getBlogsForAdmin = getBlogsForAdmin;
 exports.getBlogForEditing = getBlogForEditing;
-exports.postBlog = postBlog;
-exports.putBlog = putBlog;
+exports.newBlog = newBlog;
+exports.updateBlog = updateBlog;

@@ -4,8 +4,7 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
-const publicRouter = require('./server/api/routers/public');
-const secureRouter = require('./server/api/routers/secure');
+const router = require('./server/api/router');
 const loggerMiddleware = require('./server/middleware/log');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
@@ -36,8 +35,7 @@ httpsApp.use(loggerMiddleware);
 
 httpsApp.use('/js', express.static(`${__dirname}/web/js`));
 httpsApp.use('/img', express.static(`${__dirname}/web/img`));
-httpsApp.use('/api', publicRouter);
-httpsApp.use('/api/secure', secureRouter);
+httpsApp.use('/api', router);
 httpsApp.get('*', (req, res) => res.sendFile(`${__dirname}/web/index.html`));
 httpsApp.use((error, req, res, ignore) => { // eslint-disable-line
   wadsworth.logError(error);

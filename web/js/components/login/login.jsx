@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { login, usernameChanged, passwordChanged } from '../../actions';
 import styles from './login.styl';
@@ -6,7 +7,7 @@ import styles from './login.styl';
 export const LoginForm = ({ loggedIn, error, posting, doLogin, handleUsernameChange, handlePasswordChange }) => {
   let content;
 
-  if (loggedIn) content = <p>You are already logged in...</p>;
+  if (loggedIn) content = <p>You are already logged in, <Link to="/admin">admin</Link>...</p>;
   else {
     content = (
       <form className={styles.form} onSubmit={doLogin}>
@@ -26,8 +27,8 @@ export const LoginForm = ({ loggedIn, error, posting, doLogin, handleUsernameCha
   );
 };
 
-export function mapStateToProps({ login: { error, posting, username, password } }) {
-  return { error, posting, username, password };
+export function mapStateToProps({ login: { loggedIn, error, posting, username, password } }) {
+  return { loggedIn, error, posting, username, password };
 }
 
 export function mapDispatchToProps(dispatch) {
