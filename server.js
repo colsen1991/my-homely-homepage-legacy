@@ -4,12 +4,15 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
+const ip = require('ip');
 const router = require('./server/api/router');
 const loggerMiddleware = require('./server/middleware/log');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
 
 process.env.NODE_ENV = JSON.stringify(process.argv[2]);
+
+const ipAddress = ip.address();
 
 // ======================================================================================================================
 
@@ -52,7 +55,7 @@ db.connect(httpsApp.get('dbConfig'));
 
 const httpsServer = https.createServer(httpsApp.get('credentials'), httpsApp);
 
-httpsServer.listen(443, () => {
+httpsServer.listen(443, ipAddress, () => {
   const host = httpsServer.address().address;
   const port = httpsServer.address().port;
 
@@ -64,11 +67,11 @@ httpsServer.listen(443, () => {
 const httpApp = express();
 
 httpApp.use(loggerMiddleware);
-httpApp.get('*', (req, res) => res.redirect(`https://localhost${req.url}`));
+httpApp.get('*', (req, res) => res.redirect(`https://${req.host}${req.url}`));
 
 const httpServer = http.createServer(httpApp);
 
-httpServer.listen(80, () => {
+httpServer.listen(80, ipAddress, () => {
   const host = httpServer.address().address;
   const port = httpServer.address().port;
 
