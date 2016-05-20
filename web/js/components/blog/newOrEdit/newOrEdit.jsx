@@ -4,7 +4,7 @@ import {
   browserHistory,
   Link } from 'react-router';
 import {
-  fetchBlogForEditing,
+  fetchBlogPostForEditing,
   titleChanged,
   tagsChanged,
   headerImageLinkChanged,
@@ -81,10 +81,10 @@ export class NewOrEditContainer extends Component {
   }
 
   componentDidMount() {
-    const { params: { _id }, fetchBlog } = this.props;
+    const { params: { _id }, fetchBlogPost } = this.props;
 
     if (_id)
-      fetchBlog(_id);
+      fetchBlogPost(_id);
   }
 
   render() {
@@ -106,9 +106,9 @@ export class NewOrEditContainer extends Component {
   }
 }
 
-export function mapStateToProps({ blogForEditing: { data: { tags, ...data }, ...blogForEditing }, login: { loggedIn } }) {
+export function mapStateToProps({ blogPostForEditing: { data: { tags, ...data }, ...blogPostForEditing }, login: { loggedIn } }) {
   return {
-    ...blogForEditing,
+    ...blogPostForEditing,
     data: {
       ...data,
       tags: tags.join(' ')
@@ -119,7 +119,7 @@ export function mapStateToProps({ blogForEditing: { data: { tags, ...data }, ...
 
 export function mapDispatchToProps(dispatch, { params: { _id } }) {
   return {
-    fetchBlog: () => dispatch(fetchBlogForEditing(_id)),
+    fetchBlogPost: () => dispatch(fetchBlogPostForEditing(_id)),
     saveWrapper: (blog) => event => {
       event.preventDefault();
 

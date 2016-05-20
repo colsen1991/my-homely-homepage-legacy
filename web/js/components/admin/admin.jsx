@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchAllBlogs, changeTitle } from '../../actions';
+import { fetchAllBlogPosts, changeTitle } from '../../actions';
 import Spinner from '../spinner.jsx';
 import { RequestWentToShit } from '../errors.jsx';
 import { sortByDate } from '../../util/arrayUtils';
@@ -60,7 +60,7 @@ export class AdminContainer extends Component {
 
   componentDidMount() {
     if (this.props.loggedIn)
-      this.props.fetchAllBlogs();
+      this.props.fetchAllBlogPosts();
   }
 
   render() {
@@ -76,17 +76,17 @@ export class AdminContainer extends Component {
   }
 }
 
-function mapStateToProps({ login: { loggedIn }, allBlogs: { data, ...allBlogs } }) {
+function mapStateToProps({ login: { loggedIn }, allBlogPosts: { data, ...allBlogPosts } }) {
   return {
     loggedIn,
-    ...allBlogs,
+    ...allBlogPosts,
     data: data.sort ? data.sort(sortByDate) : data
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchAllBlogs: () => dispatch(fetchAllBlogs()),
+    fetchAllBlogPosts: () => dispatch(fetchAllBlogPosts()),
     changeTitle: title => dispatch(changeTitle(title)),
     changeLocation: browserHistory.push
   };

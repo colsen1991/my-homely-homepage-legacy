@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Spinner from '../spinner.jsx';
 import { RequestWentToShit } from '../errors.jsx';
 import Excerpt from './excerpt/excerpt.jsx';
-import { fetchExcerpts, changeTitle } from '../../actions';
+import { fetchBlog, changeTitle } from '../../actions';
 
 export class Blog extends Component {
   componentDidMount() {
@@ -42,7 +42,7 @@ export class Blog extends Component {
 
 export class BlogContainer extends Component {
   componentDidMount() {
-    this.props.fetchExcerpts();
+    this.props.fetchBlog();
   }
 
   render() {
@@ -58,7 +58,7 @@ export class BlogContainer extends Component {
   }
 }
 
-export function mapStateToProps({ excerpts: { data, ...excerpts }, routing: { locationBeforeTransitions: { query: { search = '' } } } }) {
+export function mapStateToProps({ blog: { data, ...blog }, routing: { locationBeforeTransitions: { query: { search = '' } } } }) {
   const actualSearch = search.toLowerCase();
   const filteredData = actualSearch ? data.filter(({ date, excerpt, tags, title }) => (
     title.toLowerCase().includes(actualSearch) ||
@@ -70,8 +70,8 @@ export function mapStateToProps({ excerpts: { data, ...excerpts }, routing: { lo
 
   return {
     data: filteredData,
-    ...excerpts
+    ...blog
   };
 }
 
-export default connect(mapStateToProps, { fetchExcerpts, changeTitle })(BlogContainer);
+export default connect(mapStateToProps, { fetchBlog, changeTitle })(BlogContainer);

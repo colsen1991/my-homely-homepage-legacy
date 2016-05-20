@@ -5,7 +5,7 @@ import Excerpt from '../excerpt/excerpt.jsx';
 import Comments from '../comments/comments.jsx';
 import Spinner from '../../spinner.jsx';
 import { RequestWentToShit } from '../../errors.jsx';
-import { fetchBlog, changeTitle } from '../../../actions';
+import { fetchBlogPost, changeTitle } from '../../../actions';
 import styles from './post.styl';
 
 export class Post extends Component {
@@ -31,9 +31,9 @@ export class Post extends Component {
 
 export class PostContainer extends Component {
   componentDidMount() {
-    const { fetchBlog, params: { id } } = this.props;
+    const { fetchBlogPost, params: { id } } = this.props;
 
-    fetchBlog(id);
+    fetchBlogPost(id);
   }
 
   render() {
@@ -49,8 +49,8 @@ export class PostContainer extends Component {
   }
 }
 
-export function mapStateToProps({ blog }) {
-  return { ...blog };
+export function mapStateToProps({ blogPost }) {
+  return { ...blogPost };
 }
 
-export default connect(mapStateToProps, { fetchBlog, changeTitle })(PostContainer);
+export default connect(mapStateToProps, { fetchBlogPost, changeTitle })(PostContainer);
