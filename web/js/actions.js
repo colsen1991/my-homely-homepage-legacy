@@ -123,7 +123,7 @@ export const fetchAllBlogPostsError = createAction(FETCH_ALL_BLOG_POSTS_ERROR);
 export const fetchAllBlogPosts = () => ({
   type: AJAX,
   payload: {
-    url: '/api/admin',
+    url: '/api/s/admin',
     auth: true,
     defaultIfNoData: [],
     actions: {
@@ -140,7 +140,7 @@ export const fetchBlogPostForEditingError = createAction(FETCH_BLOG_POST_FOR_EDI
 export const fetchBlogPostForEditing = (_id) => ({
   type: AJAX,
   payload: {
-    url: `/api/blog/edit/${_id}`,
+    url: `/api/s/blog/edit/${_id}`,
     auth: true,
     actions: {
       start: fetchBlogPostForEditingStart,
@@ -168,7 +168,7 @@ export const saveBlog = (data, _id = null) => {
   return {
     type: AJAX,
     payload: {
-      url: _id ? `/api/blog/${_id}` : '/api/blog',
+      url: _id ? `/api/s/blog/${_id}` : '/api/s/blog',
       auth: true,
       options: {
         method: _id ? 'put' : 'post',

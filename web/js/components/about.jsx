@@ -11,6 +11,8 @@ export class About extends Component {
   }
 
   render() {
+    throw new Error('qewqe');
+
     return <p>This page is about to filled with pun facts about me...</p>;
   }
 }
