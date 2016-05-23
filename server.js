@@ -5,7 +5,8 @@ const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
 const ip = require('ip');
-const router = require('./server/api/router');
+const publicApi = require('./server/api/public');
+const secureApi = require('./server/api/secure');
 const loggerMiddleware = require('./server/middleware/log');
 const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
@@ -38,7 +39,8 @@ httpsApp.use(loggerMiddleware);
 
 httpsApp.use('/js', express.static(`${__dirname}/web/js`));
 httpsApp.use('/img', express.static(`${__dirname}/web/img`));
-httpsApp.use('/api', router);
+httpsApp.use('/api', publicApi);
+httpsApp.use('/api/s/', secureApi);
 httpsApp.get('*', (req, res) => res.sendFile(`${__dirname}/web/index.html`));
 httpsApp.use((error, req, res, ignore) => { // eslint-disable-line
   wadsworth.logError(error);
@@ -55,7 +57,7 @@ db.connect(httpsApp.get('dbConfig'));
 
 const httpsServer = https.createServer(httpsApp.get('credentials'), httpsApp);
 
-httpsServer.listen(443, ipAddress, () => {
+httpsServer.listen(443, () => {
   const host = httpsServer.address().address;
   const port = httpsServer.address().port;
 
@@ -71,7 +73,7 @@ httpApp.get('*', (req, res) => res.redirect(`https://${req.host}${req.url}`));
 
 const httpServer = http.createServer(httpApp);
 
-httpServer.listen(80, ipAddress, () => {
+httpServer.listen(80, () => {
   const host = httpServer.address().address;
   const port = httpServer.address().port;
 
