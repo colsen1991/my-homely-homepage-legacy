@@ -1,6 +1,5 @@
 const express = require('express');
 const blogConsumer = require('./consumers/blog');
-const userConsumer = require('./consumers/user');
 const validateJwtMiddleware = require('./../middleware/security');
 
 const router = express.Router();

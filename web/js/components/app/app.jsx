@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react';
+import React from 'react';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import styles from './app.styl';
