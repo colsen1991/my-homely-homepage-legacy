@@ -5,7 +5,7 @@ import styles from './linkable.styl';
 const Linkable = ({ linkable, to, children }) => {
   if (linkable) {
     return (
-      <Link to={to} className={styles.linkable}>
+      <Link onlyActiveOnIndex={false} to={to} className={styles.linkable}>
         {children}
       </Link>
     );

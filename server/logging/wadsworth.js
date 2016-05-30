@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const serverLogFile = path.resolve(__dirname, '..', '..', 'server.log');
-const webappLogFile = path.resolve(__dirname, '..', '..', 'server.log');
+const frontendLogFile = path.resolve(__dirname, '..', '..', 'frontend.log');
 
 function writeFile(type, text, logFile = serverLogFile) {
   fs.appendFile(logFile, `[${type}] ${new Date().toUTCString()}: ${text}\n`, 'utf8', error => {
@@ -14,27 +14,28 @@ function writeFile(type, text, logFile = serverLogFile) {
 function logInfo(info) {
   writeFile('INFO', info);
 
-  console.info(info);
+  console.info(`[INFO] ${info}`);
 }
 
 function logWarning(warning) {
   writeFile('WARN', warning);
 
-  console.warn(warning);
+  console.warn(`[WARN] ${warning}`);
 }
 
 function logError(error) {
   writeFile('ERROR', error);
 
-  console.error(error.stack);
+  console.error(`[ERROR] ${error.stack}`);
 }
 
-function logWebappError(error) {
-  writeFile('ERROR', JSON.stringify(error), webappLogFile);
+function logFrontendError(error) {
+  writeFile('ERROR', JSON.stringify(error), frontendLogFile);
 
-  console.log('WEBAPP ERROR');
+  console.error(`[FRONTEND ERROR] ${error.stack}`);
 }
 
 exports.logInfo = logInfo;
 exports.logWarning = logWarning;
 exports.logError = logError;
+exports.logFrontendError = logFrontendError;

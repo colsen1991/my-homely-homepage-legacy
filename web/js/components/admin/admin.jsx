@@ -20,7 +20,7 @@ export const BlogPostsTable = ({ data }) => (
       {
         data.map(({ _id, title, date, published }) => (
           <tr key={_id}>
-            <td><Link to={`/blog/edit/${_id}`}>{title}</Link></td>
+            <td><Link onlyActiveOnIndex={false} to={`/blog/edit/${_id}`}>{title}</Link></td>
             <td>{new Date(date).toUTCString().substr(0, 16)}</td>
             <td>{published ? 'Yes' : 'No'}</td>
           </tr>
@@ -43,7 +43,7 @@ export class Admin extends Component {
 
     return (
       <div className={styles.admin}>
-        <Link to="/blog/new" className={styles.newBlogLink}>Write new blog post?</Link>
+        <Link onlyActiveOnIndex={false} to="/blog/new" className={styles.newBlogLink}>Write new blog post?</Link>
         <BlogPostsTable data={data}/>
       </div>
     );

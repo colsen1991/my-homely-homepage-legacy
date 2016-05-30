@@ -4,7 +4,6 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
-const ip = require('ip');
 const publicApi = require('./server/api/public');
 const secureApi = require('./server/api/secure');
 const loggerMiddleware = require('./server/middleware/log');
@@ -12,8 +11,6 @@ const wadsworth = require('./server/logging/wadsworth');
 const db = require('./server/db/db');
 
 process.env.NODE_ENV = JSON.stringify(process.argv[2]);
-
-const ipAddress = ip.address();
 
 // ======================================================================================================================
 
@@ -35,7 +32,8 @@ if (process.env.NODE_ENV === JSON.stringify('development')) {
 
 httpsApp.use(bodyParser.urlencoded({ extended: true }));
 httpsApp.use(bodyParser.json());
-httpsApp.use(loggerMiddleware);
+httpsApp.use(loggerMiddleware.logFile);
+httpsApp.use(loggerMiddleware.logConsole);
 
 httpsApp.use('/js', express.static(`${__dirname}/web/js`));
 httpsApp.use('/img', express.static(`${__dirname}/web/img`));
@@ -68,7 +66,8 @@ httpsServer.listen(443, () => {
 
 const httpApp = express();
 
-httpApp.use(loggerMiddleware);
+httpApp.use(loggerMiddleware.logFile);
+httpApp.use(loggerMiddleware.logConsole);
 httpApp.get('*', (req, res) => res.redirect(`https://${req.host}${req.url}`));
 
 const httpServer = http.createServer(httpApp);

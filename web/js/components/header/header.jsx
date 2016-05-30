@@ -23,13 +23,13 @@ export const HeaderLink = ({ to, activePath, children }) => {
     to
   };
 
-  return <Link {...props}>{children}</Link>;
+  return <Link onlyActiveOnIndex={false} {...props}>{children}</Link>;
 };
 
 export const Header = ({ activePath, currentSearch, handleSearch }) => (
   <header className={styles.header}>
     <h1>
-      <Link to="/" tabIndex="-1">Christer Olsen</Link>
+      <Link onlyActiveOnIndex={false} to="/" tabIndex="-1">Christer Olsen</Link>
       <hr/>
     </h1>
     <nav>

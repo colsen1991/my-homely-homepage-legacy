@@ -7,7 +7,7 @@ import styles from './login.styl';
 export const LoginForm = ({ loggedIn, error, posting, doLogin, handleUsernameChange, handlePasswordChange }) => {
   let content;
 
-  if (loggedIn) content = <p>You are already logged in, <Link to="/admin">admin</Link>...</p>;
+  if (loggedIn) content = <p>You are already logged in, <Link onlyActiveOnIndex={false} to="/admin">admin</Link>...</p>;
   else {
     content = (
       <form className={styles.form} onSubmit={doLogin}>

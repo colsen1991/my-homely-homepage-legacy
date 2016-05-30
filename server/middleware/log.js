@@ -4,4 +4,5 @@ const path = require('path');
 
 const requestsLogFile = path.resolve(__dirname, '..', '..', 'requests.log');
 
-module.exports = morgan('combined', { stream: fs.createWriteStream(requestsLogFile) });
+exports.logFile = morgan('combined', { stream: fs.createWriteStream(requestsLogFile) });
+exports.logConsole = morgan('combined');

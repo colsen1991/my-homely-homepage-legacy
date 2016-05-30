@@ -1,7 +1,7 @@
 require.context('../img', true, /^\.\//);
 
 import 'babel-polyfill';
-import '../style/app.styl';
+import '../style/base.styl';
 
 import React from 'react';
 import { render } from 'react-dom';

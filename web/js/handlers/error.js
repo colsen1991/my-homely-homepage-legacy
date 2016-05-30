@@ -12,7 +12,11 @@ function init() {
         stack: error.stack
       }),
       headers: { 'Content-Type': 'application/json' }
-    });
+    }).catch(() => true);
+
+    window.location = `/error?prev=${window.location.pathname}`;
+
+    return true;
   };
 }
 

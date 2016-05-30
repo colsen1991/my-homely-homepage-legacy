@@ -56,7 +56,7 @@ class NewOrEdit extends Component {
       return <Spinner/>;
 
     if (successSaving && !_id)
-      return <p className={styles.success}> Save successful! Wanna return to the <Link to="/admin">admin</Link> page?</p>;
+      return <p className={styles.success}> Save successful! Wanna return to the <Link onlyActiveOnIndex={false} to="/admin">admin</Link> page?</p>;
 
     return (
       <form onSubmit={save} className={styles.newOrEditForm}>
